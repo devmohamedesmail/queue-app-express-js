@@ -1,6 +1,11 @@
 
 import mongoose from "mongoose";
 const ServiceSchema = new mongoose.Schema({
+    placeId: {
+        type: String,
+        ref: 'Place',
+        required: true
+    },
     nameAr: {
         type: String,
         required: true

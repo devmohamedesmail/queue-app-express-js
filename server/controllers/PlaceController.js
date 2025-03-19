@@ -1,5 +1,6 @@
 import Place from "../models/Place.js";
 import connectDB from "../config/db.js";
+import Service from "../models/Service.js";
 
 
 
@@ -22,18 +23,22 @@ export const add_new_place = async (req,res)=>{
     try {
         connectDB()
         const newPlace = new Place();
-        newPlace.name = req.body.name;
+        newPlace.nameEn = req.body.nameEn;
+        newPlace.nameAr = req.body.nameAr;
+        newPlace.addressEn = req.body.addressEn;
+        newPlace.addressAr = req.body.addressAr;
+
         newPlace.description = req.body.description;
         newPlace.image = req.file.filename;
-        newPlace.address = req.body.address;
+
         newPlace.location = {
             lat: req.body.lat,
             lng: req.body.lng
         }
-        const place = await newPlace.save();
-        res.redirect("/admin/places")
+         await newPlace.save();
+        res.redirect("/places/places")
     } catch (error) {
-        res.json(error)
+        console.log(error)
     }
 }
 
@@ -44,8 +49,10 @@ export const edit_place_page = async(req,res) =>{
     try {
         await connectDB();
         const place = await Place.findById(req.params.id)
+        const services = await Service.find({placeId: req.params.id})
         res.render('admin/places/edit', {
-            place: place
+            place: place,
+            services: services
         })
     } catch (error) {
 
@@ -61,16 +68,21 @@ export const edit_place_confirm = async(req,res)=>{
         await connectDB()
         const id = req.params.id;
         const place = await Place.findById(id)
-        place.name = req.body.name;
-        place.address = req.body.address;
+        if (!place) {
+            return res.status(404).json({ message: " Place Not Found " });
+        }
+        place.nameEn = req.body.nameEn;
+        place.nameAr = req.body.nameAr;
+        place.addressEn = req.body.addressEn;
+        place.addressAr = req.body.addressAr;
         place.description = req.body.description;
         place.location.lat = req.body.lat;
         place.location.lng = req.body.lng;
-        place.image = req.file.filename;
+        if (req.file) {
+            place.image = req.file.filename;
+        }
         await place.save();
-
-
-        res.send(place)
+        res.redirect('/places/places')
 
     } catch (error) {
         console.log(error)
@@ -85,7 +97,9 @@ export const delete_place = async (req,res)=>{
     try {
         await connectDB()
         const id = req.params.id;
-        const place = Place.findByIdAndDelete(id)
+        const place = await Place.findByIdAndDelete(id)
+        res.redirect('/places/places')
+       
     } catch (error) {
         console.log(error)
     }

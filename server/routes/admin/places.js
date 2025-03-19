@@ -3,7 +3,7 @@ const router = express.Router();
 import multer from 'multer';
 import path from 'path'
 import fs from 'fs';
-import { add_new_place, edit_place_confirm, edit_place_page, places } from '../../controllers/PlaceController.js'
+import { add_new_place, delete_place, edit_place_confirm, edit_place_page, places } from '../../controllers/PlaceController.js'
 
 
 
@@ -53,5 +53,12 @@ router.get('/edit/place/:id', edit_place_page)
 
 // ************************* Edit Place confimation *************************
 router.post('/edit/place/confirm/:id',upload.single('image'), edit_place_confirm)
+
+
+
+
+
+// ************************* Delete Place *************************
+router.get('/delete/place/:id', delete_place)
 
 export default router;

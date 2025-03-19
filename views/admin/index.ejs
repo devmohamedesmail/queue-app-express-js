@@ -3,7 +3,14 @@
 
 <head>
   <%- include('./inc/style.ejs') %>
+  <title>Places</title>
 </head>
+
+<script>
+  function boxBreview(){
+    document.write('hello')
+  }
+</script>
 
 <body>
   <div class="flex ">
@@ -11,7 +18,19 @@
     <div class="flex-1">
       <%- include('./inc/header.ejs') %>
      
-      <div class="p-4">content</div>
+      <div class="p-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 ">
+          <div class="bg-blue-500 p-4 flex flex-col justify-center items-center rounded-lg">
+            <i class="fa-solid fa-location-dot text-4xl text-white"></i>
+            <p class="text-white text-2xl mt-7">12</p>
+          </div>
+       
+
+
+
+
+        </div>
+      </div>
     </div>
   </div>
 </body>

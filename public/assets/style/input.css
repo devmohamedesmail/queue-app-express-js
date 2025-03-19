@@ -2,3 +2,44 @@
 @plugin "daisyui" {
     themes: light --default, dark --prefersdark;
   }
+
+.myTable_wrapper .row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+}
+  .form-control{
+    border: 1px solid #1772e8 !important;
+    height: 40px;
+    padding: 5px;
+    border-radius: 0.375rem !important;
+  }
+
+  .dt-length select{
+    border: 1px solid #1772e8 !important;
+    height: 40px;
+    padding: 10px;
+    border-radius: 0.375rem !important;
+  }
+  .dt-length label{
+    display: none;
+  }
+
+  .pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    
+  }
+  #myTable_info{
+    display: none;
+  }
+  .pagination li{
+    margin: 10px;
+    
+  }
+

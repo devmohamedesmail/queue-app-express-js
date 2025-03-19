@@ -2,7 +2,19 @@ import mongoose from "mongoose";
 
 
 const PlaceSchema = new mongoose.Schema({
-    name: {
+    nameEn: {
+        type: String,
+        required: true,
+    },
+    nameAr: {
+        type: String,
+        required: true,
+    },
+    addressEn: {
+        type: String,
+        required: true,
+    },
+    addressAr: {
         type: String,
         required: true,
     },
@@ -14,13 +26,16 @@ const PlaceSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    address: {
-        type: String,
-        required: true,
-    },
+    
     location: {
-        lat: { type: Number, required: true },
-        lng: { type: Number, required: true },
+        lat: { 
+            type: String, 
+            required: true 
+        },
+        lng: { 
+            type: String, 
+            required: true 
+        },
     },
 
 
