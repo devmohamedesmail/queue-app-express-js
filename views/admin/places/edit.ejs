@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <%- include('../inc/style.ejs') %>
+</head>
+
+<body>
+    <div class="flex ">
+        <%- include('../inc/sidebar.ejs') %>
+            <div class="flex-1">
+                <%- include('../inc/header.ejs') %>
+
+                    <div class="p-4">
+                        <div class="grid grid-cols-12 gap-5">
+                            <div class="col-span-5">
+                                <h1 class="text-center font-semibold">Edit Place - <%= place.name  %></h1>
+                                <form action="/admin/edit/place/confirm/<%= place._id  %>" method="post" enctype="multipart/form-data">
+                                    <div class="mb-2">
+                                        <label class="block">Name</label>
+                                        <input type="text" name="name" class="input input-primary w-full" value="<%= place.name  %>" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="block">address</label>
+                                        <input type="text" name="address" class="input input-primary w-full" value="<%= place.address  %>" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="block">description</label>
+                                        <input type="text" name="description" class="input input-primary w-full" value="<%= place.description  %>" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="block">lat</label>
+                                        <input type="number" name="lat" class="input input-primary w-full" value="<%= place.location.lat  %>" />
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="block">lng</label>
+                                        <input type="number" name="lng" class="input input-primary w-full" value="<%= place.location.lng  %>" />
+                                    </div>
+
+
+
+
+                                    <img src="/uploads/<%= place.image  %>" alt="<%= place.name  %>" class="w-18 h-12" />
+
+
+                                    <div class="my-3">
+                                        <label class="block">image</label>
+                                        <input type="file" name="image" class="file-input file-input-primary w-full" />
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-primary w-full">Save</button>
+                                </form>
+                            </div>
+                            <div class="col-span-7">
+                                <h3>Add Service</h3>
+                               <form action="" method="post">
+                                <div class="mb-2">
+                                    <label class="block">Service Ar</label>
+                                    <input type="text" name="serviceAr" class="input input-primary w-full" value="<%= place.description  %>" />
+                                </div>
+                                <div class="mb-2">
+                                    <label class="block">Service En</label>
+                                    <input type="text" name="serviceEn" class="input input-primary w-full" value="<%= place.description  %>" />
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full">Save</button>
+                               </form>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+    </div>
+
+    <%- include('../inc/script.ejs') %>
+</body>
+
+</html>
