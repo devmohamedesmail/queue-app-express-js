@@ -4,7 +4,15 @@ import placesapi from './server/routes/api/places.js'
 import queueapi from './server/routes/api/queue.js'
 import services from './server/routes/admin/services.js'
 import servicesapi  from './server/routes/api/services.js'
+import dashboard from './server/routes/admin/dashboard.js'
+import setting from './server/routes/admin/setting.js'
+import settingapi from './server/routes/api/setting.js'
+import auth from './server/routes/front/auth.js'
+import authapi from './server/routes/api/auth.js'
 import path from 'path';
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const app = express();
 
@@ -21,16 +29,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-app.get('/admin/index', (req, res) => {
-    res.render('admin/index');
-})
 
-// Places Routes file
+
+
+
+// ********************************************************* Dashboard Routes file  *********************************************************
+app.use('/dashboard', dashboard )
+// ********************************************************* Places Routes file  ************************************************************
 app.use('/places', places);
-
-
-// Services Routes file
+// ********************************************************* Services Routes file  *********************************************************
 app.use('/services', services)
+// ********************************************************* Setting Routes file  **********************************************************
+app.use('/settings', setting)
+// ********************************************************* Users Routes file *********************************************************
+app.use('/users', auth)
 
 
 
@@ -44,9 +56,14 @@ app.use('/api/v1/places', placesapi);
 // Queue Api Routes file
 app.use('/api/v1/queues', queueapi);
 
-
 // Services Api Routes file
 app.use('/api/v1/services', servicesapi);
+
+// settings Api Routes file
+app.use('/api/v1/settings', settingapi);
+
+// Auth Api Routes file
+app.use('/api/v1/auth', authapi);
 
 // ********************************************************* Api Routes End *********************************************************
 
@@ -55,7 +72,7 @@ app.use('/api/v1/services', servicesapi);
 
 
 app.get('/', (req, res) => {
-    res.render('admin/index');
+    res.render('front/index');
 })
 
 
