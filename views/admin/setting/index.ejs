@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../inc/style.ejs') %>
+        <title>Add Place</title>
+        <!-- Favicon -->
+
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+    <div class="page-flex">
+        <%- include('../inc/sidebar.ejs') %>
+            <div class="main-wrapper">
+                <!-- ! Main nav -->
+                <%- include('../inc/header.ejs') %>
+                    <!-- ! Main -->
+                    <main class="main users chart-page" id="skip-target">
+                        <div class="container">
+
+
+                            <div class="p-4 bg-white">
+                                <form action="/settings/update" method="post" enctype="multipart/form-data">
+        
+
+                                  
+
+
+
+
+                                    <div class="row">
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <label class="form-label">Name (En)</label>
+                                            <input type="text" name="nameEn" value="<%= setting.nameEn %>"
+                                                class="form-control w-100" />
+                                        </div>
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <label class="form-label">Name (Ar)</label>
+                                            <input type="text" name="nameAr" value="<%= setting.nameAr %>"
+                                                class="form-control w-100" />
+                                        </div>
+        
+        
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <label class="form-label">Description (En)</label>
+                                            <textarea type="text" name="descriptionEn"
+                                                class="form-control w-100"> <%= setting.descriptionEn %> </textarea>
+                                        </div>
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <label class="form-label">Description (Ar)</label>
+                                            <textarea type="text" name="descriptionAr"
+                                                class="form-control w-100"> <%= setting.descriptionAr %> </textarea>
+                                        </div>
+        
+        
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" name="email" value="<%= setting.email %>"
+                                                class="form-control w-100" />
+                                        </div>
+        
+        
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <label class="form-label">Phone</label>
+                                            <input type="text" name="phone" value="<%= setting.phone %>"
+                                                class="form-control w-100" />
+                                        </div>
+        
+        
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <label class="form-label">Address</label>
+                                            <input type="text" name="address" value="<%= setting.address %>"
+                                                class="form-control w-100" />
+                                        </div>
+        
+        
+                                        <div class="mb-3 col-12 col-md-6 ">
+                                            <div class="mb-5 flex justify-center items-center">
+                                                <img class="w-44" src="/uploads/<%= setting.logo %>"
+                                                    alt="<%= setting.nameAr %>">
+                                            </div>
+        
+        
+                                            <label
+                                                class="image-preview"
+                                                for="image">
+        
+                                                <div class="mb-2">
+                                                    <img src="" id="preview" alt="">
+                                                </div>
+                                                <input type="file" id="image" name="image"
+                                                    class="file-input file-input-primary w-full hidden" />
+        
+                                                <div>
+                                                    <i class="fa-solid fa-file-image text-3xl"></i>
+                                                </div>
+                                            </label>
+        
+                                        </div>
+        
+        
+        
+        
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary">update</button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+
+                           
+
+
+                        </div>
+                    </main>
+                    <!-- ! Footer -->
+
+            </div>
+    </div>
+    <!-- Chart library -->
+    <%- include('../inc/script.ejs') %>
+</body>
+
+</html>

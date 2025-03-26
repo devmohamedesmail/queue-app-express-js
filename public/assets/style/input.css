@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme  {
+  --bg-primary: var(--color-red-500);
+  --color-secondary: var(--color-blue-500);
+}
+
+
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
+  }
+
+
+
+
+
+

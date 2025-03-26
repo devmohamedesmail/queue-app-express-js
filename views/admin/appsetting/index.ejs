@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../inc/style.ejs') %>
+        <title>Add Place</title>
+
+</head>
+
+<body>
+    <div class="layer"></div>
+
+    <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+    <div class="page-flex">
+        <%- include('../inc/sidebar.ejs') %>
+            <div class="main-wrapper">
+
+                <%- include('../inc/header.ejs') %>
+
+                    <main class="main users chart-page" id="skip-target">
+                        <div class="container">
+
+
+                            <div class="p-4 ">
+                                <form action="/app/settings/update" method="post">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <h6 class="mb-4">Light mode</h6>
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Primary</label>
+                                                <input type="color" name="lightPrimary" class="form-control w-100"
+                                                    value="<%= setting.lighttheme.primary  %>" />
+                                            </div>
+
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Secondary</label>
+                                                <input type="color" name="lightSecondary" class="form-control w-100"
+                                                    value="<%= setting.lighttheme.secondary  %>" />
+                                            </div>
+
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Background</label>
+                                                <input type="color" name="lightBackground" class="form-control w-100"
+                                                    value="<%= setting.lighttheme.background  %>" />
+                                            </div>
+
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Text</label>
+                                                <input type="color" name="lightText" class="form-control w-100"
+                                                    value="<%= setting.lighttheme.text  %>" />
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <h6 class="mb-4">Dark mode</h6>
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Primary</label>
+                                                <input type="color" name="darkPrimary" class="form-control w-100"
+                                                    value="<%= setting.darktheme.primary  %>" />
+                                            </div>
+
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Secondary</label>
+                                                <input type="color" name="darkSecondary" class="form-control w-100"
+                                                    value="<%= setting.darktheme.secondary  %>" />
+                                            </div>
+
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Background</label>
+                                                <input type="color" name="darkBackground" class="form-control w-100" value="<%= setting.darktheme.background  %>" />
+                                            </div>
+
+
+                                            <div class="mb-3  ">
+                                                <label class="form-label">Text</label>
+                                                <input type="color" name="darkText" class="form-control w-100" value="<%= setting.darktheme.text  %>" />
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">update</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                    </main>
+
+
+            </div>
+    </div>
+
+    <%- include('../inc/script.ejs') %>
+</body>
+
+</html>

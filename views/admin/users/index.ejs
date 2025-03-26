@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../inc/style.ejs') %>
+        <title>Add Place</title>
+        <!-- Favicon -->
+
+</head>
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+    <div class="page-flex">
+        <%- include('../inc/sidebar.ejs') %>
+            <div class="main-wrapper">
+                <!-- ! Main nav -->
+                <%- include('../inc/header.ejs') %>
+                    <!-- ! Main -->
+                    <main class="main users chart-page" id="skip-target">
+                        <div class="container">
+
+
+                            <div class="p-4 bg-white">
+                                <div class="overflow-x-auto">
+                                    <table id="myTable" class="table table-xs">
+                                        <thead>
+                                            <tr>
+
+                                                <th class="text-black">Name</th>
+                                                <th class="text-black">Email</th>
+                                                <th class="text-black">Role</th>
+                                                <th class="text-black">Actions</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% users.forEach(user=> { %>
+                                                <tr>
+                                                    <td class="text-xs font-light">
+                                                        <%= user.name %>
+                                                    </td>
+
+                                                    <td class="text-xs font-light">
+                                                        <%= user.email %>
+                                                    </td>
+
+                                                    <td class="text-xs font-light">
+                                                        <%= user.role %>
+                                                    </td>
+
+
+
+
+
+
+
+
+                                                    <td class="flex justify-center items-center">
+                                                        <a href="/places/edit/place/<%= user._id %> "
+                                                            class="btn btn-success btn-xs mx-1">
+                                                            <i class="fa-solid fa-pen text-white"></i>
+                                                        </a>
+                                                        <a onclick="return confirm('Are you sure you want to delete this item?');"
+                                                            href="/users/delete/user/<%= user._id %> "
+                                                            class="btn btn-error btn-xs mx-1">
+                                                            <i class="fa-solid fa-trash text-white"></i>
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                                <% }) %>
+
+
+
+
+
+
+
+
+
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                    </main>
+                    <!-- ! Footer -->
+
+            </div>
+    </div>
+    <!-- Chart library -->
+    <%- include('../inc/script.ejs') %>
+</body>
+
+</html>

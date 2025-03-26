@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <%- include('../inc/style.ejs') %>
+    <title>Places Page</title>
+</head>
+
+<body>
+    <div class="flex ">
+        <%- include('../inc/sidebar.ejs') %>
+            <div class="flex-1">
+                <%- include('../inc/header.ejs') %>
+
+                    <div class="p-4">
+                        <div class="grid grid-cols-12 gap-5">
+                            <div class="col-span-12 md:col-span-4">
+                                <h1 class="text-center font-semibold">Places</h1>
+                                
+                            </div>
+
+
+
+
+
+                            <div class="col-span-12 md:col-span-8">
+                                <div class="overflow-x-auto">
+                                    <table id="myTable" class="table table-xs">
+                                        <thead>
+                                            <tr>
+
+                                                <th class="text-black">Name (En)</th>
+                                                <th class="text-black">Name (Ar)</th>
+                                                <th class="text-black">Address (En)</th>
+                                                <th class="text-black">Address (Ar)</th>
+                                                <th class="text-black">Description</th>
+                                                <th class="text-black">location</th>
+                                                <th class="text-black">Image</th>
+                                                <th class="text-black">Actions</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% places.forEach(place=> { %>
+                                                <tr>
+                                                    <td class="text-xs font-light">
+                                                        <%= place.nameEn %> 
+                                                    </td>
+
+                                                    <td class="text-xs font-light">
+                                                        <%= place.nameAr %>
+                                                    </td>
+
+                                                    <td class="text-xs font-light"> 
+                                                        <%= place.addressEn %>
+                                                    </td>
+
+
+                                                    <td class="text-xs font-light">
+                                                        <%= place.addressAr %>
+                                                    </td>
+
+
+                                                    <td class="text-xs font-light">
+                                                        <%= place.description %>
+                                                    </td>
+
+                                                    <td>
+                                                        <%= place.location.lat %> - <%= place.location.lng %>
+                                                    </td>
+
+                                                    <td>
+                                                        <img class="w-12 h-12" src="/uploads/<%= place.image  %>"
+                                                            alt="">
+                                                    </td>
+
+                                                    <td class="flex justify-center items-center">
+                                                        <a href="/places/edit/place/<%= place._id %> " class="btn btn-success btn-xs mx-1">
+                                                            <i class="fa-solid fa-pen text-white"></i>
+                                                        </a>
+                                                        <a 
+                                                        onclick="return confirm('Are you sure you want to delete this item?');"
+                                                        href="/places/delete/place/<%= place._id %> " class="btn btn-error btn-xs mx-1">
+                                                            <i class="fa-solid fa-trash text-white"></i>
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                                <% }) %>
+
+
+
+
+
+
+
+
+
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+    </div>
+
+    <%- include('../inc/script.ejs') %>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
