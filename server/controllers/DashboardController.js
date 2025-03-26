@@ -1,6 +1,6 @@
 
 import connectDB from "../config/db.js";
-import AppSetting from "../models/Appsetting.js";
+import AppSetting from "../models/AppSetting.js";
 import Place from "../models/Place.js";
 import Setting from "../models/Setting.js";
 import User from "../models/User.js";
@@ -18,9 +18,9 @@ export const dashboard_index = async (req, res) => {
         await connectDB()
         const places = await Place.find();
         const users = await User.find()
-        res.render('admin/index', { 
-            places:places,
-            users:users
+        res.render('admin/index', {
+            places: places,
+            users: users
         });
     } catch (error) {
         console.log(error);
@@ -35,8 +35,8 @@ export const dashboard_users = async (req, res) => {
     try {
         connectDB()
         const users = await User.find()
-        res.render('admin/users',{
-            users:users
+        res.render('admin/users', {
+            users: users
         });
     } catch (error) {
         console.log(error);
@@ -66,15 +66,17 @@ export const dashboard_setting = async (req, res) => {
 
 
 // ********************************* App Setting Page *********************************
-export const dashboard_app_setting = async (req,res) =>{
+export const dashboard_app_setting = async (req, res) => {
     try {
         await connectDB();
         const setting = await AppSetting.findOne();
         console.log(setting)
-        res.render('admin/appsetting',{
-            setting:setting
+        res.render('admin/appsetting', {
+            setting: setting
         })
     } catch (error) {
-        
+        res.rend('admin/404.ejs', {
+            error: error.message
+        })
     }
 }

@@ -97,7 +97,7 @@ app.use('/api/v1/auth', authapi);
 
 
 app.get('/', (req, res) => {
-    res.render('front/index');
+    res.render('front/login');
 })
 
 
