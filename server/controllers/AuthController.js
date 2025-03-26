@@ -82,6 +82,14 @@ export const login_user = async (req, res) => {
         );
 
 
+         // Set token as a cookie or in local storage
+         res.cookie("auth_token", token, {
+            httpOnly: true, // Secure the cookie from JS access
+            secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+        });
+
+
         if (user.role === 'admin') {
 
             res.render('admin/index.ejs', {

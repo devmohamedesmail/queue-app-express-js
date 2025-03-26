@@ -33,7 +33,7 @@ export const dashboard_index = async (req, res) => {
 // ********************************* users Page *********************************
 export const dashboard_users = async (req, res) => {
     try {
-        connectDB()
+         await connectDB()
         const users = await User.find()
         res.render('admin/users', {
             users: users

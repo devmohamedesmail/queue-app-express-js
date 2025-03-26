@@ -13,6 +13,7 @@ import frontroutes from './server/routes/front/front.js'
 import appSetting from './server/routes/admin/appSetting.js'
 import path from 'path';
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import loadData from './server/utilites/loadData.js';
 
 dotenv.config();
@@ -23,7 +24,7 @@ const app = express();
 
 
 
-loadData()
+
 
 
 
@@ -41,7 +42,7 @@ app.use(async (req, res, next) => {
 //  middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 
 const __dirname = path.resolve();
 
@@ -102,7 +103,10 @@ app.get('/', (req, res) => {
 
 
 
-
+app.use((req, res, next) => {
+  
+  res.status(404).render('front/404');
+});
 
 app.listen(3000, () => {
     console.log(`http://localhost:3000`);
