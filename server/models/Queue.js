@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const QueueSchema = new mongoose.Schema({
     userId: {
         type: String,
-        required: true,
+        required: false,
         default: null,
     },
     serviceId: {
@@ -13,7 +13,7 @@ const QueueSchema = new mongoose.Schema({
     },
     placeId: {
         type: String,
-        required: true,
+        required: false,
         default: null,
     },
     queue: {
@@ -29,13 +29,20 @@ const QueueSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
-// **Middleware قبل الحفظ لزيادة queue تلقائيًا**
+// Middleware to automatically set the queue number
 QueueSchema.pre("save", async function (next) {
     if (!this.queue) {
+        let query = { placeId: this.placeId };
+        // If serviceId is not null, we add it to the query
+        if (this.serviceId) {
+            query.serviceId = this.serviceId;
+        }
+
         const lastQueue = await this.constructor
-            .findOne({ placeId: this.placeId })
+            .findOne(query)
             .sort({ queue: -1 });
 
+        // Set the queue number to the next one
         this.queue = lastQueue ? lastQueue.queue + 1 : 1;
     }
     next();
