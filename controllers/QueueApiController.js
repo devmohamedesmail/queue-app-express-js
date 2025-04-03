@@ -5,10 +5,10 @@ import Place from "../models/Place.js";
 export const bookQueue = async (req, res) => {
     try {
         await connectDB()
-        
+
+        const  userId  = req.params.user;
         const placeId = req.params.place;
         const serviceId = req.params.service;
-        const { userId } = req.body;
         const place = await Place.findById(placeId); 
         
         const newQueue = new Queue();

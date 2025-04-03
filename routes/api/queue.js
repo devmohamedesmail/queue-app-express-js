@@ -6,7 +6,7 @@ router.post('/book/new/queue/:place/:service?', bookQueue);
 
 
 // get last queue in the service
-router.get('/last/queue/:place/:service?', get_last_queue);
+router.get('/last/queue/:user/:place/:service?', get_last_queue);
 
 
 // get all queue in the service and place
