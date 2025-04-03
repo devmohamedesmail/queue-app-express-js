@@ -17,6 +17,9 @@ import cookieParser from "cookie-parser";
 import loadData from './server/utilites/loadData.js';
 import expressLayouts from 'express-ejs-layouts';
 
+// routes files
+
+
 
 dotenv.config();
 

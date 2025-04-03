@@ -55,7 +55,9 @@ export const dashboard_users = async (req, res) => {
         await connectDB()
         const users = await User.find()
         res.render('admin/users', {
-            users: users
+            users: users,
+            title:"Users",
+            layout:"layouts/admin"
         });
     } catch (error) {
         console.log(error);

@@ -1,23 +1,55 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@theme  {
+@theme {
   --bg-primary: var(--color-red-500);
   --color-secondary: var(--color-blue-500);
 }
 
 
 @plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
-  }
+  themes: light --default, dark --prefersdark;
+}
 
 
- input:focus{
+input:focus {
   outline: none;
- }
+}
 
 
+/* custom style */
+.dt-length {
+  display: none;
+}
 
+.dt-search {
+  margin-bottom: 10px;
+}
 
+.dt-search input {
+  border: 1px solid var(--color-primary);
+  padding: 5px;
 
+}
+table thead{
+  background-color: var(--color-primary);
+ 
+  color: white;
+}
+table th{
+  height: 30px;
+  font-size: 10px;
+  color: white;
+}
 
+.pagination {
+  display: flex;
+  flex-direction: row !important;
+
+  flex-wrap: nowrap !important;
+}
+
+.pagination li {
+  width: 30px;
+
+}
