@@ -1,0 +1,52 @@
+<div class="navbar bg-base-100 shadow-sm px-5">
+  <div class="flex-1">
+    <button id="toggle_btn" class="btn btn-ghost text-xl"><i class="fa-solid fa-bars"></i></button>
+
+  </div>
+  <div class="flex-none">
+
+
+
+
+    <!-- language Dropdown menu -->
+    <!-- change popover-1 and --anchor-1 names. Use unique names for each dropdown -->
+    <button class="btn mx-3" popovertarget="popover-1" style="anchor-name:--anchor-1">
+      English
+    </button>
+    <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="popover-1"
+      style="position-anchor:--anchor-1">
+      <li><a>Arabic</a></li>
+      <li><a>English</a></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img alt="Tailwind CSS Navbar component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+      <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <li>
+          <a class="justify-between">
+            Profile
+            <span class="badge">New</span>
+          </a>
+        </li>
+        <li><a>Settings</a></li>
+        <li><a>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

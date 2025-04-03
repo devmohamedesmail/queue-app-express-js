@@ -15,6 +15,8 @@ import path from 'path';
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import loadData from './server/utilites/loadData.js';
+import expressLayouts from 'express-ejs-layouts';
+
 
 dotenv.config();
 
@@ -47,10 +49,20 @@ app.use(cookieParser());
 const __dirname = path.resolve();
 
 app.use(express.static('public'));
+app.use(expressLayouts);
+app.set("layout", "layouts/main");
+
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
+app.get('/', (req, res) => {
+  res.render('front/login',{
+    title:"Login Page",
+    layout:"layouts/main"
+  })
+})
 
 
 
@@ -97,16 +109,15 @@ app.use('/api/v1/auth', authapi);
 
 
 
-app.get('/', (req, res) => {
-    res.render('front/login');
-})
-
-
-
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
   
-  res.status(404).render('front/404');
-});
+//   res.status(404).render('front/404');
+// });
+
+
+
+
+
 
 app.listen(3000, () => {
     console.log(`http://localhost:3000`);

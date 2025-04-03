@@ -21,6 +21,7 @@ export const update_setting = async (req, res) => {
             setting.email = req.body.email;
             setting.phone = req.body.phone;
             setting.address = req.body.address;
+            setting.appUrl = req.body.appUrl;
             await setting.save();
             res.redirect('/dashboard/setting');
         } else {
@@ -34,6 +35,7 @@ export const update_setting = async (req, res) => {
             setting.email = req.body.email;
             setting.phone = req.body.phone;
             setting.address = req.body.address;
+            setting.appUrl = req.body.appUrl;
             await setting.save();
             res.redirect('/dashboard/setting');
         }

@@ -1,78 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <%- include('./inc/style.ejs') %>
-    <title>index</title>
-    <!-- Favicon -->
-
-</head>
-
-<body>
-  <div class="layer"></div>
-  <!-- ! Body -->
-  <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
-  <div class="page-flex">
-    <%- include('./inc/sidebar.ejs') %>
-      <div class="main-wrapper">
-        <!-- ! Main nav -->
-        <%- include('./inc/header.ejs') %>
-          <!-- ! Main -->
-          <main class="main users chart-page" id="skip-target">
-            <div class="container">
-              <h2 class="main-title">Dashboard</h2>
-              <div class="row stat-cards">
-                <div class="col-md-6 col-xl-3">
-                  <article class="stat-cards-item">
-                    <div class="stat-cards-icon primary">
-                      <i data-feather="bar-chart-2" aria-hidden="true"></i>
-                    </div>
-                    <div class="stat-cards-info">
-                      <p class="stat-cards-info__num">
-                        <%= places.length %>
-                      </p>
-                      <p class="stat-cards-info__title">Total visits</p>
-                      <p class="stat-cards-info__progress">
-                        <span class="stat-cards-info__profit success">
-                          <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-                        </span>
-                        Last month
-                      </p>
-                    </div>
-                  </article>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                  <article class="stat-cards-item">
-                    <div class="stat-cards-icon primary">
-                      <i data-feather="bar-chart-2" aria-hidden="true"></i>
-                    </div>
-                    <div class="stat-cards-info">
-                      <p class="stat-cards-info__num">
-                        <%= users.length %>
-                      </p>
-                      <p class="stat-cards-info__title">Total visits</p>
-                      <p class="stat-cards-info__progress">
-                        <span class="stat-cards-info__profit success">
-                          <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-                        </span>
-                        Last month
-                      </p>
-                    </div>
-                  </article>
-                </div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 
 
 
-              </div>
-            
-            </div>
-          </main>
-          
+    <div class="card shadow flex flex-col justify-between items-center py-5 bg-blue-500 h-40">
+        <i class="fa-solid fa-location-dot text-4xl text-white"></i>
+         
+         <div class="flex justify-between items-center w-full px-10">
+            <p class="text-white font-bold">Places</p>
+            <p class="text-white font-bold bg-secondary p-3 w-10 h-10 flex justify-center items-center rounded-full" ><%= places.length  %></p>
+         </div>
+    </div>
 
-      </div>
-  </div>
 
-  <%- include('./inc/script.ejs') %>
-</body>
 
-</html>
+    <div class="card shadow flex flex-col justify-between items-center py-5 bg-red-500 h-40">
+        
+        <i class="fa-solid fa-users text-4xl text-white"></i>
+         <div class="flex justify-between items-center w-full px-10">
+            <p class="text-white font-bold">Users</p>
+            <p class="text-white font-bold bg-secondary p-3 w-10 h-10 flex justify-center items-center rounded-full" ><%= users.length  %></p>
+         </div>
+    </div>
+
+
+  
+
+  
+
+
+</div>

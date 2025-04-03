@@ -43,6 +43,11 @@ const SettingSchema = new mongoose.Schema({
         required:false,
         default:' address '
     },
+    appUrl:{
+        type:String,
+         required:false,
+         default:' url '
+    }
 
 });
 export default mongoose.model('Setting', SettingSchema)

@@ -1,3 +1,4 @@
+import { title } from "process";
 import connectDB from "../config/db.js"
 import Place from "../models/Place.js";
 import User from "../models/User.js"
@@ -91,11 +92,13 @@ export const login_user = async (req, res) => {
 
 
         if (user.role === 'admin') {
-
-            res.render('admin/index.ejs', {
-                places: places,
-                users:users
-            })
+            res.redirect('/dashboard/index')
+            // res.render('admin/index.ejs', {
+            //     places: places,
+            //     users:users,
+            //     layout: "layouts/admin",
+            //     title: "Dashboard"
+            // })
         } else {
             res.render('front/index.ejs')
         }

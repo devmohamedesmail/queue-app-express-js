@@ -4,18 +4,7 @@ import Service from "../models/Service.js";
 
 
 
-// *********************** Places Page ********************************
-export const places = async (req,res) =>{
-    try {
-        connectDB()
-        const places = await Place.find();
-        res.render('admin/places/index',{
-            places:places
-        });
-    } catch (error) {
-       console.log(error) 
-    }
-}
+
 
 
 // ************************** Add new Place *****************************
@@ -27,16 +16,20 @@ export const add_new_place = async (req,res)=>{
         newPlace.nameAr = req.body.nameAr;
         newPlace.addressEn = req.body.addressEn;
         newPlace.addressAr = req.body.addressAr;
-
         newPlace.description = req.body.description;
         newPlace.image = req.file.filename;
-
         newPlace.location = {
             lat: req.body.lat,
             lng: req.body.lng
         }
+
+        newPlace.timeStart = req.body.timeStart;
+        newPlace.timeClosed = req.body.timeClosed;
+        newPlace.daysOfWork = req.body.daysOfWork || [];
+
          await newPlace.save();
-        res.redirect("/places/places")
+        res.redirect("/dashboard/places");
+        
     } catch (error) {
         console.log(error)
     }

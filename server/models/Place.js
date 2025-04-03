@@ -28,11 +28,13 @@ const PlaceSchema = new mongoose.Schema({
     },
     timeStart:{
         type:String,
-        required:false
+        required:false,
+        default:'00:00:00'
     },
     timeClosed:{
         type:String,
-        required:false
+        required:false,
+        default:'00:00:00'
     },
     
     location: {
@@ -45,6 +47,11 @@ const PlaceSchema = new mongoose.Schema({
             required: true 
         },
     },
+    daysOfWork: {
+        type: [String], 
+        required: false,
+        default: []
+    }
 
 
 }, { timestamps: true });
