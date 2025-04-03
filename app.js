@@ -1,23 +1,24 @@
 import express from 'express';
-import places from './server/routes/admin/places.js'
-import placesapi from './server/routes/api/places.js'
-import queueapi from './server/routes/api/queue.js'
-import services from './server/routes/admin/services.js'
-import servicesapi from './server/routes/api/services.js'
-import dashboard from './server/routes/admin/dashboard.js'
-import setting from './server/routes/admin/setting.js'
-import settingapi from './server/routes/api/setting.js'
-import auth from './server/routes/front/auth.js'
-import authapi from './server/routes/api/auth.js'
-import frontroutes from './server/routes/front/front.js'
-import appSetting from './server/routes/admin/appSetting.js'
+
 import path from 'path';
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import loadData from './server/utilites/loadData.js';
+import loadData from './utilites/loadData.js';
 import expressLayouts from 'express-ejs-layouts';
 
 // routes files
+import places from './routes/admin/places.js'
+import placesapi from './routes/api/places.js'
+import queueapi from './routes/api/queue.js'
+import services from './routes/admin/services.js'
+import servicesapi from './routes/api/services.js'
+import dashboard from './routes/admin/dashboard.js'
+import setting from './routes/admin/setting.js'
+import settingapi from './routes/api/setting.js'
+import auth from './routes/front/auth.js'
+import authapi from './routes/api/auth.js'
+import frontroutes from './routes/front/front.js'
+import appSetting from './routes/admin/appSetting.js'
 
 
 

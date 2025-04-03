@@ -10,8 +10,4 @@ router.post('/update', update_app_setting)
 
 
 
-
-
-
-
 export default router;
