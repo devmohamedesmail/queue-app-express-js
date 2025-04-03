@@ -2,7 +2,7 @@ import express from 'express';
 import { bookQueue ,cancel_queue,get_all_queue_waiting_in_service,get_all_users_queues,get_first_active_queue_in_service,get_last_queue, move_queue_to_back} from '../../controllers/QueueApiController.js';
 const router = express.Router();
 
-router.post('/book/new/queue/:place/:service?', bookQueue);
+router.post('/book/new/queue/:user/:place/:service?', bookQueue);
 
 
 // get last queue in the service
