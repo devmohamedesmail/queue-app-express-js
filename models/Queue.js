@@ -16,6 +16,11 @@ const QueueSchema = new mongoose.Schema({
         required: false,
         default: null,
     },
+    place:{
+        type: mongoose.Schema.Types.Mixed,
+        required: false,
+        default: null,
+    },
     queue: {
         type: Number,
         required: false,

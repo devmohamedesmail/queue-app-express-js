@@ -1,15 +1,18 @@
 import connectDB from "../config/db.js";
 import Queue from "../models/Queue.js";
+import Place from "../models/Place.js";
 
 export const bookQueue = async (req, res) => {
     try {
         await connectDB()
-        const place = req.params.place;
-        const service = req.params.service;
+        const placeId = req.params.place;
+        const serviceId = req.params.service;
+        const place = await Place.findById(placeId); 
         const newQueue = new Queue();
         newQueue.userId = req.body.userId;
-        newQueue.placeId = place;
-        newQueue.serviceId = service;
+        newQueue.placeId = placeId;
+        newQueue.serviceId = serviceId;
+        newQueue.place = place;
         await newQueue.save();
         res.status(201).json(newQueue);
 
