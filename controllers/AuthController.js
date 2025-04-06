@@ -4,6 +4,7 @@ import Place from "../models/Place.js";
 import User from "../models/User.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import Queue from "../models/Queue.js";
 
 // ********************************* Register User **********************************
 export const register_user = async (req, res) => {
@@ -28,11 +29,15 @@ export const register_user = async (req, res) => {
 
             const token = jwt.sign(
                 { id: newUser._id },
-                process.env.JWT_SECRET, // تأكد من وجود متغير JWT_SECRET في .env
-                { expiresIn: "7d" } // صلاحية التوكن 7 أيام
+                process.env.JWT_SECRET, 
+                { expiresIn: "7d" } 
             );
 
-            res.render('front/index.ejs')
+            res.render('front/index.ejs',{
+                message: "User registered successfully",
+                title: "Home",
+                layout: "front/layout.ejs",
+            })
         }
 
 
@@ -93,13 +98,24 @@ export const login_user = async (req, res) => {
 
         if (user.role === 'admin') {
             res.redirect('/dashboard/index')
-            // res.render('admin/index.ejs', {
-            //     places: places,
-            //     users:users,
-            //     layout: "layouts/admin",
-            //     title: "Dashboard"
-            // })
-        } else {
+        } else if (user.role === 'subscriber') {
+            try {
+                const queues = await Queue.find({ placeId: user.place ,status: 'waiting' }) 
+                const place = await Place.findById(user.place)
+        
+                res.render('subscriber/index.ejs', {   
+                    title: "Home",
+                    layout: "layouts/subscriber.ejs",
+                    queues : queues,
+                    user: user,
+                    place: place,
+                    
+                })
+            } catch (error) {
+                console.error(error)
+                res.status(500).send("Something went wrong.")
+            }
+        }else{
             res.render('front/index.ejs')
         }
 

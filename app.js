@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import loadData from './utilites/loadData.js';
 import expressLayouts from 'express-ejs-layouts';
+import session from 'express-session';
+import flash from 'connect-flash';
 
 // routes files
 import places from './routes/admin/places.js'
@@ -19,6 +21,7 @@ import auth from './routes/front/auth.js'
 import authapi from './routes/api/auth.js'
 import frontroutes from './routes/front/front.js'
 import appSetting from './routes/admin/appSetting.js'
+import subscribe_routes from './routes/subscriber/routes.js'
 
 
 
@@ -64,7 +67,7 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
   res.render('front/login',{
     title:"Login Page",
-    layout:"layouts/main"
+    layout:"layouts/front"
   })
 })
 
@@ -85,6 +88,11 @@ app.use('/users', auth)
 app.use('/app/settings',appSetting)
 // *************** Front End Routes 
 app.use('/front',frontroutes);
+
+
+
+// *************** Subscriber file
+app.use('/subscriber' , subscribe_routes );
 
 
 

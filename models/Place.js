@@ -51,7 +51,17 @@ const PlaceSchema = new mongoose.Schema({
         type: [String], 
         required: false,
         default: []
-    }
+    },
+    services: [{
+        serviceEn: {
+            type: String,
+            required: true
+        },
+        serviceAr: {
+            type: String,
+            required: true
+        }
+    }]
 
 
 }, { timestamps: true });

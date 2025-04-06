@@ -21,6 +21,11 @@ const UserSchema = new mongoose.Schema({
         required: false,
         default:'user'
     },
+    place:{
+        type: String,
+        required: false,
+        default:null
+    },
     image: {
         type: String,
         required: false
