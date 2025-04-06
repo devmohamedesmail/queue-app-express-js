@@ -97,26 +97,26 @@ export const cancel_queue = async (req, res) => {
 //  get all user queues according day
 export const get_all_users_queues = async (req, res) => {
     try {
-        const userId = req.params.id;  // Extract user ID from the request parameters
-        
-        // You can filter by date if needed. For example, if you want to get queues for today:
+
+        const userId = req.params.id;   
         const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);  // Set to the start of today (00:00:00)
+        todayStart.setHours(0, 0, 0, 0);  
         const todayEnd = new Date();
-        todayEnd.setHours(23, 59, 59, 999);  // Set to the end of today (23:59:59)
+        todayEnd.setHours(23, 59, 59, 999);  
 
-        // Query the database to find all queues for this user
+       
         const userQueues = await Queue.find({
-            userId: userId,  // Assuming 'userId' field exists in the Queue model
-            createdAt: { $gte: todayStart, $lte: todayEnd }  // Filter for today's queues
-        }).sort({ createdAt: 1 });  // Optional: Sort queues by creation date
+            userId: userId,
+            status: 'waiting',  
+            createdAt: { $gte: todayStart, $lte: todayEnd }  
+        }).sort({ createdAt: 1 });  
 
-        // Check if any queues are found for the user
+       
         if (userQueues.length === 0) {
             return res.status(404).json({ message: "No queues found for this user today" });
         }
 
-        // Send the user's queues as the response
+       
         res.status(200).json(userQueues);
         
     } catch (error) {
