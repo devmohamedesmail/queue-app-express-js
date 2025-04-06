@@ -1,15 +1,18 @@
 
 
 
-<h5 class="text-xl text-center font-semibold mt-5">
-    <i class="fa-solid fa-location-dot"></i>
-    <%= place.nameEn %>
-</h5>
 
-<div class="mt-5">
-    <h4 class="text-2xl text-center font-bold">Queues - <%= queues.length %></h4>
+
+<div class="flex justify-between items-center container mx-auto mt-10 px-5">
+    <h5 class="text-md text-center font-semibold">
+        <i class="fa-solid fa-location-dot"></i>
+        <%= place.nameEn %>
+    </h5>
+    
+    <div class="">
+        <h4 class="text-md text-center font-bold">Queues - <%= queues.length %></h4>
+    </div>
 </div>
-
 
 
 
@@ -19,23 +22,30 @@
     <div class="queues-container my-10">
 
 
-        <% queues.forEach(queue => { %>
-            <div class="queue-item flex justify-between items-center bg-base-200 p-4 mb-2">
-                <p class="text-lg font-semibold">
-                    <i class="fa-solid fa-clock"></i>
-                    <span class="ml-2">Queue</span>
-                    <span class="text-primary font-bold">#<%= queue.queue %></span>
-                </p>
-                <div>
-                    <a href="/subscriber/change/queue/to/active/<%= queue._id %>" class="btn btn-primary btn-sm">Active</a>
-                    <button 
-                        class="btn btn-primary btn-sm speak-btn" 
-                        data-queue="<%= queue.queue %>">
-                        <i class="fa-solid fa-microphone"></i>
-                    </button>
+        <% if (queues.length > 0) { %>
+            <% queues.forEach(queue => { %>
+                <div class="queue-item flex justify-between items-center bg-base-200 p-4 mb-2">
+                    <p class="text-lg font-semibold">
+                        <i class="fa-solid fa-clock"></i>
+                        <span class="ml-2">Queue</span>
+                        <span class="text-primary font-bold">#<%= queue.queue %></span>
+                    </p>
+                    <div>
+                        <a href="/subscriber/change/queue/to/active/<%= queue._id %>" class="btn btn-primary btn-sm">Active</a>
+                        <button 
+                            class="btn btn-primary btn-sm speak-btn" 
+                            data-queue="<%= queue.queue %>">
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
+                    </div>
                 </div>
+            <% }) %>
+        <% } else { %>
+            <div class="text-center text-lg text-gray-500 py-6">
+                <i class="fa-solid fa-face-smile-beam text-2xl text-black mb-2"></i>
+                <p class="text-black">No queues today 🎉</p>
             </div>
-        <% }) %>
+        <% } %>
         
 
     </div>

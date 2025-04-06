@@ -9,9 +9,6 @@ router.get('/subscriber', (req, res) => {
 });
 
 
-
-
-
 router.get('/change/queue/to/active/:id' , change_queue_to_active)
 
 

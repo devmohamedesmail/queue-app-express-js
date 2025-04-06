@@ -21,10 +21,10 @@ export const change_queue_to_active = async (req, res) => {
         }
         queue.status = "active";
         await queue.save();
-        req.flash("success", "Queue status changed to active");
+       
         res.redirect('back');
     } catch (error) {
-        req.flash("error", "Error changing queue status");
+        
         res.redirect('back');
     }
 }
