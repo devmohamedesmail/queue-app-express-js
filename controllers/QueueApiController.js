@@ -203,4 +203,25 @@ export const move_queue_to_back = async (req, res) => {
 
 
 
+// get Queue Details by service id and place id
+export const get_queue_details_by_service_id_and_place_id = async (req,res)=>{
+    try {
+        await connectDB()
+        const { place, service } = req.params;
+        const queueDetails = await Queue.find({ placeId: place, serviceId: service });
+        
+        if (!queueDetails || queueDetails.length === 0) {
+            return res.status(404).json({ message: "No queue details found for this service and place" });
+        }
+        
+        res.status(200).json(queueDetails); 
+    } catch (error) {
+        res.status(400).json(error);
+        
+    }
+}
+
+
+
+
 
