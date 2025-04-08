@@ -97,7 +97,7 @@ export const cancel_queue = async (req, res) => {
 //  get all user queues according day
 export const get_all_users_queues = async (req, res) => {
     try {
-
+        await connectDB()
         const userId = req.params.id;   
         const todayStart = new Date();
         todayStart.setHours(0, 0, 0, 0);  
@@ -115,7 +115,7 @@ export const get_all_users_queues = async (req, res) => {
         if (userQueues.length === 0) {
             return res.status(404).json({ message: "No queues found for this user today" });
         }
-
+         
         const queuesData = [];
         // Loop through each queue to calculate aheadOfYou, nowServing, and estimatedTime
         for (let queue of userQueues) {
@@ -145,7 +145,7 @@ export const get_all_users_queues = async (req, res) => {
             queuesData.push({
                 queue,
                 aheadOfYou,
-                nowServing,
+                nowServingQueue: nowServing ? nowServing.queue : null,
                 estimatedTime
             });
         }
@@ -156,7 +156,7 @@ export const get_all_users_queues = async (req, res) => {
         
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "An error occurred while retrieving the user's queues", error });
+        res.status(500).json({ message: "An error occurred while retrieving the user's queues", error: error.message || error });
     }
 }
 
