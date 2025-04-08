@@ -1,0 +1,37 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="w-full h-96 overflow-hidden">
+    <canvas id="queueChart"  width="400" height="200" style="height: 400px !important;"></canvas>
+</div>
+
+
+<script>
+    const queues = <%- JSON.stringify(queues) %>
+
+    // افترض مثلًا إن كل طابور فيه `createdAt` وتريد عدّ الطوابير لكل يوم
+    const queueDates = queues.map(q => new Date(q.createdAt).toISOString().split('T')[0]);
+
+    // عدّ التكرارات لكل يوم
+    const counts = {};
+    queueDates.forEach(date => {
+        counts[date] = (counts[date] || 0) + 1;
+    });
+
+    const labels = Object.keys(counts);
+    const data = Object.values(counts);
+
+    const ctx = document.getElementById('queueChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label: 'عدد الطوابير في اليوم',
+                data,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        }
+    });
+</script>

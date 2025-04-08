@@ -29,11 +29,11 @@ export const register_user = async (req, res) => {
 
             const token = jwt.sign(
                 { id: newUser._id },
-                process.env.JWT_SECRET, 
-                { expiresIn: "7d" } 
+                process.env.JWT_SECRET,
+                { expiresIn: "7d" }
             );
 
-            res.render('front/index.ejs',{
+            res.render('front/index.ejs', {
                 message: "User registered successfully",
                 title: "Home",
                 layout: "front/layout.ejs",
@@ -88,8 +88,8 @@ export const login_user = async (req, res) => {
         );
 
 
-         // Set token as a cookie or in local storage
-         res.cookie("auth_token", token, {
+        // Set token as a cookie or in local storage
+        res.cookie("auth_token", token, {
             httpOnly: true, // Secure the cookie from JS access
             secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
@@ -100,22 +100,16 @@ export const login_user = async (req, res) => {
             res.redirect('/dashboard/index')
         } else if (user.role === 'subscriber') {
             try {
-                const queues = await Queue.find({ placeId: user.place ,status: 'waiting' }) 
-                const place = await Place.findById(user.place)
-        
-                res.render('subscriber/index.ejs', {   
-                    title: "Home",
-                    layout: "layouts/subscriber.ejs",
-                    queues : queues,
-                    user: user,
-                    place: place,
-                    
-                })
+               
+                req.session.user = user;
+                console.log(req.session.user)
+                res.redirect('/subscriber/index')
+                
             } catch (error) {
                 console.error(error)
                 res.status(500).send("Something went wrong.")
             }
-        }else{
+        } else {
             res.render('front/index.ejs')
         }
 
@@ -128,16 +122,16 @@ export const login_user = async (req, res) => {
 
 
 // Delete User
-export const delete_user = async (req,res) =>{
+export const delete_user = async (req, res) => {
     try {
         const users = User.find()
         const id = req.params.id;
         await User.findByIdAndDelete(id);
-        res.render('admin/users',{
-            users:users
+        res.render('admin/users', {
+            users: users
         })
     } catch (error) {
-        
+
     }
 }
 

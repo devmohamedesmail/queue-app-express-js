@@ -74,6 +74,25 @@ app.get('/', (req, res) => {
 
 
 
+// session middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET, 
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // true إذا عندك HTTPS فقط
+    maxAge: 1000 * 60 * 60 * 24 * 7 // أسبوع
+  }
+}));
+
+
+
+
+
+
+
+
+
 // *************** Dashboard Routes file  
 app.use('/dashboard', dashboard)
 // *************** Places Routes file  
