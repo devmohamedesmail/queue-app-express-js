@@ -26,7 +26,6 @@ router.get('/move/queue/:id/:place?/:service?/:number?', move_queue_to_back);
 // get all user queues according day
 router.get('/user/queues/:id', get_all_users_queues);
 
-// get Queue Details by service id and place id
-router.get('/queue/details/:place/:service?', get_queue_details_by_service_id_and_place_id);
+
 
 export default router;

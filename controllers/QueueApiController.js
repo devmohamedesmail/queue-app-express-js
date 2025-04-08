@@ -116,8 +116,43 @@ export const get_all_users_queues = async (req, res) => {
             return res.status(404).json({ message: "No queues found for this user today" });
         }
 
+        const queuesData = [];
+        // Loop through each queue to calculate aheadOfYou, nowServing, and estimatedTime
+        for (let queue of userQueues) {
+            const { placeId, serviceId } = queue;
+
+            // Calculate ahead of you
+            const aheadOfYou = await Queue.countDocuments({
+                placeId,
+                serviceId,
+                status: 'waiting',
+                createdAt: { $gte: todayStart, $lte: todayEnd }, // Only today's queues
+                createdAt: { $lt: queue.createdAt } // Users before this one in the same service
+            });
+
+            // Find the first active queue for the same placeId and serviceId
+            const nowServing = await Queue.findOne({
+                placeId,
+                serviceId,
+                status: 'active',
+                createdAt: { $gte: todayStart, $lte: todayEnd }
+            }).sort({ queue: 1 });
+
+            // Calculate estimated time based on people ahead of the user
+            const estimatedTime = aheadOfYou * 5; // Assuming 5 minutes per user
+
+            // Collect the result for this queue
+            queuesData.push({
+                queue,
+                aheadOfYou,
+                nowServing,
+                estimatedTime
+            });
+        }
+
+        res.status(200).json(queuesData);
        
-        res.status(200).json(userQueues);
+     
         
     } catch (error) {
         console.error(error);
@@ -203,23 +238,6 @@ export const move_queue_to_back = async (req, res) => {
 
 
 
-// get Queue Details by service id and place id
-export const get_queue_details_by_service_id_and_place_id = async (req,res)=>{
-    try {
-        await connectDB()
-        const { place, service } = req.params;
-        const queueDetails = await Queue.find({ placeId: place, serviceId: service });
-        
-        if (!queueDetails || queueDetails.length === 0) {
-            return res.status(404).json({ message: "No queue details found for this service and place" });
-        }
-        
-        res.status(200).json(queueDetails); 
-    } catch (error) {
-        res.status(400).json(error);
-        
-    }
-}
 
 
 
