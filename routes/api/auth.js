@@ -1,5 +1,5 @@
 import express from 'express';
-import { register_user ,login_user } from '../../controllers/api/AuthApiController.js';
+import { register_user ,login_user , edit_user } from '../../controllers/api/AuthApiController.js';
 const router = express.Router();
 
 
@@ -7,7 +7,13 @@ const router = express.Router();
 router.post('/register', register_user )
 
 // Login User
-router.post('/login', login_user )
+router.post('/login', login_user );
+
+
+
+
+// Edit user
+router.post('/edit/user/:id', edit_user )
 
 
 

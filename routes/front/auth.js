@@ -14,8 +14,8 @@ router.get('/logout', logout_user);
 // delete user
 router.get('/delete/user/:id', delete_user)
 
-// Delete User
-router.post('/edit/user/:id', delete_user);
+
+
 
 
 
