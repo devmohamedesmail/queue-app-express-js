@@ -45,29 +45,3 @@
 </div>
 
 
-
-<script>
-    document.querySelectorAll('.speak-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const queueNumber = button.getAttribute('data-queue');
-
-            // الرسالة بالإنجليزية
-            const msgEnglish = new SpeechSynthesisUtterance(`Queue number ${queueNumber}, please proceed.`);
-            msgEnglish.lang = 'en-US';
-
-            // الرسالة بالعربية
-            const msgArabic = new SpeechSynthesisUtterance(`الرقم ${queueNumber}، تفضل`);
-            msgArabic.lang = 'ar-SA';
-
-            // نطق الإنجليزية أولاً
-            window.speechSynthesis.speak(msgEnglish);
-
-            // ننتظر انتهاء الصوت الإنجليزي، ثم 5 ثواني، ثم نطق العربي
-            msgEnglish.onend = () => {
-                setTimeout(() => {
-                    window.speechSynthesis.speak(msgArabic);
-                }, 5000); // 5000 ميلي ثانية = 5 ثواني
-            };
-        });
-    });
-</script>

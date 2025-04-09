@@ -58,16 +58,16 @@ export const register_user = async (req, res) => {
 export const login_user = async (req, res) => {
     try {
         await connectDB();
-        const places = await Place.find()
-        const users = await User.find()
+       
 
         const { email, password } = req.body;
     
        
-       
-        
+        // validation section
+
         if (!email || !password) {
-            return res.status(400).json({ status: 400, message: "Email and password are required" });
+           return res.status(400).json({ status: 400, message: "Email and password are required" });
+     
         }
 
         // البحث عن المستخدم في قاعدة البيانات
@@ -86,31 +86,32 @@ export const login_user = async (req, res) => {
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "7d" } // التوكن صالح لمدة 7 أيام
+            { expiresIn: "7d" } 
         );
 
 
         // Set token as a cookie or in local storage
         res.cookie("auth_token", token, {
             httpOnly: true, // Secure the cookie from JS access
-            secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+            secure: process.env.NODE_ENV === "production", 
+            maxAge: 7 * 24 * 60 * 60 * 1000, 
         });
+
+        req.session.user = {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            placeId: user.place,
+        };
+
+        console.log(req.session.user);
 
 
         if (user.role === 'admin') {
             res.redirect('/dashboard/index')
         } else if (user.role === 'subscriber') {
-            try {
-               
-                req.session.user = user;
-                console.log(req.session.user)
-                res.redirect('/subscriber/index')
-                
-            } catch (error) {
-                console.error(error)
-                res.status(500).send("Something went wrong.")
-            }
+            res.redirect('/subscriber/index')
         } else {
             res.render('front/index.ejs')
         }
@@ -122,6 +123,37 @@ export const login_user = async (req, res) => {
 }
 
 
+
+
+
+// ********************************* Logout User *************************************
+export const logout_user = async (req, res) => {
+    try {
+       
+
+      
+        req.session.destroy((err) => {
+            if (err) {
+                console.log("Error destroying session:", err);
+                return res.status(500).json({ status: 500, message: "Something went wrong during logout." });
+            }
+            
+            res.clearCookie("auth_token");
+            res.clearCookie("user_data");
+            
+            return res.render('front/login.ejs', {
+                message: "User logged out successfully",
+                title: "Login",
+                layout: "layouts/front.ejs",
+            });
+           
+
+        });
+    } catch (error) {
+        console.log("Logout error:", error);
+        res.status(500).json({ status: 500, message: "Something went wrong." });
+    }
+}
 
 // Delete User
 export const delete_user = async (req, res) => {

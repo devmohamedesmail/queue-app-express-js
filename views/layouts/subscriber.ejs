@@ -1,66 +1,114 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queue App | <%= title  %></title>
-    <%- include('../partials/styles.ejs') %>
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queue App | <%= title  %></title>
+  <%- include('../partials/styles.ejs') %>
+
 </head>
+
 <body>
-  
-    
-    <main>
-        <div class="drawer">
-            <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content">
-              <!-- Page content here -->
-             
-              <div class="flex justify-between items-center p-4 bg-base-200">
-                <div>
-                    <img src="/assets/images/logo.svg" class="w-32" alt="">
-                </div>
-
-                <label for="my-drawer" class="btn btn-primary drawer-button">
-                    <i class="fa-solid fa-bars"></i>
-                  </label>
 
 
-              </div>
-            </div>
-            <div class="drawer-side">
-              <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-              <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-                <!-- Sidebar content here -->
-                <li><a>
-                    <i class="fa-solid fa-house"></i>
-                    <span class="ml-2">Dashboard</span>
-                </a></li>
+  <main>
+    <div class="drawer">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <!-- Page content here -->
 
-                <li><a>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="ml-2">Users</span>
-                </a></li>
-                <li><a>
-                    <i class="fa-solid fa-user"></i>
-                    <span class="ml-2">Profile</span>
-                </a></li>
-                <li><a>
-                    <i class="fa-solid fa-gear"></i>
-                    <span class="ml-2">Settings</span>
-                </a></li>
-                <li><a>
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span class="ml-2">Logout</span>
-                </a></li>
-                
-                
-              </ul>
-            </div>
+        <div class="flex justify-between items-center p-4 bg-base-200">
+          <div>
+            <img src="/assets/images/logo.svg" class="w-32" alt="">
           </div>
-        <%- body %> 
-    </main>
 
-  
+          <div class="flex items-center">
+            <div class="mx-2 flex flex-col justify-center items-center">
+              <p class=" text-secondary text-sm">
+                <% if (user) { %><%= user.name %> <% } %>
+              </p>
+              <p class=" text-secondary text-sm">
+                <% if (user) { %><%= user.email %> <% } %>
+              </p>
+             
+            </div>
+
+            <label for="my-drawer" class="btn btn-primary drawer-button">
+              <i class="fa-solid fa-bars"></i>
+            </label>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+
+      <div class="drawer-side">
+        <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+
+
+          <% if (user && user.placeId) { %>
+
+
+          <li class="border-b-2 border-primary">
+            <a href="/subscriber/statistics/<%= user.placeId %>">
+              <img src="/assets/images/statistics.svg" class="w-6 h-6" alt="">
+              <span class="ml-2">Statistics</span>
+            </a>
+          </li>
+
+
+
+          <li class="border-b-2 border-primary">
+            <a href="/subscriber/users/<%= user.placeId %>">
+              <img src="/assets/images/users.svg" class="w-6 h-6" alt="">
+              <span class="ml-2">Users</span>
+            </a>
+          </li>
+          
+
+
+          <li class="border-b-2 border-primary">
+            <a href="/subscriber/setting/<%= user.placeId %>">
+              <img src="/assets/images/setting.svg" class="w-6 h-6" alt="">
+              <span class="ml-2">Setting</span>
+            </a>
+          </li>
+
+          <li class="border-b-2 border-primary">
+            <a href="/subscriber/queues/<%= user.placeId %>">
+              <img src="/assets/images/waiting.svg" class="w-6 h-6" alt="">
+              <span class="ml-2">Queues</span>
+            </a>
+          </li>
+
+
+          <li class="border-b-2 border-primary mt-10">
+            <a href="/users/logout">
+              <img src="/assets/images/logout.svg" class="w-6 h-6" alt="">
+              <span class="ml-2">Logout</span>
+            </a>
+          </li>
+         
+
+
+
+
+
+          <% } %>
+
+
+        </ul>
+      </div>
+    </div>
+    <%- body %>
+  </main>
+
+
 </body>
+
 </html>

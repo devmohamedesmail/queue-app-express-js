@@ -2,6 +2,7 @@ import connectDB from "../../config/db.js";
 import Queue from "../../models/Queue.js";
 import User from "../../models/User.js";
 import bcrypt from "bcryptjs";
+import moment from 'moment';
 
 export const redirect_to_index = (req, res)=>{
     try {
@@ -120,15 +121,34 @@ export const redirect_to_setting = async (req, res) => {
 
 export const redirect_to_queues = async (req, res) => {
     try {
+        await connectDB()
+        const startOfDay = moment().startOf('day').toDate(); 
+        const endOfDay = moment().endOf('day').toDate()
+
+        // const queues = await Queue.find({
+        //     placeId: req.params.id,
+        //     createdAt: {
+        //         $gte: startOfDay,
+        //         $lt: endOfDay
+        //     }
+        // }); 
+        
+        const queues = await Queue.find({ placeId: req.params.placeId })
+            
+       
         res.render('subscriber/queues', {
             layout: "layouts/subscriber",
             title: "Subscriber Queues",
+            queues: queues,
         });
+        
     } catch (error) {
-        res.send('error', {
-            layout: "layouts/error",
+        console.log(error);
+        res.status(500).render('404', {
+            layout: "layouts/main",
             title: "Error",
             message: error.message,
+            
         });
     }
 }

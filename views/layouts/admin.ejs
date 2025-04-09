@@ -4,26 +4,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Queue App | <%= title  %></title>
+  <title>Queue App | <%= title %>
+  </title>
   <%- include('../partials/styles.ejs') %>
 </head>
 
 <body>
   <div class="flex flex-row h-screen ">
-    
-      <%- include('../partials/sidebar.ejs') %>
- 
+
+    <%- include('../partials/sidebar.ejs') %>
 
 
-    <div class="flex-1 ml-52 overflow-auto">
-      <%- include('../partials/header.ejs') %>
-      <div class="px-3 py-4">
-        <%- body  %>
 
+      <div class="flex-1 ml-0 md:ml-52 overflow-auto">
+        <%- include('../partials/header.ejs') %>
+          <div class="px-3 py-4">
+            <%- body %>
+
+          </div>
       </div>
-    </div>
   </div>
 
+  <script>
+    let toggle_btn = document.getElementById('toggle_btn');
+    let hide_sidebar_btn = document.getElementById('hide_sidebar_btn');
+    let sidebar = document.getElementById('sidebar');
+
+
+
+    toggle_btn.addEventListener('click', function () {
+      sidebar.classList.toggle('w-52');
+      sidebar.classList.add('z-50');
+      console.log('clicked');
+
+    });
+
+    hide_sidebar_btn.addEventListener('click', function () {
+      sidebar.classList.remove('w-52');
+      
+      console.log('clicked');
+
+    });
+  </script>
   <%- include('../partials/script.ejs') %>
 </body>
 

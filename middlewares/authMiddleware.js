@@ -2,26 +2,24 @@ import jwt from "jsonwebtoken";
 
 export const protect = (req, res, next) => {
     try {
-      
-        // استخراج التوكن من الكوكيز
-        const token = req.cookies.auth_token;
-       
-
-        if (!token) {
-            return res.render('front/login.ejs')
-           // return res.status(401).json({ status: 401, message: "No token, authorization denied" });
+        // التحقق مما إذا كانت بيانات المستخدم موجودة في الجلسة
+        if (!req.session.user) {
+            // إذا لم يكن المستخدم موجودًا في الجلسة، إعادة توجيه المستخدم إلى صفحة تسجيل الدخول
+            return res.render('front/login',{
+                message: "Session expired, please login again",
+                layout: "layouts/front",
+                title: "Login",
+            });
         }
 
-        // التحقق من صحة التوكن
-       // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
+        req.user = req.session.user;
 
-        // إرفاق بيانات المستخدم بالطلب
-       // req.user = decoded;
-        next(); // الانتقال إلى المسار المطلوب
+       
+        next();
         
     } catch (error) {
-      
-        return res.status(401).json({ status: 401, message: "Invalid token" });
+        console.log("Session verification failed:", error);
+        return res.send(error);
     }
 };
-

@@ -1,1 +1,65 @@
-queuws
+<div class="container m-auto px-2">
+
+
+    <div class="queues-container my-10">
+
+        <% if (queues.length> 0) { %>
+            <% queues.forEach(queue=> { %>
+                <div class="queue-item flex justify-between items-center bg-base-200 p-4 mb-2">
+                    <div class="text-lg flex items-center font-semibold">
+                        
+                         <img src="/assets/images/waiting.svg" class="w-10 h-10" alt="">
+                        <span class="ml-4">Queue</span>
+                        <span class="text-primary font-bold">#<%= queue.queue %></span>
+                    </div>
+                    <div>
+                        <a href="/subscriber/change/queue/to/active/<%= queue._id %>"
+                            class="btn btn-primary btn-sm">Active</a>
+                        <button class="btn btn-primary btn-sm speak-btn" data-queue="<%= queue.queue %>">
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+                <% }) %>
+                    <% } else { %>
+                        <div class="text-center text-lg text-gray-500 py-6">
+                            <i class="fa-solid fa-face-smile-beam text-2xl text-black mb-2"></i>
+                            <p class="text-black">No queues today 🎉</p>
+                        </div>
+                        <% } %>
+    
+    
+    </div>
+
+</div>
+
+
+
+
+
+
+<script>
+    document.querySelectorAll('.speak-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const queueNumber = button.getAttribute('data-queue');
+
+            // الرسالة بالإنجليزية
+            const msgEnglish = new SpeechSynthesisUtterance(`Queue number ${queueNumber}, please proceed.`);
+            msgEnglish.lang = 'en-US';
+
+            // الرسالة بالعربية
+            const msgArabic = new SpeechSynthesisUtterance(`الرقم ${queueNumber}، تفضل`);
+            msgArabic.lang = 'ar-SA';
+
+            // نطق الإنجليزية أولاً
+            window.speechSynthesis.speak(msgEnglish);
+
+            // ننتظر انتهاء الصوت الإنجليزي، ثم 5 ثواني، ثم نطق العربي
+            msgEnglish.onend = () => {
+                setTimeout(() => {
+                    window.speechSynthesis.speak(msgArabic);
+                }, 5000); // 5000 ميلي ثانية = 5 ثواني
+            };
+        });
+    });
+</script>

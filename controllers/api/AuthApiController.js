@@ -26,18 +26,16 @@ export const register_user = async (req, res) => {
 
             const token = jwt.sign(
                 { id: newUser._id },
-                process.env.JWT_SECRET, // تأكد من وجود متغير JWT_SECRET في .env
-                { expiresIn: "7d" } // صلاحية التوكن 7 أيام
+                process.env.JWT_SECRET, 
+                { expiresIn: "7d" } 
             );
 
             res.status(201).json({
                 status: 201,
                 message: "User registered successfully",
                 user: {
-                    id: newUser._id,
-                    name: newUser.name,
-                    email: newUser.email,
-                    token,
+                    user:newUser,
+                    token:token,
                 },
             });
         }
@@ -91,9 +89,8 @@ export const login_user = async (req, res) => {
             status: 200,
             message: "Login successful",
             user: {
-                id: user._id,
-                email: user.email,
-                token,
+                user: user,
+                token: token,
             },
         });
 

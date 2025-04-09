@@ -17,14 +17,3 @@ image.addEventListener('change', function () {
 });
 
 
-
-// Toggle Sidebar
-let toggle_btn = document.getElementById('toggle_btn');
-let sidebar = document.getElementById('sidebar');
-
-
-toggle_btn.addEventListener('click', function () {
-    sidebar.classList.toggle('w-52');
-    sidebar.classList.add('z-50');
-    
-});

@@ -22,6 +22,7 @@ import authapi from './routes/api/auth.js'
 import frontroutes from './routes/front/front.js'
 import appSetting from './routes/admin/appSetting.js'
 import subscribe_routes from './routes/subscriber/routes.js'
+import { protect } from './middlewares/authMiddleware.js';
 
 
 
@@ -90,16 +91,24 @@ app.use((req, res, next) => {
 
 
 
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
+
+
+
 
 
 // *************** Dashboard Routes file  
-app.use('/dashboard', dashboard)
+app.use('/dashboard',protect ,dashboard)
 // *************** Places Routes file  
-app.use('/places', places);
+app.use('/places', protect , places);
 // *************** Services Routes file  
-app.use('/services', services)
+app.use('/services',protect ,services)
 // *************** Setting Routes file  
-app.use('/settings', setting)
+app.use('/settings', protect ,setting)
 // *************** Users Routes file 
 app.use('/users', auth)
 // **************** App Setting file
@@ -110,7 +119,7 @@ app.use('/front',frontroutes);
 
 
 // *************** Subscriber file
-app.use('/subscriber' , subscribe_routes );
+app.use('/subscriber' , protect , subscribe_routes );
 
 
 
