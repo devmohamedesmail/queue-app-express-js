@@ -101,5 +101,41 @@ export const login_user = async (req, res) => {
 }
 
 
+// Edit user
+export const edit_user = async (req, res) => {
+    try {
+        await connectDB();
+        const id = req.params.id;
+        const { name,email , password } = req.body;
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: "User not found" });
+        }
+        if (name) {
+            user.name = name;
+        }
+        if (email) {
+            user.email = email;
+        }
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+        }
+        await user.save();
+        res.status(200).json({
+            status: 200,
+            message: "User updated successfully",
+            user: user,
+        });
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            status: 500,
+            message: error.message
+        })
+    }
+}
+
 
 
