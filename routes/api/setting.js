@@ -1,5 +1,5 @@
 import express from 'express';
-import { fetch_setting, fetch_theme_setting } from '../../controllers/SettingApiController.js';
+import { fetch_setting, fetch_theme_setting } from '../../controllers/api/SettingApiController.js';
 const router = express.Router();
 
 router.get('/', fetch_setting);

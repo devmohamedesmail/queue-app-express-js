@@ -1,6 +1,6 @@
-import connectDB from "../config/db.js";
-import Queue from "../models/Queue.js";
-import Place from "../models/Place.js";
+import connectDB from "../../config/db.js";
+import Queue from "../../models/Queue.js";
+import Place from "../../models/Place.js";
 
 export const bookQueue = async (req, res) => {
     try {

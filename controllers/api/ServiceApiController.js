@@ -1,6 +1,6 @@
-import connectDB from "../config/db.js";
-import Service from "../models/Service.js";
-import Queue from "../models/Queue.js";
+import connectDB from "../../config/db.js";
+import Service from "../../models/Service.js";
+import Queue from "../../models/Queue.js";
 
 
 export const fetch_place_services = async (req, res) => {

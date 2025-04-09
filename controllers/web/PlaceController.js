@@ -1,6 +1,6 @@
-import Place from "../models/Place.js";
-import connectDB from "../config/db.js";
-import Service from "../models/Service.js";
+import Place from "../../models/Place.js";
+import connectDB from "../../config/db.js";
+import Service from "../../models/Service.js";
 
 
 

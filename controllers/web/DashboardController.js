@@ -1,10 +1,10 @@
 
 import { title } from "process";
-import connectDB from "../config/db.js";
-import AppSetting from "../models/AppSetting.js";
-import Place from "../models/Place.js";
-import Setting from "../models/Setting.js";
-import User from "../models/User.js";
+import connectDB from "../../config/db.js";
+import AppSetting from "../../models/AppSetting.js";
+import Place from "../../models/Place.js";
+import Setting from "../../models/Setting.js";
+import User from "../../models/User.js";
 
 
 

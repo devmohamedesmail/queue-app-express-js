@@ -37,15 +37,7 @@ const app = express();
 
 
 
-  // Middleware to load data before handling requests
-app.use(async (req, res, next) => {
-    try {
-      await loadData();  // Ensure data is loaded/cached
-      next();
-    } catch (error) {
-      next(error);  // Handle error if any
-    }
-  });
+
 
 
 //  middleware
@@ -86,7 +78,14 @@ app.use(session({
 }));
 
 
+// flash middleware
+app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 
 

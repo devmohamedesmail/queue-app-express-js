@@ -1,5 +1,5 @@
 import express from 'express';
-import { redirect_login_page } from '../../controllers/FrontController.js';
+import { redirect_login_page } from '../../controllers/web/FrontController.js';
 
 const router = express.Router();
 

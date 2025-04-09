@@ -1,5 +1,5 @@
-import connectDB from "../config/db.js"
-import AppSetting from "../models/AppSetting.js"
+import connectDB from "../../config/db.js"
+import AppSetting from "../../models/AppSetting.js"
 
 
 

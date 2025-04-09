@@ -1,5 +1,5 @@
-import connectDB from "../config/db.js";
-import Setting from "../models/Setting.js";
+import connectDB from "../../config/db.js";
+import Setting from "../../models/Setting.js";
 
 export const update_setting = async (req, res) => {
     try {

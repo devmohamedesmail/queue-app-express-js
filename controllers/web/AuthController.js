@@ -1,10 +1,10 @@
 import { title } from "process";
-import connectDB from "../config/db.js"
-import Place from "../models/Place.js";
-import User from "../models/User.js"
+import connectDB from "../../config/db.js"
+import Place from "../../models/Place.js";
+import User from "../../models/User.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import Queue from "../models/Queue.js";
+import Queue from "../../models/Queue.js";
 
 // ********************************* Register User **********************************
 export const register_user = async (req, res) => {
@@ -62,8 +62,10 @@ export const login_user = async (req, res) => {
         const users = await User.find()
 
         const { email, password } = req.body;
-
-        // التحقق من إدخال جميع البيانات
+    
+       
+       
+        
         if (!email || !password) {
             return res.status(400).json({ status: 400, message: "Email and password are required" });
         }

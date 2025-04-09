@@ -3,7 +3,7 @@ const router = express.Router();
 import multer from 'multer';
 import path from 'path'
 import fs from 'fs';
-import { add_new_place, delete_place, edit_place_confirm, edit_place_page } from '../../controllers/PlaceController.js'
+import { add_new_place, delete_place, edit_place_confirm, edit_place_page } from '../../controllers/web/PlaceController.js'
 
 
 

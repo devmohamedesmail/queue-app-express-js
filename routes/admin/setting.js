@@ -1,7 +1,7 @@
 
 
 import express from 'express';
-import { update_setting } from '../../controllers/SettingController.js';
+import { update_setting } from '../../controllers/web/SettingController.js';
 const router = express.Router();
 import multer from 'multer';
 import path from 'path'

@@ -1,5 +1,6 @@
 import express from 'express';
-import { register_user ,login_user, delete_user } from '../../controllers/AuthController.js';
+import { register_user,login_user, delete_user } from '../../controllers/web/AuthController.js';
+
 const router = express.Router();
 
 // Register User

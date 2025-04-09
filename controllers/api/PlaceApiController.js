@@ -1,5 +1,5 @@
-import connectDB from "../config/db.js";
-import Place from "../models/Place.js";
+import connectDB from "../../config/db.js";
+import Place from "../../models/Place.js";
 
 
 export const getPlaces = async (req, res) => {
