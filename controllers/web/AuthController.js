@@ -10,7 +10,7 @@ import Queue from "../../models/Queue.js";
 export const register_user = async (req, res) => {
     try {
         await connectDB();
-        const { email, password } = req.body;
+        const { name, email, password } = req.body;
 
 
         const existingUser = await User.findOne({ email });
@@ -22,6 +22,7 @@ export const register_user = async (req, res) => {
 
 
             const newUser = new User()
+            newUser.name = name
             newUser.email = email
             newUser.password = hashedPassword
 
@@ -32,6 +33,21 @@ export const register_user = async (req, res) => {
                 process.env.JWT_SECRET,
                 { expiresIn: "7d" }
             );
+
+            // Set token as a cookie or in local storage
+            res.cookie("auth_token", token, {
+                httpOnly: true, // Secure the cookie from JS access
+                secure: process.env.NODE_ENV === "production",
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+            });
+
+            req.session.user = {
+                id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+                role: newUser.role,
+                placeId: newUser.place,
+            };
 
             res.redirect('/');
         }
@@ -54,16 +70,16 @@ export const register_user = async (req, res) => {
 export const login_user = async (req, res) => {
     try {
         await connectDB();
-       
+
 
         const { email, password } = req.body;
-    
-       
+
+
         // validation section
 
         if (!email || !password) {
-           return res.status(400).json({ status: 400, message: "Email and password are required" });
-     
+            return res.status(400).json({ status: 400, message: "Email and password are required" });
+
         }
 
         // البحث عن المستخدم في قاعدة البيانات
@@ -82,15 +98,15 @@ export const login_user = async (req, res) => {
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "7d" } 
+            { expiresIn: "7d" }
         );
 
 
         // Set token as a cookie or in local storage
         res.cookie("auth_token", token, {
             httpOnly: true, // Secure the cookie from JS access
-            secure: process.env.NODE_ENV === "production", 
-            maxAge: 7 * 24 * 60 * 60 * 1000, 
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
         req.session.user = {
@@ -109,7 +125,7 @@ export const login_user = async (req, res) => {
         } else if (user.role === 'subscriber') {
             res.redirect('/subscriber/index')
         } else {
-            res.render('front/index.ejs',{
+            res.render('front/index.ejs', {
                 places: places,
                 title: "Home Page",
                 layout: "layouts/front",
@@ -129,24 +145,24 @@ export const login_user = async (req, res) => {
 // ********************************* Logout User *************************************
 export const logout_user = async (req, res) => {
     try {
-       
 
-      
+
+
         req.session.destroy((err) => {
             if (err) {
                 console.log("Error destroying session:", err);
                 return res.status(500).json({ status: 500, message: "Something went wrong during logout." });
             }
-            
+
             res.clearCookie("auth_token");
             res.clearCookie("user_data");
-            
+
             return res.render('front/login.ejs', {
                 message: "User logged out successfully",
                 title: "Login",
                 layout: "layouts/front.ejs",
             });
-           
+
 
         });
     } catch (error) {

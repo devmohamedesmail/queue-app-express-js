@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema({
     place:{
         type: String,
         required: false,
-        default:null
+        default:"0"
     },
     image: {
         type: String,

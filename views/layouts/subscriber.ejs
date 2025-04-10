@@ -18,17 +18,17 @@
       <div class="drawer-content">
         <!-- Page content here -->
 
-        <div class="flex justify-between items-center p-4 bg-base-200">
+        <div class="flex items-center justify-between p-4 bg-base-200">
           <div>
             <img src="/assets/images/logo.svg" class="w-32" alt="">
           </div>
 
           <div class="flex items-center">
-            <div class="mx-2 flex flex-col justify-center items-center">
-              <p class=" text-secondary text-sm">
+            <div class="flex flex-col items-center justify-center mx-2">
+              <p class="text-xs font-bold text-secondary">
                 <% if (user) { %><%= user.name %> <% } %>
               </p>
-              <p class=" text-secondary text-sm">
+              <p class="text-xs text-primary">
                 <% if (user) { %><%= user.email %> <% } %>
               </p>
              
@@ -48,7 +48,7 @@
 
       <div class="drawer-side">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+        <ul class="min-h-full p-4 menu bg-base-200 text-base-content w-80">
 
 
           <% if (user && user.placeId) { %>
@@ -87,7 +87,7 @@
           </li>
 
 
-          <li class="border-b-2 border-primary mt-10">
+          <li class="mt-10 border-b-2 border-primary">
             <a href="/users/logout">
               <img src="/assets/images/logout.svg" class="w-6 h-6" alt="">
               <span class="ml-2">Logout</span>

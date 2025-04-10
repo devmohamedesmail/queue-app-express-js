@@ -84,11 +84,12 @@ export const show_waiting_list = async (req, res) => {
     const startOfDay = moment().startOf('day').toDate();
     const endOfDay = moment().endOf('day').toDate();
 
+   
 
     const queues = await Queue.find({
         status: 'waiting',
         placeId: place,
-        service: service,
+        serviceId: service,
         createdAt: {
             $gte: startOfDay,
             $lte: endOfDay
@@ -130,6 +131,8 @@ export const Book_my_turn = async (req, res) => {
                 userId: userId,
                 place: place,
             });
+
+
             const todayStart = new Date();
             todayStart.setHours(0, 0, 0, 0);
             const todayEnd = new Date();
@@ -181,11 +184,7 @@ export const Book_my_turn = async (req, res) => {
             res.render('front/my_queues', {
                 title: "My Queues",
                 layout: "layouts/front",
-                
                 queuesData: queuesData,
-                // place: place,
-                // service: service,
-
             })
         }
 
@@ -195,4 +194,72 @@ export const Book_my_turn = async (req, res) => {
     }
 
 
+}
+
+
+
+// show user queues
+export const show_user_queues = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        await connectDB();
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);
+        const todayEnd = new Date();
+        todayEnd.setHours(23, 59, 59, 999);
+
+        const userQueues = await Queue.find({
+            status: 'waiting',
+            userId: userId,
+            createdAt: { $gte: todayStart, $lte: todayEnd }
+        }).sort({ createdAt: 1 });
+
+
+        const queuesData = [];
+
+        for (let queue of userQueues) {
+            const { placeId, serviceId } = queue;
+
+            // Calculate ahead of you
+            const aheadOfYou = await Queue.countDocuments({
+                placeId,
+                serviceId,
+                status: 'waiting',
+                createdAt: { $gte: todayStart, $lte: todayEnd }, // Only today's queues
+                createdAt: { $lt: queue.createdAt } // Users before this one in the same service
+            });
+
+            // Find the first active queue for the same placeId and serviceId
+            const nowServing = await Queue.findOne({
+                placeId,
+                serviceId,
+                status: 'active',
+                createdAt: { $gte: todayStart, $lte: todayEnd }
+            }).sort({ queue: 1 });
+
+            // Calculate estimated time based on people ahead of the user
+            const estimatedTime = aheadOfYou * 5; // Assuming 5 minutes per user
+
+            // Collect the result for this queue
+            queuesData.push({
+                queue,
+                aheadOfYou,
+                nowServingQueue: nowServing ? nowServing.queue : null,
+                estimatedTime
+            });
+        }
+
+
+
+        res.render('front/my_queues', {
+            title: "My Queues",
+            layout: "layouts/front",
+            queuesData: queuesData,
+        })
+    } catch (error) {
+        res.render('404',{
+            title: "Page Not Found",
+            layout: "layouts/front"
+        })
+    }
 }

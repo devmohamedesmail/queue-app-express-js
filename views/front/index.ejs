@@ -10,7 +10,8 @@
  
 
      <div class="container px-3 m-auto my-10">
-        <h6 class="py-10 text-center bg-primary"> Book Your Queue Easily From Your Home </h6>
+        <img src="/assets/images/banner.jpg" alt="">
+        <h6 class="py-10 font-bold text-center text-primary"> Book Your Queue Easily From Your Home  </h6>
      </div>
 
 
@@ -24,7 +25,8 @@
                    
                     <div class="flex flex-col items-center justify-center px-3 py-4">
                         <h1 class="text-sm text-center"><%- place.nameEn %></h1>
-                        <a href="/front/fetch/place/service/<%= place._id %>" class="mt-5 btn btn-primary">Book Queue </a>
+                        <h1 class="mt-5 text-sm text-center text-primary"><%- place.addressEn %></h1>
+                        <a href="/front/fetch/place/service/<%= place._id %>" class="w-full mt-5 btn btn-primary">Book Queue </a>
                     </div> 
                 </div>
                <% }) %>
@@ -37,7 +39,7 @@
 
 
 
-
+   <a href="/subscriber/show/qr/code/67db0fea78176bffc4851c80">show qr</a>
     
 
 

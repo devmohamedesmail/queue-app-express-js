@@ -1,4 +1,5 @@
 import connectDB from "../../config/db.js";
+import Place from "../../models/Place.js";
 import Queue from "../../models/Queue.js";
 import User from "../../models/User.js";
 import bcrypt from "bcryptjs";
@@ -103,9 +104,14 @@ export const create_new_user_for_place = async (req,res) =>{
 
 export const redirect_to_setting = async (req, res) => {
     try {
+        await connectDB()
+        
+        const placeId = req.params.placeId;
+        const place = await Place.findById(placeId);
         res.render('subscriber/setting', {
             layout: "layouts/subscriber",
             title: "Subscriber Setting",
+            place: place,
         });
     } catch (error) {
         res.send('error', {
@@ -124,14 +130,6 @@ export const redirect_to_queues = async (req, res) => {
         await connectDB()
         const startOfDay = moment().startOf('day').toDate(); 
         const endOfDay = moment().endOf('day').toDate()
-
-        // const queues = await Queue.find({
-        //     placeId: req.params.id,
-        //     createdAt: {
-        //         $gte: startOfDay,
-        //         $lt: endOfDay
-        //     }
-        // }); 
         
         const queues = await Queue.find({ placeId: req.params.placeId })
             
@@ -149,6 +147,47 @@ export const redirect_to_queues = async (req, res) => {
             title: "Error",
             message: error.message,
             
+        });
+    }
+}
+
+
+
+
+export const edit_place_info = async (req, res) => {
+    try {
+        await connectDB();
+        const placeId = req.params.placeId;
+        const place = await Place.findById(placeId);
+        place.nameEn = req.body.nameEn;
+        place.nameAr = req.body.nameAr;
+        place.addressEn = req.body.addressEn;
+        place.addressAr = req.body.addressAr;
+        place.description = req.body.description;
+        if (req.file) {
+            place.image = req.file.filename;
+        }
+        place.location = {
+            lat: req.body.lat,
+            lng: req.body.lng
+        }
+
+        place.timeStart = req.body.timeStart;
+        place.timeClosed = req.body.timeClosed;
+        place.daysOfWork = req.body.daysOfWork || [];
+
+         await place.save();
+         res.render('subscriber/setting', {
+            layout: "layouts/subscriber",
+            title: "Subscriber Setting",
+            place: place,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).render('404', {
+            layout: "layouts/main",
+            title: "Error",
+            message: error.message,
         });
     }
 }
