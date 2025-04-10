@@ -33,11 +33,7 @@ export const register_user = async (req, res) => {
                 { expiresIn: "7d" }
             );
 
-            res.render('front/index.ejs', {
-                message: "User registered successfully",
-                title: "Home",
-                layout: "front/layout.ejs",
-            })
+            res.redirect('/');
         }
 
 
@@ -105,7 +101,7 @@ export const login_user = async (req, res) => {
             placeId: user.place,
         };
 
-        console.log(req.session.user);
+        const places = await Place.find();
 
 
         if (user.role === 'admin') {
@@ -113,7 +109,11 @@ export const login_user = async (req, res) => {
         } else if (user.role === 'subscriber') {
             res.redirect('/subscriber/index')
         } else {
-            res.render('front/index.ejs')
+            res.render('front/index.ejs',{
+                places: places,
+                title: "Home Page",
+                layout: "layouts/front",
+            })
         }
 
     } catch (error) {

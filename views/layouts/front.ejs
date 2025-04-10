@@ -9,11 +9,63 @@
 </head>
 <body>
   
-    
+    <div class="shadow-sm navbar bg-base-100">
+        <div class="flex-1">
+          <a class="text-xl btn btn-ghost" href="/">
+            <img src="/assets/images/logo.svg" class="w-10 h-10" alt="">
+            <span class="mx-2">Queue App</span>
+          </a>
+        </div>
+        <div class="flex gap-2">
+         
+            
+            <% if (user) { %>
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="border border-primary btn btn-ghost btn-circle avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <ul
+                      tabindex="0"
+                      class="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52">
+                      
+                      <li><a> <%= user.name  %> </a></li>
+                      <li><a> <%= user.email  %> </a></li>
+                      <li><a href="/users/logout">Logout</a></li>
+                    </ul>
+                  </div>
+            <% } else { %>
+                <a href="/front/login/page" class="px-2 text-sm ">Login / Register</a>
+            <% } %>
+            
+ 
+
+
+
+
+
+
+            
+         
+        </div>
+      </div>
     <main>
         <%- body %> 
     </main>
 
+    <footer class="py-10 bg-gray-300 mt-50">
+        <div class="container m-auto">
+            <div class="flex flex-col items-center justify-center md:flex-row">
+                <a href="" class="flex items-center px-10 py-4 mx-10 my-4 text-white bg-black rounded-lg">
+                    <img src="/assets/images/apple.png" class="w-10 h-10" alt="">
+                    <p class="mx-5">Download Our App From Apple Store</p>
+                </a>
+                <a href="" class="flex items-center px-10 py-4 mx-10 my-4 text-white bg-black rounded-lg">
+                    <img src="/assets/images/google-play.png" class="w-10 h-10" alt="">
+                    <p class="mx-5">Download Our App From Google Play</p>
+                </a>
+            </div>
+        </div>
+      </footer>
   
 </body>
 </html>

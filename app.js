@@ -3,7 +3,6 @@ import express from 'express';
 import path from 'path';
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import loadData from './utilites/loadData.js';
 import expressLayouts from 'express-ejs-layouts';
 import session from 'express-session';
 import flash from 'connect-flash';
@@ -23,6 +22,9 @@ import frontroutes from './routes/front/front.js'
 import appSetting from './routes/admin/appSetting.js'
 import subscribe_routes from './routes/subscriber/routes.js'
 import { protect } from './middlewares/authMiddleware.js';
+import connectDB from './config/db.js';
+import Place from './models/Place.js';
+import userRoutes from './routes/front/routes.js'
 
 
 
@@ -57,19 +59,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-app.get('/', (req, res) => {
-  res.render('front/login',{
-    title:"Login Page",
-    layout:"layouts/front"
-  })
-})
 
 
 
 
 // session middleware
 app.use(session({
-  secret: process.env.SESSION_SECRET, 
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -102,24 +98,26 @@ app.use((req, res, next) => {
 
 
 // *************** Dashboard Routes file  
-app.use('/dashboard',protect ,dashboard)
+app.use('/dashboard', protect, dashboard)
 // *************** Places Routes file  
-app.use('/places', protect , places);
+app.use('/places', protect, places);
 // *************** Services Routes file  
-app.use('/services',protect ,services)
+app.use('/services', protect, services)
 // *************** Setting Routes file  
-app.use('/settings', protect ,setting)
+app.use('/settings', protect, setting)
 // *************** Users Routes file 
 app.use('/users', auth)
 // **************** App Setting file
-app.use('/app/settings',appSetting)
+app.use('/app/settings', appSetting)
 // *************** Front End Routes 
-app.use('/front',frontroutes);
+app.use('/front', frontroutes);
 
+app.use('/' , userRoutes );
+   
 
 
 // *************** Subscriber file
-app.use('/subscriber' , protect , subscribe_routes );
+app.use('/subscriber', protect, subscribe_routes);
 
 
 
@@ -149,7 +147,7 @@ app.use('/api/v1/auth', authapi);
 
 
 // app.use((req, res, next) => {
-  
+
 //   res.status(404).render('front/404');
 // });
 
@@ -159,5 +157,5 @@ app.use('/api/v1/auth', authapi);
 
 
 app.listen(3000, () => {
-    console.log(`http://localhost:3000`);
+  console.log(`http://localhost:3000`);
 });

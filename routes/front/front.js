@@ -1,10 +1,17 @@
 import express from 'express';
-import { redirect_login_page } from '../../controllers/web/FrontController.js';
+import { fetch_place_service_for_user, redirect_login_page } from '../../controllers/web/FrontController.js';
 
 const router = express.Router();
 
 
 // redirect to login page
 router.get('/login/page', redirect_login_page )
+
+
+// 
+router.get('/fetch/place/service/:place', fetch_place_service_for_user)
+
+
+
 
 export default router;
