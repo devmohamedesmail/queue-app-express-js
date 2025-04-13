@@ -13,7 +13,6 @@ import placesapi from './routes/api/places.js'
 import queueapi from './routes/api/queue.js'
 import services from './routes/admin/services.js'
 import servicesapi from './routes/api/services.js'
-import dashboard from './routes/admin/dashboard.js'
 import setting from './routes/admin/setting.js'
 import settingapi from './routes/api/setting.js'
 import auth from './routes/front/auth.js'
@@ -25,6 +24,7 @@ import { protect } from './middlewares/authMiddleware.js';
 import connectDB from './config/db.js';
 import Place from './models/Place.js';
 import userRoutes from './routes/front/routes.js'
+import admin from './routes/admin/routes.js';
 
 
 
@@ -98,7 +98,7 @@ app.use((req, res, next) => {
 
 
 // *************** Dashboard Routes file  
-app.use('/dashboard', protect, dashboard)
+
 // *************** Places Routes file  
 app.use('/places', protect, places);
 // *************** Services Routes file  
@@ -116,6 +116,11 @@ app.use('/' , userRoutes );
    
 
 
+
+
+
+// *************** Admin Routes file
+app.use('/admin' , protect , admin );
 // *************** Subscriber file
 app.use('/subscriber', protect, subscribe_routes);
 
@@ -146,10 +151,6 @@ app.use('/api/v1/auth', authapi);
 
 
 
-// app.use((req, res, next) => {
-
-//   res.status(404).render('front/404');
-// });
 
 
 

@@ -121,7 +121,7 @@ export const login_user = async (req, res) => {
 
 
         if (user.role === 'admin') {
-            res.redirect('/dashboard/index')
+            res.redirect('/admin/index')
         } else if (user.role === 'subscriber') {
             res.redirect('/subscriber/index')
         } else {

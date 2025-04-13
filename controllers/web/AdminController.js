@@ -1,13 +1,8 @@
-
-import { title } from "process";
 import connectDB from "../../config/db.js";
 import AppSetting from "../../models/AppSetting.js";
 import Place from "../../models/Place.js";
 import Setting from "../../models/Setting.js";
 import User from "../../models/User.js";
-
-
-
 
 
 
@@ -26,8 +21,12 @@ export const dashboard_index = async (req, res) => {
             title: "Dashboard"
         })
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Server Error', error: error.message });
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+
     }
 
 }
@@ -44,8 +43,11 @@ export const dashboard_places = async (req, res) => {
             title: "Places"
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Server Error', error: error.message });
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
     }
 }
 
@@ -56,12 +58,15 @@ export const dashboard_users = async (req, res) => {
         const users = await User.find()
         res.render('admin/users', {
             users: users,
-            title:"Users",
-            layout:"layouts/admin"
+            title: "Users",
+            layout: "layouts/admin"
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Server Error', error: error.message });
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
     }
 }
 
@@ -88,8 +93,11 @@ export const dashboard_setting = async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Server Error', error: error.message });
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
     }
 }
 
@@ -105,7 +113,9 @@ export const dashboard_app_setting = async (req, res) => {
             setting: setting
         })
     } catch (error) {
-        res.rend('admin/404.ejs', {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
             error: error.message
         })
     }
