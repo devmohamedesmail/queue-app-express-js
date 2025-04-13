@@ -17,22 +17,22 @@
 
 
                             <div class="col-span-12 md:col-span-5">
-                                <h1 class="text-center font-semibold">Edit Place - <%= place.nameEn %>
+                                <h1 class="font-semibold text-center">Edit Place - <%= place.nameEn %>
                                 </h1>
-                                <form action="/places/edit/place/confirm/<%= place._id  %>" method="post"
+                                <form action="/admin/edit/place/confirm/<%= place._id  %>" method="post"
                                     enctype="multipart/form-data">
 
 
                                     <div class="mb-3">
                                         <label class="block text-sm">Name ( Ar )</label>
-                                        <input type="text" name="nameAr" required class="input input-primary w-full"
+                                        <input type="text" name="nameAr" required class="w-full input input-primary"
                                             value="<%= place.nameAr  %>" />
                                     </div>
 
 
                                     <div class="mb-3">
                                         <label class="block text-sm">Name ( En )</label>
-                                        <input type="text" name="nameEn" required class="input input-primary w-full"
+                                        <input type="text" name="nameEn" required class="w-full input input-primary"
                                             value="<%= place.nameEn %>" />
                                     </div>
 
@@ -44,13 +44,13 @@
 
                                     <div class="mb-3">
                                         <label class="block">Address ( En )</label>
-                                        <input type="text" name="addressEn" required class="input input-primary w-full"
+                                        <input type="text" name="addressEn" required class="w-full input input-primary"
                                             value="<%= place.addressEn  %>" />
                                     </div>
 
                                     <div class="mb-3 text-sm">
                                         <label class="block">Address ( Ar )</label>
-                                        <input type="text" name="addressAr" required class="input input-primary w-full"
+                                        <input type="text" name="addressAr" required class="w-full input input-primary"
                                             value="<%= place.addressAr  %>" />
                                     </div>
 
@@ -58,7 +58,7 @@
 
                                     <div class="mb-2">
                                         <label class="block">Description</label>
-                                        <input type="text" name="description" class="input input-primary w-full"
+                                        <input type="text" name="description" class="w-full input input-primary"
                                             value="<%= place.description  %>" />
                                     </div>
 
@@ -66,13 +66,13 @@
 
                                     <div class="mb-3 text-sm">
                                         <label class="block">Latitude</label>
-                                        <input type="text" name="lat" required class="input input-primary w-full"
+                                        <input type="text" name="lat" required class="w-full input input-primary"
                                             value="<%= place.location.lat  %>" />
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="block text-sm">Longitude</label>
-                                        <input type="text" name="lng" required class="input input-primary w-full"
+                                        <input type="text" name="lng" required class="w-full input input-primary"
                                             value="<%= place.location.lng  %>" />
                                     </div>
 
@@ -80,29 +80,29 @@
 
 
                                     <img src="/uploads/<%= place.image  %>" alt="<%= place.name  %>"
-                                        class="w-18 h-12" />
+                                        class="h-12 w-18" />
 
 
                                     <div class="my-3">
                                         <label
-                                            class="flex justify-center items-center flex-col py-4 text-sm border border-dashed "
+                                            class="flex flex-col items-center justify-center py-4 text-sm border border-dashed "
                                             for="image">
 
                                             <div class="mb-2">
                                                 <img src="" id="preview" alt="">
                                             </div>
                                             <input type="file" id="image" name="image" 
-                                                class="file-input file-input-primary w-full hidden" />
+                                                class="hidden w-full file-input file-input-primary" />
 
                                             <div>
-                                                <i class="fa-solid fa-file-image text-3xl"></i>
+                                                <i class="text-3xl fa-solid fa-file-image"></i>
                                             </div>
                                         </label>
 
                                     </div>
 
 
-                                    <button type="submit" class="btn btn-primary w-full">Save</button>
+                                    <button type="submit" class="w-full btn btn-primary">Save</button>
                                 </form>
                             </div>
 
@@ -113,23 +113,23 @@
 
 
                             <div class="col-span-12 md:col-span-7">
-                                <h3 class="font-semibold text-center text-xl">Add Service</h3>
+                                <h3 class="text-xl font-semibold text-center">Add Service</h3>
                                 <form action="/services/add/new/service/<%=  place._id  %>" method="post">
 
 
                                     <div class="mb-3">
-                                        <label class="block text-sm mb-1">Service [Ar]</label>
-                                        <input type="text" name="serviceAr" class="input input-primary w-full" />
+                                        <label class="block mb-1 text-sm">Service [Ar]</label>
+                                        <input type="text" name="serviceAr" class="w-full input input-primary" />
                                     </div>
 
 
                                     <div class="mb-3">
-                                        <label class="block text-sm mb-1">Service [En]</label>
-                                        <input type="text" name="serviceEn" class="input input-primary w-full" />
+                                        <label class="block mb-1 text-sm">Service [En]</label>
+                                        <input type="text" name="serviceEn" class="w-full input input-primary" />
                                     </div>
 
 
-                                    <button type="submit" class="btn btn-primary w-full">Save</button>
+                                    <button type="submit" class="w-full btn btn-primary">Save</button>
 
 
                                 </form>
@@ -140,10 +140,10 @@
 
 
                                 <div class="my-5">
-                                    <h4 class="text-center font-semibold">All Services</h4>
+                                    <h4 class="font-semibold text-center">All Services</h4>
 
                                     <% services.forEach(item=> { %>
-                                        <div class="flex justify-between items-center  py-5 shadow-md my-2 bg-gradient-to-r from-gray-100 to-gray-200 px-4">
+                                        <div class="flex items-center justify-between px-4 py-5 my-2 shadow-md bg-gradient-to-r from-gray-100 to-gray-200">
                                             <div>
                                                 <p>
                                                     <%= item.nameEn %>
@@ -154,13 +154,13 @@
                                             </div>
 
                                             <div>
-                                                <a href="/services/edit/service/<%= item._id %> " class="btn btn-success btn-xs mx-1">
-                                                    <i class="fa-solid fa-pen text-white"></i>
+                                                <a href="/services/edit/service/<%= item._id %> " class="mx-1 btn btn-success btn-xs">
+                                                    <i class="text-white fa-solid fa-pen"></i>
                                                 </a>
                                                 <a 
                                                 onclick="return confirm('Are you sure you want to delete this item?');"
-                                                href="/services/delete/service/<%= item._id %> " class="btn btn-error btn-xs mx-1">
-                                                    <i class="fa-solid fa-trash text-white"></i>
+                                                href="/services/delete/service/<%= item._id %> " class="mx-1 btn btn-error btn-xs">
+                                                    <i class="text-white fa-solid fa-trash"></i>
                                                 </a>
                                             </div>
 

@@ -8,7 +8,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 
 // routes files
-import places from './routes/admin/places.js'
+
 import placesapi from './routes/api/places.js'
 import queueapi from './routes/api/queue.js'
 import services from './routes/admin/services.js'
@@ -21,8 +21,7 @@ import frontroutes from './routes/front/front.js'
 import appSetting from './routes/admin/appSetting.js'
 import subscribe_routes from './routes/subscriber/routes.js'
 import { protect } from './middlewares/authMiddleware.js';
-import connectDB from './config/db.js';
-import Place from './models/Place.js';
+
 import userRoutes from './routes/front/routes.js'
 import admin from './routes/admin/routes.js';
 
@@ -99,8 +98,8 @@ app.use((req, res, next) => {
 
 // *************** Dashboard Routes file  
 
-// *************** Places Routes file  
-app.use('/places', protect, places);
+
+
 // *************** Services Routes file  
 app.use('/services', protect, services)
 // *************** Setting Routes file  

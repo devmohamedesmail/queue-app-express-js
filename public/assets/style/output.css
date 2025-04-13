@@ -1404,6 +1404,9 @@
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
   }
+  .ml-10 {
+    margin-left: calc(var(--spacing) * 10);
+  }
   .status {
     display: inline-block;
     aspect-ratio: 1 / 1;
