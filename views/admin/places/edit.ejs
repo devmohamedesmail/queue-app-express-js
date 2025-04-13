@@ -1,186 +1,169 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<div class="p-4">
+    <div class="grid grid-cols-12 gap-5">
 
-<head>
-    <%- include('../inc/style.ejs') %>
-    <title>Edit Place - <%= place.nameEn  %></title>
-</head>
 
-<body>
-    <div class="flex ">
-        <%- include('../inc/sidebar.ejs') %>
-            <div class="flex-1">
-                <%- include('../inc/header.ejs') %>
+        <div class="col-span-12 md:col-span-5">
+            <h1 class="font-semibold text-center">Edit Place - <%= place.nameEn %>
+            </h1>
+            <form action="/admin/edit/place/confirm/<%= place._id  %>" method="post"
+                enctype="multipart/form-data">
 
-                    <div class="p-4">
-                        <div class="grid grid-cols-12 gap-5">
 
+                <div class="mb-3">
+                    <label class="block text-sm">Name ( Ar )</label>
+                    <input type="text" name="nameAr" required class="w-full input input-primary"
+                        value="<%= place.nameAr  %>" />
+                </div>
 
-                            <div class="col-span-12 md:col-span-5">
-                                <h1 class="font-semibold text-center">Edit Place - <%= place.nameEn %>
-                                </h1>
-                                <form action="/admin/edit/place/confirm/<%= place._id  %>" method="post"
-                                    enctype="multipart/form-data">
 
+                <div class="mb-3">
+                    <label class="block text-sm">Name ( En )</label>
+                    <input type="text" name="nameEn" required class="w-full input input-primary"
+                        value="<%= place.nameEn %>" />
+                </div>
 
-                                    <div class="mb-3">
-                                        <label class="block text-sm">Name ( Ar )</label>
-                                        <input type="text" name="nameAr" required class="w-full input input-primary"
-                                            value="<%= place.nameAr  %>" />
-                                    </div>
 
 
-                                    <div class="mb-3">
-                                        <label class="block text-sm">Name ( En )</label>
-                                        <input type="text" name="nameEn" required class="w-full input input-primary"
-                                            value="<%= place.nameEn %>" />
-                                    </div>
 
 
 
 
+                <div class="mb-3">
+                    <label class="block">Address ( En )</label>
+                    <input type="text" name="addressEn" required class="w-full input input-primary"
+                        value="<%= place.addressEn  %>" />
+                </div>
 
+                <div class="mb-3 text-sm">
+                    <label class="block">Address ( Ar )</label>
+                    <input type="text" name="addressAr" required class="w-full input input-primary"
+                        value="<%= place.addressAr  %>" />
+                </div>
 
 
-                                    <div class="mb-3">
-                                        <label class="block">Address ( En )</label>
-                                        <input type="text" name="addressEn" required class="w-full input input-primary"
-                                            value="<%= place.addressEn  %>" />
-                                    </div>
 
-                                    <div class="mb-3 text-sm">
-                                        <label class="block">Address ( Ar )</label>
-                                        <input type="text" name="addressAr" required class="w-full input input-primary"
-                                            value="<%= place.addressAr  %>" />
-                                    </div>
+                <div class="mb-2">
+                    <label class="block">Description</label>
+                    <input type="text" name="description" class="w-full input input-primary"
+                        value="<%= place.description  %>" />
+                </div>
 
 
 
-                                    <div class="mb-2">
-                                        <label class="block">Description</label>
-                                        <input type="text" name="description" class="w-full input input-primary"
-                                            value="<%= place.description  %>" />
-                                    </div>
+                <div class="mb-3 text-sm">
+                    <label class="block">Latitude</label>
+                    <input type="text" name="lat" required class="w-full input input-primary"
+                        value="<%= place.location.lat  %>" />
+                </div>
 
+                <div class="mb-3">
+                    <label class="block text-sm">Longitude</label>
+                    <input type="text" name="lng" required class="w-full input input-primary"
+                        value="<%= place.location.lng  %>" />
+                </div>
 
 
-                                    <div class="mb-3 text-sm">
-                                        <label class="block">Latitude</label>
-                                        <input type="text" name="lat" required class="w-full input input-primary"
-                                            value="<%= place.location.lat  %>" />
-                                    </div>
 
-                                    <div class="mb-3">
-                                        <label class="block text-sm">Longitude</label>
-                                        <input type="text" name="lng" required class="w-full input input-primary"
-                                            value="<%= place.location.lng  %>" />
-                                    </div>
 
+                
 
+                    <div class="flex items-center justify-center">
+                        <img src="/uploads/<%= place.image  %>" alt="<%= place.name  %>"
+                         class="w-24 h-24" />
+                    </div>
 
 
-                                    <img src="/uploads/<%= place.image  %>" alt="<%= place.name  %>"
-                                        class="h-12 w-18" />
+                <div class="my-3">
+                    <label
+                        class="flex flex-col items-center justify-center py-4 text-sm border border-dashed "
+                        for="image">
 
+                        <div class="mb-2">
+                            <img src="" id="preview" alt="">
+                        </div>
+                        <input type="file" id="image" name="image" 
+                            class="hidden w-full file-input file-input-primary" />
 
-                                    <div class="my-3">
-                                        <label
-                                            class="flex flex-col items-center justify-center py-4 text-sm border border-dashed "
-                                            for="image">
+                        <div>
+                            <i class="text-3xl fa-solid fa-file-image"></i>
+                        </div>
+                    </label>
 
-                                            <div class="mb-2">
-                                                <img src="" id="preview" alt="">
-                                            </div>
-                                            <input type="file" id="image" name="image" 
-                                                class="hidden w-full file-input file-input-primary" />
+                </div>
 
-                                            <div>
-                                                <i class="text-3xl fa-solid fa-file-image"></i>
-                                            </div>
-                                        </label>
 
-                                    </div>
+                <button type="submit" class="w-full btn btn-primary">Save</button>
+            </form>
+        </div>
 
 
-                                    <button type="submit" class="w-full btn btn-primary">Save</button>
-                                </form>
-                            </div>
 
 
 
 
 
+        <div class="col-span-12 md:col-span-7">
+            <h3 class="text-xl font-semibold text-center">Add Service</h3>
+            <form action="/services/add/new/service/<%=  place._id  %>" method="post">
 
 
-                            <div class="col-span-12 md:col-span-7">
-                                <h3 class="text-xl font-semibold text-center">Add Service</h3>
-                                <form action="/services/add/new/service/<%=  place._id  %>" method="post">
+                <div class="mb-3">
+                    <label class="block mb-1 text-sm">Service [Ar]</label>
+                    <input type="text" name="serviceAr" class="w-full input input-primary" />
+                </div>
 
 
-                                    <div class="mb-3">
-                                        <label class="block mb-1 text-sm">Service [Ar]</label>
-                                        <input type="text" name="serviceAr" class="w-full input input-primary" />
-                                    </div>
+                <div class="mb-3">
+                    <label class="block mb-1 text-sm">Service [En]</label>
+                    <input type="text" name="serviceEn" class="w-full input input-primary" />
+                </div>
 
 
-                                    <div class="mb-3">
-                                        <label class="block mb-1 text-sm">Service [En]</label>
-                                        <input type="text" name="serviceEn" class="w-full input input-primary" />
-                                    </div>
+                <button type="submit" class="w-full btn btn-primary">Save</button>
 
 
-                                    <button type="submit" class="w-full btn btn-primary">Save</button>
+            </form>
 
 
-                                </form>
 
 
 
 
+            <div class="my-5">
+                <h4 class="font-semibold text-center">All Services</h4>
 
-
-                                <div class="my-5">
-                                    <h4 class="font-semibold text-center">All Services</h4>
-
-                                    <% services.forEach(item=> { %>
-                                        <div class="flex items-center justify-between px-4 py-5 my-2 shadow-md bg-gradient-to-r from-gray-100 to-gray-200">
-                                            <div>
-                                                <p>
-                                                    <%= item.nameEn %>
-                                                </p>
-                                                <p>
-                                                    <%= item.nameAr %>
-                                                </p>
-                                            </div>
-
-                                            <div>
-                                                <a href="/services/edit/service/<%= item._id %> " class="mx-1 btn btn-success btn-xs">
-                                                    <i class="text-white fa-solid fa-pen"></i>
-                                                </a>
-                                                <a 
-                                                onclick="return confirm('Are you sure you want to delete this item?');"
-                                                href="/services/delete/service/<%= item._id %> " class="mx-1 btn btn-error btn-xs">
-                                                    <i class="text-white fa-solid fa-trash"></i>
-                                                </a>
-                                            </div>
-
-
-                                        </div>
-                                        <% }) %>
-                                </div>
-
-
-
-                            </div>
-
-
+                <% services.forEach(item=> { %>
+                    <div class="flex items-center justify-between px-4 py-5 my-2 shadow-md bg-gradient-to-r from-gray-100 to-gray-200">
+                        <div>
+                            <p>
+                                <%= item.nameEn %>
+                            </p>
+                            <p>
+                                <%= item.nameAr %>
+                            </p>
                         </div>
 
+                        <div>
+                            <a href="/services/edit/service/<%= item._id %> " class="mx-1 btn btn-success btn-xs">
+                                <i class="text-white fa-solid fa-pen"></i>
+                            </a>
+                            <a 
+                            onclick="return confirm('Are you sure you want to delete this item?');"
+                            href="/services/delete/service/<%= item._id %> " class="mx-1 btn btn-error btn-xs">
+                                <i class="text-white fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+
+
                     </div>
+                    <% }) %>
             </div>
+
+
+
+        </div>
+
+
     </div>
 
-    <%- include('../inc/script.ejs') %>
-</body>
-
-</html>
+</div>

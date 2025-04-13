@@ -170,6 +170,8 @@ export const edit_place_page = async(req,res) =>{
         const services = await Service.find({placeId: req.params.id})
         res.render('admin/places/edit', {
             place: place,
+            layout: "layouts/admin",
+            title: "Edit Place",
             services: services
         })
     } catch (error) {
