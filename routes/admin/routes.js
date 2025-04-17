@@ -3,13 +3,15 @@ import {
     dashboard_index, dashboard_places,
     dashboard_users,
     dashboard_setting,
-    dashboard_app_setting,
     add_new_place, edit_place_page,
     edit_place_confirm, 
     delete_place, 
     addNewService, 
     delete_service,
-    edit_service
+    edit_service,
+    update_setting,
+    edit_user
+
     } from '../../controllers/web/AdminController.js';
 import { protect } from '../../middlewares/authMiddleware.js';
 const router = express.Router();
@@ -51,7 +53,7 @@ router.get('/users', protect, dashboard_users)
 // GET /dashboard/setting
 router.get('/setting', protect, dashboard_setting)
 // GET /dashboard/setting
-router.get('/app/setting', protect, dashboard_app_setting)
+
 
 
 
@@ -79,6 +81,17 @@ router.post('/add/new/service/:id', addNewService)
 router.post('/edit/service/:place/:service', edit_service)
 // Delete Existing Service
 router.get('/delete/service/:place/:service', delete_service)
+
+
+
+
+// ************************************************** Setting Routes ******************************************
+router.post('/update',upload.single('image') ,update_setting);
+
+
+
+// ************************************************** Edit users Routes ******************************************
+router.post('/edit/user/:id', edit_user)
 
 
 export default router;

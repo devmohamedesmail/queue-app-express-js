@@ -67,3 +67,11 @@ table th{
   width: 30px;
 
 }
+
+tbody tr:nth-child(odd) {
+  background-color: #dad8d8db !important; 
+}
+
+ tbody tr:nth-child(even) {
+  background-color: #ffffff !important; 
+}

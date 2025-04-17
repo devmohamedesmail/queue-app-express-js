@@ -12,12 +12,12 @@ import flash from 'connect-flash';
 import placesapi from './routes/api/places.js'
 import queueapi from './routes/api/queue.js'
 import servicesapi from './routes/api/services.js'
-import setting from './routes/admin/setting.js'
+
 import settingapi from './routes/api/setting.js'
 import auth from './routes/front/auth.js'
 import authapi from './routes/api/auth.js'
 import frontroutes from './routes/front/front.js'
-import appSetting from './routes/admin/appSetting.js'
+
 import subscribe_routes from './routes/subscriber/routes.js'
 import { protect } from './middlewares/authMiddleware.js';
 
@@ -101,11 +101,9 @@ app.use((req, res, next) => {
 
 
 // *************** Setting Routes file  
-app.use('/settings', protect, setting)
+
 // *************** Users Routes file 
 app.use('/users', auth)
-// **************** App Setting file
-app.use('/app/settings', appSetting)
 // *************** Front End Routes 
 app.use('/front', frontroutes);
 

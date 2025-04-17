@@ -1,24 +1,28 @@
-<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<h4 class="mb-2 text-xl font-bold text-primary">Dashboard</h4>
+<hr class="mb-3">
+
+
+<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
 
 
 
-    <div class="card shadow flex flex-col justify-between items-center py-5 bg-blue-500 h-40">
-        <i class="fa-solid fa-location-dot text-4xl text-white"></i>
+    <div class="flex flex-col items-center justify-between h-40 py-5 bg-blue-500 shadow card">
+        <i class="text-4xl text-white fa-solid fa-location-dot"></i>
          
-         <div class="flex justify-between items-center w-full px-10">
-            <p class="text-white font-bold">Places</p>
-            <p class="text-white font-bold bg-secondary p-3 w-10 h-10 flex justify-center items-center rounded-full" ><%= places.length  %></p>
+         <div class="flex items-center justify-between w-full px-10">
+            <p class="font-bold text-white">Places</p>
+            <p class="flex items-center justify-center w-10 h-10 p-3 font-bold text-white rounded-full bg-secondary" ><%= places.length  %></p>
          </div>
     </div>
 
 
 
-    <div class="card shadow flex flex-col justify-between items-center py-5 bg-red-500 h-40">
+    <div class="flex flex-col items-center justify-between h-40 py-5 bg-red-500 shadow card">
         
-        <i class="fa-solid fa-users text-4xl text-white"></i>
-         <div class="flex justify-between items-center w-full px-10">
-            <p class="text-white font-bold">Users</p>
-            <p class="text-white font-bold bg-secondary p-3 w-10 h-10 flex justify-center items-center rounded-full" ><%= users.length  %></p>
+        <i class="text-4xl text-white fa-solid fa-users"></i>
+         <div class="flex items-center justify-between w-full px-10">
+            <p class="font-bold text-white">Users</p>
+            <p class="flex items-center justify-center w-10 h-10 p-3 font-bold text-white rounded-full bg-secondary" ><%= users.length  %></p>
          </div>
     </div>
 

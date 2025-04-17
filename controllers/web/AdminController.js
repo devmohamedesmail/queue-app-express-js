@@ -1,5 +1,5 @@
 import connectDB from "../../config/db.js";
-import AppSetting from "../../models/AppSetting.js";
+
 import Place from "../../models/Place.js";
 import Setting from "../../models/Setting.js";
 import User from "../../models/User.js";
@@ -57,8 +57,10 @@ export const dashboard_users = async (req, res) => {
     try {
         await connectDB()
         const users = await User.find()
+        const places = await Place.find();
         res.render('admin/users', {
             users: users,
+            places: places,
             title: "Users",
             layout: "layouts/admin"
         });
@@ -104,23 +106,8 @@ export const dashboard_setting = async (req, res) => {
 
 
 
-// ********************************* App Setting Page *********************************
-export const dashboard_app_setting = async (req, res) => {
-    try {
-        await connectDB();
-        const setting = await AppSetting.findOne();
-        console.log(setting)
-        res.render('admin/appsetting', {
-            setting: setting
-        })
-    } catch (error) {
-        res.render('admin/404.ejs', {
-            title: "Error",
-            layout: "layouts/admin",
-            error: error.message
-        })
-    }
-}
+
+
 
 
 
@@ -300,5 +287,96 @@ export const delete_service = async (req, res) => {
         res.redirect(`/admin/edit/place/${place._id}`);
     } catch (error) {
         console.log(error)
+    }
+}
+
+
+
+
+
+
+
+// *****************************************************************************************
+// ************************************ Setting Fucntions ************************************
+// *****************************************************************************************
+export const update_setting = async (req, res) => {
+    try {
+       
+        await connectDB();
+    
+        const setting = await Setting.findOne();
+        if (setting) {
+            // if record is found, update the record
+            setting.nameEn = req.body.nameEn;
+            setting.nameAr = req.body.nameAr;
+            setting.descriptionEn = req.body.descriptionEn;
+            setting.descriptionAr = req.body.descriptionAr;
+           
+            if(req.file){
+                setting.logo = req.file.filename;
+            }
+            setting.email = req.body.email;
+            setting.phone = req.body.phone;
+            setting.address = req.body.address;
+            setting.appUrl = req.body.appUrl;
+            await setting.save();
+            res.redirect('/admin/setting');
+        } else {
+            // if record is not found, create a new record
+            const setting = new Setting();
+            setting.nameEn = req.body.nameEn;
+            setting.nameAr = req.body.nameAr;
+            setting.descriptionEn = req.body.descriptionEn;
+            setting.descriptionAr = req.body.descriptionAr;
+            setting.logo = req.file.filename;
+            setting.email = req.body.email;
+            setting.phone = req.body.phone;
+            setting.address = req.body.address;
+            setting.appUrl = req.body.appUrl;
+            await setting.save();
+            res.redirect('/admin/setting');
+        }
+        
+    } catch (error) {
+        
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+
+    }
+}
+
+
+
+
+
+// *****************************************************************************************
+// ************************************ Setting Fucntions ************************************
+// *****************************************************************************************
+export const edit_user = async (req, res) => {
+    try {
+        await connectDB();
+        const userId = req.params.id;
+        const users = await User.find()
+        const places = await Place.find();
+        const user = await User.findById(userId);
+        user.name = req.body.name;
+        user.place = req.body.place;
+        user.role = req.body.role;
+        await user.save();
+        res.render('admin/users', {
+            users: users,
+            places: places,
+            title: "Users",
+            layout: "layouts/admin"
+        });
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
     }
 }
