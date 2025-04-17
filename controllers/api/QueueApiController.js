@@ -236,6 +236,20 @@ export const move_queue_to_back = async (req, res) => {
 
 
 
+// get all queues of the user for history
+export const get_all_user_queues_history = async (req, res) => {
+    try {
+        await connectDB()
+        const user = req.params.id;
+        const queues = await Queue.find({ userId: user }).sort({ createdAt: -1 })
+        res.status(200).json(queues);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+}
+
+
+
 
 
 
