@@ -129,7 +129,7 @@ export const dashboard_app_setting = async (req, res) => {
 // *****************************************************************************************
 
 // ************************** Add new Place *****************************
-export const add_new_place = async (req,res)=>{
+export const add_new_place = async (req, res) => {
     try {
         connectDB()
         const newPlace = new Place();
@@ -143,14 +143,14 @@ export const add_new_place = async (req,res)=>{
             lat: req.body.lat,
             lng: req.body.lng
         }
-
+        newPlace.locationlink = req.body.locationlink;
         newPlace.timeStart = req.body.timeStart;
         newPlace.timeClosed = req.body.timeClosed;
         newPlace.daysOfWork = req.body.daysOfWork || [];
-
-         await newPlace.save();
+        newPlace.moveTurn = req.body.moveTurn === 'true';
+        await newPlace.save();
         res.redirect("/admin/places");
-        
+
     } catch (error) {
         res.render('admin/404.ejs', {
             title: "Error",
@@ -163,11 +163,11 @@ export const add_new_place = async (req,res)=>{
 
 
 // ********************** Edit Place Page **************************
-export const edit_place_page = async(req,res) =>{
+export const edit_place_page = async (req, res) => {
     try {
         await connectDB();
         const place = await Place.findById(req.params.id)
-        const services = await Service.find({placeId: req.params.id})
+        const services = await Service.find({ placeId: req.params.id })
         res.render('admin/places/edit', {
             place: place,
             layout: "layouts/admin",
@@ -186,7 +186,7 @@ export const edit_place_page = async(req,res) =>{
 
 
 // ******************************* Edit Place Confirmation *******************************
-export const edit_place_confirm = async(req,res)=>{
+export const edit_place_confirm = async (req, res) => {
     try {
 
         await connectDB()
@@ -202,11 +202,14 @@ export const edit_place_confirm = async(req,res)=>{
         place.description = req.body.description;
         place.location.lat = req.body.lat;
         place.location.lng = req.body.lng;
+        place.locationlink = req.body.locationlink;
         if (req.file) {
             place.image = req.file.filename;
         }
+        place.moveTurn = req.body.moveTurn === 'true';
         await place.save();
-        res.redirect('/admin/places')
+
+        res.redirect(`/admin/edit/place/${place._id}`);
 
     } catch (error) {
         res.render('admin/404.ejs', {
@@ -220,19 +223,82 @@ export const edit_place_confirm = async(req,res)=>{
 
 
 
-// Delete
-export const delete_place = async (req,res)=>{
+// *******************************  Delete Place Function *****************************
+export const delete_place = async (req, res) => {
     try {
         await connectDB()
         const id = req.params.id;
         const place = await Place.findByIdAndDelete(id)
-        res.redirect('/places/places')
-       
+        res.redirect('/admin/places')
+
     } catch (error) {
         res.render('admin/404.ejs', {
             title: "Error",
             layout: "layouts/admin",
             error: error.message
         })
+    }
+}
+
+
+
+// *****************************************************************************************
+// ************************************ Services Fucntions ************************************
+// *****************************************************************************************
+export const addNewService = async (req, res) => {
+    try {
+        await connectDB();
+        const id = req.params.id;
+        const place = await Place.findById(id)
+        const services = await Service.find({ placeId: id })
+
+        // the the service
+        const newService = new Service()
+        newService.placeId = id;
+        newService.nameAr = req.body.serviceAr;
+        newService.nameEn = req.body.serviceEn;
+        await newService.save();
+
+
+        res.redirect(`/admin/edit/place/${place._id}`);
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+export const edit_service = async (req, res) => {
+    try {
+        await connectDB();
+
+        const placeId = req.params.place;
+        const place = await Place.findById(placeId)
+        const serviceId = req.params.service;
+        const service = await Service.findById(serviceId)
+        service.nameAr = req.body.nameAr;
+        service.nameEn = req.body.nameEn;
+        await service.save();
+        res.redirect(`/admin/edit/place/${place._id}`);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+// **************************************** Delete Existing Service *********************************************
+export const delete_service = async (req, res) => {
+
+    try {
+        const place = req.params.place;
+        const serviceId = req.params.service;
+        await connectDB();
+        await Service.findByIdAndDelete(serviceId)
+        // res.redirect(`/places/places`)
+        res.redirect(`/admin/edit/place/${place._id}`);
+    } catch (error) {
+        console.log(error)
     }
 }

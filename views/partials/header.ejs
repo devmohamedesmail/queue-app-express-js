@@ -1,6 +1,6 @@
-<div class="navbar bg-base-100 shadow-sm px-5">
+<div class="sticky top-0 z-50 px-5 shadow-sm navbar bg-base-100">
   <div class="flex-1">
-    <button id="toggle_btn" class="btn btn-ghost text-xl"><i class="fa-solid fa-bars"></i></button>
+    <button id="toggle_btn" class="text-xl btn btn-ghost"><i class="fa-solid fa-bars"></i></button>
 
   </div>
 
@@ -9,22 +9,22 @@
 
 
     <div class="flex items-center">
-      <div class="mx-2 flex flex-col justify-center items-center">
-        <p class=" text-secondary text-sm">
+      <div class="flex flex-col items-center justify-center mx-2">
+        <p class="text-sm text-secondary">
           <% if (user) { %><%= user.name %> <% } %>
         </p>
-        <p class=" text-secondary text-sm">
+        <p class="text-sm text-secondary">
           <% if (user) { %><%= user.email %> <% } %>
         </p>
       </div>
 
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar border border-primary">
-          <i class="fa-regular fa-user text-xl"></i>
+        <div tabindex="0" role="button" class="border btn btn-ghost btn-circle avatar border-primary">
+          <i class="text-xl fa-regular fa-user"></i>
         </div>
-        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          
-         
+        <ul tabindex="0" class="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52">
+
+
           <li><a href="/users/logout">Logout</a></li>
         </ul>
       </div>

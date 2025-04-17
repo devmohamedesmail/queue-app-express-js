@@ -1,9 +1,16 @@
 import express from 'express';
-import { dashboard_index,dashboard_places ,
+import {
+    dashboard_index, dashboard_places,
     dashboard_users,
     dashboard_setting,
     dashboard_app_setting,
-    add_new_place,edit_place_page,edit_place_confirm,delete_place} from '../../controllers/web/AdminController.js';
+    add_new_place, edit_place_page,
+    edit_place_confirm, 
+    delete_place, 
+    addNewService, 
+    delete_service,
+    edit_service
+    } from '../../controllers/web/AdminController.js';
 import { protect } from '../../middlewares/authMiddleware.js';
 const router = express.Router();
 
@@ -38,13 +45,13 @@ const upload = multer({ storage: storage });
 // GET /dashboard/index
 router.get('/index', dashboard_index)
 // GET /dashboard/place
-router.get('/places' ,dashboard_places)
+router.get('/places', dashboard_places)
 // GET /dashboard/users
-router.get('/users', protect ,dashboard_users)
+router.get('/users', protect, dashboard_users)
 // GET /dashboard/setting
-router.get('/setting',protect ,dashboard_setting)
+router.get('/setting', protect, dashboard_setting)
 // GET /dashboard/setting
-router.get('/app/setting',protect, dashboard_app_setting)
+router.get('/app/setting', protect, dashboard_app_setting)
 
 
 
@@ -58,9 +65,20 @@ router.post('/add/new/place', upload.single('image'), add_new_place)
 //************************* redirect Edit page *************************
 router.get('/edit/place/:id', edit_place_page)
 // ************************* Edit Place confimation *************************
-router.post('/edit/place/confirm/:id',upload.single('image'), edit_place_confirm)
+router.post('/edit/place/confirm/:id', upload.single('image'), edit_place_confirm)
 // ************************* Delete Place *************************
 router.get('/delete/place/:id', delete_place)
+
+
+
+
+// ************************************************* Services Routes *****************************************
+// Add New Service
+router.post('/add/new/service/:id', addNewService)
+// Update Service
+router.post('/edit/service/:place/:service', edit_service)
+// Delete Existing Service
+router.get('/delete/service/:place/:service', delete_service)
 
 
 export default router;

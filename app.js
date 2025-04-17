@@ -11,7 +11,6 @@ import flash from 'connect-flash';
 
 import placesapi from './routes/api/places.js'
 import queueapi from './routes/api/queue.js'
-import services from './routes/admin/services.js'
 import servicesapi from './routes/api/services.js'
 import setting from './routes/admin/setting.js'
 import settingapi from './routes/api/setting.js'
@@ -100,8 +99,7 @@ app.use((req, res, next) => {
 
 
 
-// *************** Services Routes file  
-app.use('/services', protect, services)
+
 // *************** Setting Routes file  
 app.use('/settings', protect, setting)
 // *************** Users Routes file 

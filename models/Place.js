@@ -52,16 +52,16 @@ const PlaceSchema = new mongoose.Schema({
         required: false,
         default: []
     },
-    services: [{
-        serviceEn: {
-            type: String,
-            required: true
-        },
-        serviceAr: {
-            type: String,
-            required: true
-        }
-    }]
+    locationlink:{
+        type: String,
+        required: false
+    },
+    moveTurn:{
+        type: Boolean,
+        required: false,
+        default: false
+    }
+   
 
 
 }, { timestamps: true });

@@ -1,6 +1,10 @@
 <div class="p-4">
   <form action="/admin/add/new/place" method="post" enctype="multipart/form-data">
-    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+
+
+    <h5 class="my-3 text-lg font-bold text-primary">General Inforamtion</h5>
+    <hr>
+    <div class="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2">
 
       <div class="mb-3 ">
         <label class="block text-sm text-black label">Name ( Ar )</label>
@@ -27,11 +31,6 @@
 
 
 
-      <div class="mb-3 ">
-        <label class="block text-sm text-black label">Description</label>
-        <input type="text" name="description" required class="w-full input input-primary" />
-      </div>
-
 
       <div class="mb-3 ">
         <label class="block text-sm text-black label">Latitude</label>
@@ -45,12 +44,46 @@
       </div>
 
       <div class="mb-3 ">
+        <label class="block text-sm text-black label">Description</label>
+        <input type="text" name="description" required class="w-full input input-primary" />
+      </div>
+
+
+
+      <div class="mb-3">
+        <label class="flex flex-col items-center justify-center w-full p-4 border border-gray-400 border-dashed image-preview " for="image">
+
+          <div class="mb-2">
+            <img src="" id="preview" alt="">
+          </div>
+          <input type="file" id="image" name="image" required class="hidden w-full file-input file-input-primary" />
+
+          <div>
+            <i class="fa-solid fa-file-image fs-3"></i>
+          </div>
+        </label>
+
+      </div>
+
+    </div>
+
+    <!-- options -->
+    <h5 class="my-3 text-lg font-bold text-primary">Options Settings</h5>
+    <hr>
+    <div class="grid grid-cols-1 gap-3 mt-3 md:grid-cols-2">
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Location Link</label>
+        <input type="text" name="locationlink" class="w-full input input-primary" />
+      </div>
+
+      <div class="mb-3 ">
         <label class="block text-sm text-black label">Start Work</label>
         <input type="time" name="timeStart" required class="w-full input input-primary" />
       </div>
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Start Work</label>
+        <label class="block text-sm text-black label">End Work</label>
         <input type="time" name="timeClosed" required class="w-full input input-primary" />
       </div>
 
@@ -101,22 +134,9 @@
         </div>
       </div>
 
-
-      <div class="mb-3">
-        <label
-          class="flex flex-col items-center justify-center w-full p-4 border border-gray-400 border-dashed image-preview "
-          for="image">
-
-          <div class="mb-2">
-            <img src="" id="preview" alt="">
-          </div>
-          <input type="file" id="image" name="image" required class="hidden w-full file-input file-input-primary" />
-
-          <div>
-            <i class="fa-solid fa-file-image fs-3"></i>
-          </div>
-        </label>
-
+      <div class="flex items-baseline mb-3">
+        <label for="moveTurn" class="block text-sm text-black label">Move Turn</label>
+        <input type="checkbox" name="moveTurn" id="moveTurn" value="true" class="mx-3 toggle toggle-primary" />
       </div>
 
     </div>
@@ -149,55 +169,54 @@
       </thead>
       <tbody>
         <% places.forEach(place=> { %>
-          <tr>
-            <td class="text-xs font-light">
-              <%= place.nameEn %>
-            </td>
+        <tr>
+          <td class="text-xs font-light">
+            <%= place.nameEn %>
+          </td>
 
-            <td class="text-xs font-light">
-              <%= place.nameAr %>
-            </td>
+          <td class="text-xs font-light">
+            <%= place.nameAr %>
+          </td>
 
-            <td class="text-xs font-light">
-              <%= place.addressEn %>
-            </td>
-
-
-            <td class="text-xs font-light">
-              <%= place.addressAr %>
-            </td>
+          <td class="text-xs font-light">
+            <%= place.addressEn %>
+          </td>
 
 
-            <td class="text-xs font-light">
-              <%= place.description %>
-            </td>
-
-            <td>
-              <%= place.location.lat %> - <%= place.location.lng %>
-            </td>
-
-            <td>
-              <img width="50px" src="/uploads/<%= place.image  %>" alt="">
-            </td>
-
-            <td class="flex items-center justify-center">
-
-              <a href="/admin/edit/place/<%= place._id %> " class="m-1 btn btn-success btn-sm ">
-                <i class="text-white fa-solid fa-pen"></i>
-              </a>
+          <td class="text-xs font-light">
+            <%= place.addressAr %>
+          </td>
 
 
-              <a onclick="return confirm('Are you sure you want to delete this item?');"
-                href="/admin/delete/place/<%= place._id %> " class="m-1 btn btn-error btn-sm">
-                <i class="text-white fa-solid fa-trash"></i>
-              </a>
+          <td class="text-xs font-light">
+            <%= place.description %>
+          </td>
 
-            </td>
+          <td>
+            <%= place.location.lat %> - <%= place.location.lng %>
+          </td>
+
+          <td>
+            <img width="50px" src="/uploads/<%= place.image  %>" alt="">
+          </td>
+
+          <td class="flex items-center justify-center">
+
+            <a href="/admin/edit/place/<%= place._id %> " class="m-1 btn btn-success btn-sm ">
+              <i class="text-white fa-solid fa-pen"></i>
+            </a>
+
+
+            <a onclick="return confirm('Are you sure you want to delete this item?');" href="/admin/delete/place/<%= place._id %> " class="m-1 btn btn-error btn-sm">
+              <i class="text-white fa-solid fa-trash"></i>
+            </a>
+
+          </td>
 
 
 
-          </tr>
-          <% }) %>
+        </tr>
+        <% }) %>
 
 
       </tbody>
