@@ -19,8 +19,9 @@
         <!-- Page content here -->
 
         <div class="flex items-center justify-between p-4 bg-base-200">
-          <div>
-            <img src="/assets/images/logo.svg" class="w-32" alt="">
+          <div class="flex items-center">
+            <img src="/uploads/<%= place.image  %>" class="rounded-full h-18 w-18" alt="<%= place.nameEn %>">
+            <h5 class="mx-1 text-sm text-primary"><%= place.nameEn %></h5>
           </div>
 
           <div class="flex items-center">

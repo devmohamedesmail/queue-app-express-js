@@ -1,132 +1,220 @@
-<div class="container m-auto my-10">
-    <form action="/subscriber/edit/place/:id" method="post" enctype="multipart/form-data">
-        <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Name ( Ar )</label>
-            <input type="text" name="nameAr" required class="w-full input input-primary" value="<%= place.nameAr  %>" />
-          </div>
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Name ( En )</label>
-            <input type="text" name="nameEn" required class="w-full input input-primary" value="<%= place.nameEn  %>" />
-          </div>
-    
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Address ( En )</label>
-            <input type="text" name="addressEn" required class="w-full input input-primary" value="<%= place.addressEn  %>" />
-          </div>
-    
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Address ( Ar )</label>
-            <input type="text" name="addressAr" required class="w-full input input-primary" value="<%= place.addressAr  %>" />
-          </div>
-    
-    
-    
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Description</label>
-            <input type="text" name="description" required class="w-full input input-primary" value="<%= place.description  %>" />
-          </div>
-    
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Latitude</label>
-            <input type="text" name="lat" required class="w-full input input-primary" value="<%= place.location.lat  %>" />
-          </div>
-    
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Longitude</label>
-            <input type="text" name="lng" required class="w-full input input-primary" value="<%= place.location.lng  %>" />
-          </div>
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Start Work</label>
-            <input type="time" name="timeStart" required class="w-full input input-primary" value="<%= place.timeStart  %>" />
-          </div>
-    
-          <div class="mb-3 ">
-            <label class="block text-sm text-black label">Start Work</label>
-            <input type="time" name="timeClosed" required class="w-full input input-primary" value="<%= place.timeClosed  %>" />
-          </div>
-    
-    
-    
-          <div class="mb-3">
-            <label class="block text-sm text-black label">Days of Work</label>
-            <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
+<div class="container px-5 m-auto my-10">
+  <form action="/subscriber/edit/place/<%= place._id %>" method="post" enctype="multipart/form-data">
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Name ( Ar )</label>
+        <input type="text" name="nameAr" required class="w-full input input-primary" value="<%= place.nameAr  %>" />
+      </div>
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Name ( En )</label>
+        <input type="text" name="nameEn" required class="w-full input input-primary" value="<%= place.nameEn  %>" />
+      </div>
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Address ( En )</label>
+        <input type="text" name="addressEn" required class="w-full input input-primary"
+          value="<%= place.addressEn  %>" />
+      </div>
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Address ( Ar )</label>
+        <input type="text" name="addressAr" required class="w-full input input-primary"
+          value="<%= place.addressAr  %>" />
+      </div>
+
+
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Description</label>
+        <input type="text" name="description" required class="w-full input input-primary"
+          value="<%= place.description  %>" />
+      </div>
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Latitude</label>
+        <input type="text" name="lat" required class="w-full input input-primary" value="<%= place.location.lat  %>" />
+      </div>
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Longitude</label>
+        <input type="text" name="lng" required class="w-full input input-primary" value="<%= place.location.lng  %>" />
+      </div>
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Start Work</label>
+        <input type="time" name="timeStart" required class="w-full input input-primary"
+          value="<%= place.timeStart  %>" />
+      </div>
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Start Work</label>
+        <input type="time" name="timeClosed" required class="w-full input input-primary"
+          value="<%= place.timeClosed  %>" />
+      </div>
+
+
+
+      <div class="mb-3">
+        <label class="block text-sm text-black label">Days of Work</label>
+        <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
+
+          <% const days=['Sunday', 'Monday' , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; %>
+            <% days.forEach(day=> { %>
               <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="Sunday" class="checkbox" />
-                Sunday
+                <input type="checkbox" name="daysOfWork[]" value="<%= day %>" class="checkbox"
+                  <%=place.daysOfWork.includes(day) ? 'checked' : '' %>
+                />
+                <%= day %>
               </label>
-    
-              <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="Monday" class="checkbox" />
-                Monday
-              </label>
-    
-              <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="Tuesday" class="checkbox" />
-                Tuesday
-              </label>
-    
-              <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="Wednesday" class="checkbox" />
-                Wednesday
-              </label>
-    
-    
-              <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="Thursday" class="checkbox" />
-                Thursday
-              </label>
-    
-    
-              <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="Friday" class="checkbox" />
-                Friday
-              </label>
-    
-              <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="Saturday" class="checkbox" />
-                Saturday
-              </label>
-    
-    
-    
-            </div>
-          </div>
-    
-    
-          <div class="mb-3">
-            <div class="flex items-baseline justify-center my-10">
-              <img class="w-24 h-24" src="/uploads/<%= place.image  %>" alt="">
-              
-            </div>
-            <label
-              class="flex flex-col items-center justify-center w-full p-4 border border-gray-400 border-dashed image-preview "
-              for="image">
-    
-              <div class="mb-2">
-                <img src="" id="preview" alt="">
-              </div>
-              <input type="file" id="image" name="image" required class="hidden w-full file-input file-input-primary" />
-    
-              <div>
-                <i class="fa-solid fa-file-image fs-3"></i>
-              </div>
-            </label>
-    
-          </div>
-    
+              <% }) %>
+
         </div>
-    
-        <div class="flex items-center justify-center col-span-2 my-10">
-          <button type="submit" class="w-1/2 btn btn-primary">Save</button>
+      </div>
+
+      <div class="flex items-baseline mb-3">
+        <label for="moveTurn" class="block text-sm text-black label">Move Turn</label>
+        <input type="checkbox" name="moveTurn" id="moveTurn" <% if (place.moveTurn ) { %> checked <% } %> value="<%=
+            place.moveTurn %>" class="mx-3 toggle toggle-primary" />
+      </div>
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">Location Link</label>
+        <input type="text" name="locationlink" class="w-full input input-primary" value="<%= place.locationlink  %>" />
+      </div>
+
+
+      <div class="mb-3">
+        <div class="flex items-baseline justify-center my-10">
+          <img class="w-24 h-24" src="/uploads/<%= place.image  %>" alt="">
+
         </div>
-      </form>
+        <label
+          class="flex flex-col items-center justify-center w-full p-4 border border-gray-400 border-dashed image-preview "
+          for="image">
+
+          <div class="mb-2">
+            <img src="" id="preview" alt="">
+          </div>
+          <input type="file" id="image" name="image" class="hidden w-full file-input file-input-primary" />
+
+          <div class="flex flex-col items-center justify-center">
+            <i class="fa-solid fa-file-image fs-3"></i>
+            <p>Select Image</p>
+          </div>
+        </label>
+
+      </div>
+
+    </div>
+
+    <div class="flex items-center justify-center col-span-2 my-10">
+      <button type="submit" class="w-1/2 btn btn-primary">Update</button>
+    </div>
+  </form>
+</div>
+
+
+<div class="container px-5 m-auto">
+  <h6 class="text-primary text-md">Services Section</h6>
+  <hr>
+
+  <div class="my-5">
+    <div class="flex items-center justify-between">
+
+      <h4 class="font-semibold text-center">All Services</h4>
+      <!-- You can open the modal using ID.showModal() method -->
+      <button class="btn btn-primary" onclick="my_modal_3.showModal()"> Add New Service </button>
+      <dialog id="my_modal_3" class="modal">
+        <div class="modal-box">
+          <form method="dialog">
+            <button class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+          </form>
+          <form action="/subscriber/add/service/<%= place._id  %>" method="POST">
+
+            <h3 class="mb-4 text-lg font-bold">Add New Service</h3>
+
+            <div class="mb-2">
+              <label class="block text-sm font-medium">Name (EN)</label>
+              <input type="text" name="nameEn" class="w-full input input-bordered" required />
+            </div>
+
+            <div class="mb-2">
+              <label class="block text-sm font-medium">Name (AR)</label>
+              <input type="text" name="nameAr" class="w-full input input-bordered" required />
+            </div>
+
+            <!-- Add more fields if needed -->
+
+            <div class="mt-4 text-right">
+              <button type="submit" class="btn btn-success btn-sm">Save</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+    </div>
+
+    <% services.forEach(item=> { %>
+      <div class="flex items-center justify-between px-4 py-5 my-2 bg-gray-100 shadow">
+        <div>
+          <p>
+            <%= item.nameEn %>
+          </p>
+          <p>
+            <%= item.nameAr %>
+          </p>
+        </div>
+
+        <div>
+          <!-- Button to open modal -->
+          <button class="btn btn-success btn-xs" onclick="document.getElementById('modal_<%= item._id %>').showModal()">
+            <i class="text-white fa-solid fa-pen"></i>
+          </button>
+
+          <!-- Modal -->
+          <dialog id="modal_<%= item._id %>" class="modal">
+            <div class="modal-box">
+              <form action="/subscriber/edit/service/<%= place._id  %>/<%= item._id %>" method="POST">
+                <button type="button" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2"
+                  onclick="document.getElementById('modal_<%= item._id %>').close()">✕</button>
+                <h3 class="mb-4 text-lg font-bold">Edit Service</h3>
+
+                <div class="mb-2">
+                  <label class="block text-sm font-medium">Name (EN)</label>
+                  <input type="text" name="nameEn" value="<%= item.nameEn %>" class="w-full input input-bordered"
+                    required />
+                </div>
+
+                <div class="mb-2">
+                  <label class="block text-sm font-medium">Name (AR)</label>
+                  <input type="text" name="nameAr" value="<%= item.nameAr %>" class="w-full input input-bordered"
+                    required />
+                </div>
+
+                <!-- Add more fields if needed -->
+
+                <div class="mt-4 text-right">
+                  <button type="submit" class="btn btn-success btn-sm">Save</button>
+                </div>
+              </form>
+            </div>
+          </dialog>
+
+          <!-- Delete button -->
+          <a onclick="return confirm('Are you sure you want to delete this item?');"
+            href="/subscriber/delete/service/<%= place._id %>/<%= item._id %>" class="mx-1 btn btn-error btn-xs">
+            <i class="text-white fa-solid fa-trash"></i>
+          </a>
+        </div>
+      </div>
+      <% }) %>
+
+  </div>
 </div>

@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const LogSchema = new mongoose.Schema({
-    userId: {
-        type: String,
+    
+    user:{
+        type: mongoose.Schema.Types.Mixed,
         required: false,
         default: null,
     },

@@ -75,26 +75,31 @@ export const login_user = async (req, res) => {
         const { email, password } = req.body;
 
 
-        // validation section
+        // ***************** Form validation section ****************
 
         if (!email || !password) {
-            return res.status(400).json({ status: 400, message: "Email and password are required" });
-
+            const errors = ["Email and password are required"];
+            return res.render('front/login.ejs', {
+                message: "Email and password are required",
+                title: "Login",
+                errors: errors,
+                layout: "layouts/front.ejs",
+            })
         }
 
-        // البحث عن المستخدم في قاعدة البيانات
+        // search for the user in the database based on the email provided by the userا
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ status: 401, message: "Invalid email or password" });
         }
 
-        // مقارنة كلمة المرور المدخلة مع المخزنة
+        // compare the password provided by the user with the password stored in the database
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ status: 401, message: "Invalid email or password" });
         }
 
-        // إنشاء التوكن
+        // create token
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET,
@@ -109,12 +114,15 @@ export const login_user = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
+        const place = await Place.findById(user.place);
+
         req.session.user = {
             id: user._id,
             name: user.name,
             email: user.email,
             role: user.role,
             placeId: user.place,
+            place: place
         };
 
         const places = await Place.find();

@@ -1,0 +1,13 @@
+<% if (errors && errors.length> 0) { %>
+    <div class="toast toast-end">
+
+        <% errors.forEach(error=> { %>
+
+            <div class="bg-red-600 alert alert-error">
+                <span class="text-white">
+                    <%= error %>
+                </span>
+            </div>
+            <% }) %>
+    </div>
+    <% } %>
