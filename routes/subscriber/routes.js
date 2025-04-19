@@ -8,10 +8,11 @@ import {
     create_new_user_for_place,
     redirect_to_setting,
     redirect_to_queues,
-    edit_place_info, 
+    edit_place_info,
     edit_service,
     delete_service,
-    add_new_service
+    add_new_service,
+    redirect_to_service_queues
 } from '../../controllers/Subscriber/SubscriberController.js';
 import connectDB from '../../config/db.js';
 import multer from 'multer';
@@ -63,6 +64,8 @@ router.post('/create/new/user/:placeId', create_new_user_for_place);
 // **********************************************************************************
 // *********************************** Setting Routes ********************************
 // **********************************************************************************
+
+
 // redirect to setting page
 router.get('/setting/:placeId', redirect_to_setting);
 
@@ -88,10 +91,19 @@ router.post('/add/service/:PlaceId', add_new_service)
 
 
 
+
+
+
+
+// **********************************************************************************
+// *********************************** Queues Routes ********************************
+// **********************************************************************************
+
 // redirect to queues page
 router.get('/queues/:placeId', redirect_to_queues);
 
-
+// show service queues
+router.get('/service/queues/:placeId/:serviceId', redirect_to_service_queues);
 // change queue to active
 router.get('/change/queue/to/active/:id', change_queue_to_active)
 
@@ -108,6 +120,10 @@ router.get('/show/qr/code/:id', async (req, res) => {
         place: place
     })
 })
+
+// **********************************************************************************
+// *********************************** Queues Routes ********************************
+// **********************************************************************************
 
 
 

@@ -1,0 +1,15 @@
+<div class="container px-5 m-auto">
+    <h6 class="text-primary text-md">Services Section</h6>
+    <hr>
+    <div class="grid grid-cols-1 gap-4 my-10 md:grid-cols-3 lg:grid-cols-4">
+        <% services.forEach(service=> { %>
+            <a href="/subscriber/service/queues/<%= placeId %>/<%= service._id %>" class="flex flex-col items-center justify-center py-4 bg-gray-200 rounded-lg py">
+
+                <div class="flex flex-col items-center justify-center px-3 py-4">
+                    <h1 class="text-sm text-center"><%- service.nameEn %></h1>
+                    <h1 class="text-sm text-center"><%- service.nameAr %></h1>
+                </div>
+            </a>
+            <% }) %>
+    </div>
+</div>

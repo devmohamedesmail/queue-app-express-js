@@ -35,12 +35,12 @@ const upload = multer({ storage: storage });
 
 
 
-export const redirect_to_index = async (req, res)=>{
+export const redirect_to_index = async (req, res) => {
     try {
         await connectDB();
         const user = req.session.user;
         const place = await Place.findById(user.placeId);
-       
+
         res.render('subscriber/index', {
             layout: "layouts/subscriber",
             title: "Subscriber",
@@ -60,13 +60,13 @@ export const redirect_to_index = async (req, res)=>{
 
 
 
-export const redirect_to_statistics = async(req, res)=>{
+export const redirect_to_statistics = async (req, res) => {
     const user = req.session.user;
     const placeId = req.params.id;
 
     try {
         await connectDB()
-        const queues = await Queue.find({ placeId }); 
+        const queues = await Queue.find({ placeId });
         const place = await Place.findById(user.placeId);
         res.render('subscriber/statistics', {
             layout: "layouts/subscriber",
@@ -74,7 +74,7 @@ export const redirect_to_statistics = async(req, res)=>{
             user,
             queues,
             place
-            
+
         });
     } catch (err) {
         console.error(err);
@@ -85,24 +85,24 @@ export const redirect_to_statistics = async(req, res)=>{
 
 
 
-export const redirect_to_users = async(req, res)=>{
-    
+export const redirect_to_users = async (req, res) => {
+
     try {
-        
+
         const user = req.session.user;
         const placeId = req.params.id;
         await connectDB()
-        const users = await User.find({ placeId }); 
+        const users = await User.find({ placeId });
         const place = await Place.findById(user.placeId);
         res.render('subscriber/users', {
             layout: "layouts/subscriber",
             title: "Subscriber Users",
-            users:users,
+            users: users,
             user: user,
-            place:place,
+            place: place,
         });
     } catch (error) {
-        res.render('404',{
+        res.render('404', {
             layout: "layouts/main",
             title: "Error",
             message: error.message,
@@ -113,8 +113,8 @@ export const redirect_to_users = async(req, res)=>{
 
 
 
-export const create_new_user_for_place = async (req,res) =>{
-    const {name, email, password } = req.body;
+export const create_new_user_for_place = async (req, res) => {
+    const { name, email, password } = req.body;
     const user = req.session.user;
     const placeId = req.params.placeId;
 
@@ -123,11 +123,11 @@ export const create_new_user_for_place = async (req,res) =>{
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         const newUser = new User({
-            name:name,
+            name: name,
             email: email,
             password: hashedPassword,
             role: 'subscriber',
-            place:placeId,
+            place: placeId,
         });
 
         await newUser.save();
@@ -149,7 +149,7 @@ export const redirect_to_setting = async (req, res) => {
         const placeId = req.params.placeId;
         const place = await Place.findById(placeId);
         const services = await Service.find({ placeId: placeId });
-      
+
         res.render('subscriber/setting', {
             layout: "layouts/subscriber",
             title: "Subscriber Setting",
@@ -166,6 +166,7 @@ export const redirect_to_setting = async (req, res) => {
 }
 
 
+// update place info
 export const edit_place_info = async (req, res) => {
     try {
         await connectDB();
@@ -189,10 +190,10 @@ export const edit_place_info = async (req, res) => {
         place.daysOfWork = req.body.daysOfWork || [];
         place.moveTurn = Boolean(req.body.moveTurn);
         place.locationlink = req.body.locationlink;
-         await place.save();
-       
-         res.redirect(`/subscriber/setting/${placeId}`);
-        
+        await place.save();
+
+        res.redirect(`/subscriber/setting/${placeId}`);
+
     } catch (error) {
         console.log(error);
         res.status(500).render('404', {
@@ -204,7 +205,7 @@ export const edit_place_info = async (req, res) => {
 }
 
 
-// edit service 
+// edit place service 
 export const edit_service = async (req, res) => {
     try {
         await connectDB();
@@ -230,7 +231,7 @@ export const edit_service = async (req, res) => {
 
 
 
-// Delete service
+// Delete place service
 export const delete_service = async (req, res) => {
     try {
         const place = req.params.place;
@@ -245,12 +246,12 @@ export const delete_service = async (req, res) => {
 }
 
 
-
+// add new service for place
 export const add_new_service = async (req, res) => {
     try {
         await connectDB();
         const placeId = req.params.PlaceId;
-        
+
         const newService = new Service()
         newService.placeId = placeId;
         newService.nameAr = req.body.nameAr;
@@ -269,27 +270,92 @@ export const add_new_service = async (req, res) => {
 export const redirect_to_queues = async (req, res) => {
     try {
         await connectDB()
-        const startOfDay = moment().startOf('day').toDate(); 
-        const endOfDay = moment().endOf('day').toDate()
-        const user = req.session.user;
-        const queues = await Queue.find({ placeId: req.params.placeId })
-        const place = await Place.findById(user.placeId); 
-       
-        res.render('subscriber/queues', {
-            layout: "layouts/subscriber",
-            title: "Subscriber Queues",
-            queues: queues,
-            place: place
-        });
+
+        // check if the place have services or not
+        const placeId = req.params.placeId;
+        const services = await Service.find({ placeId: placeId });
+        const place = await Place.findById(placeId);
         
+
+        if (services.length > 0) {
+            return res.render("subscriber/services", {
+                layout: "layouts/subscriber",
+                title: "Subscriber Queues",
+                placeId: placeId,
+                services: services,
+                place: place
+            });
+        } else {
+            const startOfDay = new Date();
+            startOfDay.setHours(0, 0, 0, 0);
+    
+            const endOfDay = new Date();
+            endOfDay.setHours(23, 59, 59, 999);
+            const queues = await Queue.find({ 
+                placeId: placeId,
+                createdAt: { $gte: startOfDay, $lte: endOfDay }
+            
+            });
+            res.render('subscriber/queues', {
+                layout: "layouts/subscriber",
+                title: "Subscriber Queues",
+                queues: queues,
+                place: place
+            });
+        }
+
+ 
+
     } catch (error) {
-        console.log(error);
+       
         res.status(500).render('404', {
             layout: "layouts/main",
             title: "Error",
             message: error.message,
-            
+
         });
+    }
+}
+
+
+
+
+export const redirect_to_service_queues = async (req, res) => {
+    try {
+        await connectDB();
+
+        const placeId = req.params.placeId;
+        const serviceId = req.params.serviceId;
+
+        // بداية ونهاية اليوم الحالي
+        const startOfDay = new Date();
+        startOfDay.setHours(0, 0, 0, 0);
+
+        const endOfDay = new Date();
+        endOfDay.setHours(23, 59, 59, 999);
+
+       
+        const place = await Place.findById(placeId);
+
+     
+        const queues = await Queue.find({
+            place: placeId,
+            service: serviceId,
+            createdAt: { $gte: startOfDay, $lte: endOfDay }
+        });
+
+        res.render('subscriber/queues', {
+            layout: "layouts/subscriber",
+            title: "Subscriber Queue",
+            place:place,
+            queues: queues, 
+        });
+    } catch (error) {
+       res.render('404', {
+           layout: "layouts/subscriber",
+           title: "Error",
+           message: error.message,
+       })
     }
 }
 

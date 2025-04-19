@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Queue App | <%= title  %></title>
+  <title>Queue App | <%= title %>
+  </title>
   <%- include('../partials/styles.ejs') %>
 
 </head>
@@ -22,21 +23,25 @@
 
 
       <% if (user) { %>
-      <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="border border-primary btn btn-ghost btn-circle avatar">
-          <i class="fa-solid fa-user"></i>
-        </div>
-        <ul tabindex="0" class="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52">
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="border border-primary btn btn-ghost btn-circle avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <ul tabindex="0" class="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52">
 
-          <li><a> <%= user.name  %> </a></li>
-          <li><a> <%= user.email  %> </a></li>
-          <li><a href="/show/user/queues/<%= user.id  %>"> Show My Queues </a></li>
-          <li><a href="/users/logout">Logout</a></li>
-        </ul>
-      </div>
-      <% } else { %>
-      <a href="/front/login/page" class="px-2 text-sm ">Login / Register</a>
-      <% } %>
+            <li><a>
+                <%= user.name %>
+              </a></li>
+            <li><a>
+                <%= user.email %>
+              </a></li>
+            <li><a href="/show/user/queues/<%= user.id  %>"> Show My Queues </a></li>
+            <li><a href="/users/logout">Logout</a></li>
+          </ul>
+        </div>
+        <% } else { %>
+          <a href="/front/login/page" class="px-2 text-sm ">Login / Register</a>
+          <% } %>
 
 
 
@@ -48,20 +53,62 @@
     <%- body %>
   </main>
 
-  <footer class="py-10 bg-gray-300 mt-50">
-    <div class="container m-auto">
-      <div class="flex flex-col items-center justify-center md:flex-row">
-        <a href="" class="flex items-center px-10 py-4 mx-10 my-4 text-white bg-black rounded-lg">
-          <img src="/assets/images/apple.png" class="w-10 h-10" alt="">
-          <p class="mx-5 text-sm">Download Our App From Apple Store</p>
-        </a>
-        <a href="" class="flex items-center px-10 py-4 mx-10 my-4 text-white bg-black rounded-lg">
-          <img src="/assets/images/google-play.png" class="w-10 h-10" alt="">
-          <p class="mx-5 text-sm">Download Our App From Google Play</p>
-        </a>
-      </div>
-    </div>
-  </footer>
+
+
+
+  <div>
+    <footer class="p-10 footer sm:footer-horizontal bg-base-200 text-base-content">
+      <nav>
+        <h6 class="footer-title">Services</h6>
+        <a class="link link-hover">Branding</a>
+        <a class="link link-hover">Design</a>
+        <a class="link link-hover">Marketing</a>
+        <a class="link link-hover">Advertisement</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Company</h6>
+        <a class="link link-hover">About us</a>
+        <a class="link link-hover">Contact</a>
+        <a class="link link-hover">Jobs</a>
+        <a class="link link-hover">Press kit</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Legal</h6>
+        <a class="link link-hover">Terms of use</a>
+        <a class="link link-hover">Privacy policy</a>
+        <a class="link link-hover">Cookie policy</a>
+      </nav>
+      <form>
+        <h6 class="footer-title">Newsletter</h6>
+        <fieldset class="w-80">
+          <label>Enter your email address</label>
+          <div class="join">
+            <input
+              type="text"
+              placeholder="username@site.com"
+              class="input input-bordered join-item" />
+            <button class="btn btn-primary join-item">Subscribe</button>
+          </div>
+        </fieldset>
+
+        <div class="flex flex-col items-center justify-center md:flex-row">
+          <a href="" class="flex items-center p-1 mx-1 text-white bg-gray-300 rounded-lg">
+            <img src="/assets/images/apple.png" class="w-10 h-10" alt="">
+            <p class="mx-5 text-sm text-black"> Apple Store</p>
+          </a>
+          <a href="" class="flex items-center p-1 mx-1 text-white bg-gray-300 rounded-lg">
+            <img src="/assets/images/google-play.png" class="w-10 h-10" alt="">
+            <p class="mx-5 text-sm text-black">Google Play</p>
+          </a>
+        </div>
+      </form>
+  
+  
+      
+    </footer>
+
+   
+  </div>
 
 </body>
 
