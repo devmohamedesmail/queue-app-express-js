@@ -1,6 +1,7 @@
 import connectDB from "../../config/db.js";
 import Queue from "../../models/Queue.js";
 import Place from "../../models/Place.js";
+import Service from "../../models/Service.js";
 
 export const bookQueue = async (req, res) => {
     try {
@@ -95,7 +96,7 @@ export const cancel_queue = async (req, res) => {
 
 
 //  get all user queues according day
-export const get_all_users_queues = async (req, res) => {
+export const get_all_users_queues_today = async (req, res) => {
     try {
         await connectDB()
         const userId = req.params.id;   
@@ -120,7 +121,9 @@ export const get_all_users_queues = async (req, res) => {
         // Loop through each queue to calculate aheadOfYou, nowServing, and estimatedTime
         for (let queue of userQueues) {
             const { placeId, serviceId } = queue;
-
+            const place = await Place.findById(placeId);
+            const service = await Service.findById(serviceId);
+             
             // Calculate ahead of you
             const aheadOfYou = await Queue.countDocuments({
                 placeId,
@@ -139,7 +142,12 @@ export const get_all_users_queues = async (req, res) => {
             }).sort({ queue: 1 });
 
             // Calculate estimated time based on people ahead of the user
-            const estimatedTime = aheadOfYou * 5; // Assuming 5 minutes per user
+            // const estimatedTime = aheadOfYou * 5; 
+            if (service) {
+                const estimatedTime = aheadOfYou * service.estimateTime; 
+            }else{
+                const estimatedTime = aheadOfYou * place.estimatedTime; 
+            }
 
             // Collect the result for this queue
             queuesData.push({

@@ -2,7 +2,7 @@ import express from 'express';
 import { bookQueue, 
     cancel_queue, 
     get_all_queue_waiting_in_service, 
-    get_all_users_queues, 
+    get_all_users_queues_today, 
     get_first_active_queue_in_service, 
     get_last_queue, 
     move_queue_to_back,
@@ -31,7 +31,7 @@ router.get('/cancel/queue/:id', cancel_queue);
 router.get('/move/queue/:id/:place?/:service?/:number?', move_queue_to_back);
 
 // get all user queues according day
-router.get('/user/queues/:id', get_all_users_queues);
+router.get('/user/queues/:id', get_all_users_queues_today);
 
 
 

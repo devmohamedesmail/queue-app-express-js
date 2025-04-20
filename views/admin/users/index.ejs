@@ -1,7 +1,7 @@
 <div class="p-4 bg-white">
 
 
-    <h4 class="mb-2 text-xl font-bold text-primary">Users Page</h4>
+    <h4 class="mb-2 text-xl font-bold text-primary"><%= __('users')  %></h4>
     <hr class="mb-3">
 
 
@@ -12,10 +12,10 @@
             <thead>
                 <tr>
 
-                    <th class="text-black">Name</th>
-                    <th class="text-black">Email</th>
-                    <th class="text-black">Role</th>
-                    <th class="text-black">Actions</th>
+                    <th class="text-black"><%= __('name')  %></th>
+                    <th class="text-black"><%= __('email')  %></th>
+                    <th class="text-black"><%= __('role')  %></th>
+                    <th class="text-black"><%= __('actions')  %></th>
 
                 </tr>
             </thead>
@@ -40,7 +40,7 @@
 
 
 
-                            <button class="mx-1 btn btn-success "
+                            <button class="mx-1 btn btn-sm btn-success "
                                 onclick="document.getElementById('modal-<%= user._id %>').showModal()">
                                 <i class="text-white fa-solid fa-pen"></i>
                             </button>
@@ -86,7 +86,7 @@
 
 
                                             <div class="flex justify-center mt-5">
-                                                <button class="btn btn-primary" type="submit">Update</button>
+                                                <button class="btn btn-primary" type="submit"><%= __('update')  %></button>
                                             </div>
 
                                           
@@ -99,7 +99,7 @@
 
                             <!-- زر الحذف -->
                             <a onclick="return confirm('هل أنت متأكد أنك تريد حذف هذا المستخدم؟');"
-                                href="/users/delete/user/<%= user._id %>" class="mx-1 btn btn-error btn-xs">
+                                href="/users/delete/user/<%= user._id %>" class="mx-1 btn btn-error btn-sm">
                                 <i class="text-white fa-solid fa-trash"></i>
                             </a>
                         </td>

@@ -18,9 +18,9 @@
       <div class="drawer-content">
         <!-- Page content here -->
 
-        <div class="flex items-center justify-between p-4 bg-base-200">
+        <div class="container flex items-center justify-between m-auto my-3 bg-base-200">
           <div class="flex items-center">
-            <img src="/uploads/<%= place.image  %>" class="rounded-full h-18 w-18" alt="<%= place.nameEn %>">
+            <img src="/uploads/<%= place.image  %>" class="w-16 h-16 rounded-full" alt="<%= place.nameEn %>">
             <h5 class="mx-1 text-sm text-primary"><%= place.nameEn %></h5>
           </div>
 
@@ -35,6 +35,22 @@
              
             </div>
 
+
+            <button class="mx-1 btn btn-primary" popovertarget="popover-1" style="anchor-name:--anchor-1">
+              <i class="fa-solid fa-globe"></i>  Language
+            </button>
+            
+            <!-- القائمة -->
+            <ul class="shadow-sm dropdown menu w-52 rounded-box bg-base-100"
+              popover id="popover-1" style="position-anchor:--anchor-1">
+            
+              <li><a href="?lang=en">🇺🇸 English</a></li>
+              <li><a href="?lang=ar">🇸🇦 العربية</a></li>
+            
+            </ul>
+
+          
+
             <label for="my-drawer" class="btn btn-primary drawer-button">
               <i class="fa-solid fa-bars"></i>
             </label>
@@ -47,7 +63,7 @@
 
 
 
-      <div class="drawer-side">
+      <div class="z-50 drawer-side">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
         <ul class="min-h-full p-4 menu bg-base-200 text-base-content w-80">
 

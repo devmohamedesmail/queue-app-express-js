@@ -1,3 +1,11 @@
+<% const menu = [
+  { icon: 'fa-gauge', label: __('dashboard'), url: '/admin/index' },
+  { icon: 'fa-location-dot', label: __('places'), url: '/admin/places' },
+  { icon: 'fa-users', label: __('users'), url: '/admin/users' },
+  { icon: 'fa-gear', label: __('setting'), url: '/admin/setting' }
+]; %>
+
+
 <div class="fixed w-0 h-screen overflow-hidden transition-all ease-in-out bg-black shadow-lg z-[100] md:w-54" id="sidebar">
  
   <div class="flex justify-end my-4 md:hidden">
@@ -6,88 +14,54 @@
     </button>
   </div>
  
-  <aside>
+  <aside class="flex flex-col h-['80%']">
    
 
-    <div class="py-5">
+    <div class="py-5 ">
       <div class="flex items-center justify-center mb-10">
         <img src="/assets/images/logo.svg" class="w-32" alt="">
       </div>
-      <ul>
+      <ul class="flex-1 block">
 
 
-        <li class="px-3 py-2 mb-1 text-white transition-colors ease-in-out border-b border-gray-400 hover:bg-primary">
-          <a href="/admin/index" class="flex items-center w-full ">
 
-            <div class="flex-1">
-              <i class="text-sm fa-solid fa-gauge"></i>
-              <span class="mx-2 text-sm">
-                Dashboard
-              </span>
-            </div>
+     
 
-
-            <i class="mr-3 text-sm fa-solid fa-chevron-right"></i>
-          </a>
-        </li>
-
-
-        <li class="px-3 py-2 mb-1 text-white transition-colors ease-in-out border-b border-gray-400 hover:bg-primary">
-          <a href="/admin/places" class="flex items-center w-full ">
-
-            <div class="flex-1">
-              <i class="text-sm fa-solid fa-location-dot"></i>
-              <span class="mx-2 text-sm">
-                Places
-              </span>
-            </div>
-
-
-            <i class="mr-3 text-sm fa-solid fa-chevron-right"></i>
-          </a>
-        </li>
-
-
-        <!-- users page -->
-        <li class="px-3 py-2 mb-1 text-white transition-colors ease-in-out border-b border-gray-400 hover:bg-primary">
-          <a href="/admin/users" class="flex items-center w-full ">
-
-            <div class="flex-1">
-           
-              <i class="text-sm fa-solid fa-users"></i>
-              <span class="mx-2 text-sm">
-                users
-              </span>
-            </div>
-
-
-            <i class="mr-3 text-sm fa-solid fa-chevron-right"></i>
-          </a>
-        </li>
-
-
-        <!-- Setting Page -->
-
-        <li class="px-3 py-2 mb-1 text-white transition-colors ease-in-out border-b border-gray-400 hover:bg-primary">
-          <a href="/admin/setting" class="flex items-center w-full ">
-
-            <div class="flex-1">
-              <i class="text-sm fa-solid fa-gear"></i>
-              
-              <span class="mx-2 text-sm">
-                Setting
-              </span>
-            </div>
-
-
-            <i class="mr-3 text-sm fa-solid fa-chevron-right"></i>
-          </a>
-        </li>
-
+        <% menu.forEach(item => { %>
+          <li class="px-3 py-2 mb-1 text-white transition-colors ease-in-out border-b border-gray-400 hover:bg-primary">
+            <a href="<%= item.url %>" class="flex items-center w-full">
+              <div class="flex-1">
+                <i class="text-sm fa-solid <%= item.icon %>"></i>
+                <span class="mx-2 text-sm"><%= item.label %></span>
+              </div>
+              <i class="mr-3 text-sm fa-solid fa-chevron-right"></i>
+            </a>
+          </li>
+        <% }); %>
 
 
 
       </ul>
+
+
+      
+    
+
+
+
+      
     </div>
   </aside>
+
+ 
+  <div class="flex justify-around h-full px-3 mb-3 ">
+    <div class="bottom-0 w-full dropdown dropdown-top">
+      <div tabindex="0" role="button" class="w-full m-1 btn btn-primary"><% if (user) { %><%= user.name %> <% } %></div>
+      <ul tabindex="0" class="p-2 shadow-sm dropdown-content menu bg-base-100 rounded-box z-1 w-52">
+        <li><a><%= __('logout')  %></a></li>
+        <li><a><%= __('edit-profile')  %></a></li>
+       
+      </ul>
+    </div>
+  </div>
 </div>

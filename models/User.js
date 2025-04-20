@@ -26,6 +26,11 @@ const UserSchema = new mongoose.Schema({
         required: false,
         default:"0"
     },
+    serviceId:{
+        type: String,
+        required: false,
+        default:"0"
+    },
     image: {
         type: String,
         required: false

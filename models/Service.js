@@ -13,7 +13,12 @@ const ServiceSchema = new mongoose.Schema({
     nameEn: {
         type: String,
         required: true
-    }
+    },
+    estimateTime: {
+        type: Number,
+        required: false,
+        default: 0
+    },
 }, {
     timestamps: true
 })

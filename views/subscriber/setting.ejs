@@ -1,27 +1,39 @@
 <div class="container px-5 m-auto my-10">
   <form action="/subscriber/edit/place/<%= place._id %>" method="post" enctype="multipart/form-data">
+    <h6 class="mb-2 text-primary">
+      <%= __('place-info') %>
+    </h6>
+    <hr class="mb-3">
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Name ( Ar )</label>
+        <label class="block text-sm text-black label">
+          <%= __('name-ar') %>
+        </label>
         <input type="text" name="nameAr" required class="w-full input input-primary" value="<%= place.nameAr  %>" />
       </div>
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Name ( En )</label>
+        <label class="block text-sm text-black label">
+          <%= __('name-en') %>
+        </label>
         <input type="text" name="nameEn" required class="w-full input input-primary" value="<%= place.nameEn  %>" />
       </div>
 
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Address ( En )</label>
+        <label class="block text-sm text-black label">
+          <%= __('address-en') %>
+        </label>
         <input type="text" name="addressEn" required class="w-full input input-primary"
           value="<%= place.addressEn  %>" />
       </div>
 
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Address ( Ar )</label>
+        <label class="block text-sm text-black label">
+          <%= __('address-er') %>
+        </label>
         <input type="text" name="addressAr" required class="w-full input input-primary"
           value="<%= place.addressAr  %>" />
       </div>
@@ -30,65 +42,13 @@
 
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Description</label>
+        <label class="block text-sm text-black label">
+          <%= __('description') %>
+        </label>
         <input type="text" name="description" required class="w-full input input-primary"
           value="<%= place.description  %>" />
       </div>
 
-
-      <div class="mb-3 ">
-        <label class="block text-sm text-black label">Latitude</label>
-        <input type="text" name="lat" required class="w-full input input-primary" value="<%= place.location.lat  %>" />
-      </div>
-
-
-      <div class="mb-3 ">
-        <label class="block text-sm text-black label">Longitude</label>
-        <input type="text" name="lng" required class="w-full input input-primary" value="<%= place.location.lng  %>" />
-      </div>
-
-      <div class="mb-3 ">
-        <label class="block text-sm text-black label">Start Work</label>
-        <input type="time" name="timeStart" required class="w-full input input-primary"
-          value="<%= place.timeStart  %>" />
-      </div>
-
-      <div class="mb-3 ">
-        <label class="block text-sm text-black label">Start Work</label>
-        <input type="time" name="timeClosed" required class="w-full input input-primary"
-          value="<%= place.timeClosed  %>" />
-      </div>
-
-
-
-      <div class="mb-3">
-        <label class="block text-sm text-black label">Days of Work</label>
-        <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
-
-          <% const days=['Sunday', 'Monday' , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; %>
-            <% days.forEach(day=> { %>
-              <label class="fieldset-label">
-                <input type="checkbox" name="daysOfWork[]" value="<%= day %>" class="checkbox"
-                  <%=place.daysOfWork.includes(day) ? 'checked' : '' %>
-                />
-                <%= day %>
-              </label>
-              <% }) %>
-
-        </div>
-      </div>
-
-      <div class="flex items-baseline mb-3">
-        <label for="moveTurn" class="block text-sm text-black label">Move Turn</label>
-        <input type="checkbox" name="moveTurn" id="moveTurn" <% if (place.moveTurn ) { %> checked <% } %> value="<%=
-            place.moveTurn %>" class="mx-3 toggle toggle-primary" />
-      </div>
-
-
-      <div class="mb-3 ">
-        <label class="block text-sm text-black label">Location Link</label>
-        <input type="text" name="locationlink" class="w-full input input-primary" value="<%= place.locationlink  %>" />
-      </div>
 
 
       <div class="mb-3">
@@ -107,7 +67,9 @@
 
           <div class="flex flex-col items-center justify-center">
             <i class="fa-solid fa-file-image fs-3"></i>
-            <p>Select Image</p>
+            <p>
+              <%= __('select-image') %>
+            </p>
           </div>
         </label>
 
@@ -115,23 +77,124 @@
 
     </div>
 
+
+
+    <h6 class="mb-2 text-primary">
+      <%= __('place-setting') %>
+    </h6>
+    <hr class="mb-3">
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">
+          <%= __('latitude') %>
+        </label>
+        <input type="text" name="lat" required class="w-full input input-primary" value="<%= place.location.lat  %>" />
+      </div>
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">
+          <%= __('longitude') %>
+        </label>
+        <input type="text" name="lng" required class="w-full input input-primary" value="<%= place.location.lng  %>" />
+      </div>
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">
+          <%= __('start-work') %>
+        </label>
+        <input type="time" name="timeStart" required class="w-full input input-primary"
+          value="<%= place.timeStart  %>" />
+      </div>
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">
+          <%= __('close-work') %>
+        </label>
+        <input type="time" name="timeClosed" required class="w-full input input-primary"
+          value="<%= place.timeClosed  %>" />
+      </div>
+
+
+      <div class="mb-2">
+        <label class="block text-sm font-medium">
+          <%= __('estimated-time') %>
+        </label>
+        <input type="text" name="estimateTime" value="<%= place.estimateTime %>" class="w-full input input-bordered" required />
+      </div>
+
+
+
+      <div class="mb-3">
+        <label class="block text-sm text-black label">
+          <%= __('work-days') %>
+        </label>
+        <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
+
+          <% const days=['Sunday', 'Monday' , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; %>
+            <% days.forEach(day=> { %>
+              <label class="fieldset-label">
+                <input type="checkbox" name="daysOfWork[]" value="<%= day %>" class="checkbox"
+                  <%=place.daysOfWork.includes(day) ? 'checked' : '' %>
+                />
+                <%= day %>
+              </label>
+              <% }) %>
+
+        </div>
+      </div>
+
+      <div class="flex items-baseline mb-3">
+        <label for="moveTurn" class="block text-sm text-black label">
+          <%= __('move-turn') %>
+        </label>
+        <input type="checkbox" name="moveTurn" id="moveTurn" <% if (place.moveTurn ) { %> checked <% } %> value="<%=
+            place.moveTurn %>" class="mx-3 toggle toggle-primary" />
+      </div>
+
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label">
+          <%= __('location-link') %>
+        </label>
+        <input type="text" name="locationlink" class="w-full input input-primary" value="<%= place.locationlink  %>" />
+      </div>
+
+
+    </div>
+
     <div class="flex items-center justify-center col-span-2 my-10">
-      <button type="submit" class="w-1/2 btn btn-primary">Update</button>
+      <button type="submit" class="w-1/2 btn btn-primary">
+        <%= __('update') %>
+      </button>
     </div>
   </form>
 </div>
 
 
+
+
+
+
+
 <div class="container px-5 m-auto">
-  <h6 class="text-primary text-md">Services Section</h6>
+  <h6 class="text-primary text-md">
+    <%= __('services-section') %>
+  </h6>
   <hr>
 
   <div class="my-5">
     <div class="flex items-center justify-between">
 
-      <h4 class="font-semibold text-center">All Services</h4>
+      <h4 class="font-semibold text-center">
+        <%= __('all-services') %>
+      </h4>
       <!-- You can open the modal using ID.showModal() method -->
-      <button class="btn btn-primary" onclick="my_modal_3.showModal()"> Add New Service </button>
+      <button class="btn btn-primary" onclick="my_modal_3.showModal()">
+        <%= __('add-new-service') %>
+      </button>
       <dialog id="my_modal_3" class="modal">
         <div class="modal-box">
           <form method="dialog">
@@ -139,22 +202,37 @@
           </form>
           <form action="/subscriber/add/service/<%= place._id  %>" method="POST">
 
-            <h3 class="mb-4 text-lg font-bold">Add New Service</h3>
+            <h3 class="mb-4 text-lg font-bold">
+              <%= __('add-new-service') %>
+            </h3>
 
             <div class="mb-2">
-              <label class="block text-sm font-medium">Name (EN)</label>
+              <label class="block text-sm font-medium">
+                <%= __('name-en') %>
+              </label>
               <input type="text" name="nameEn" class="w-full input input-bordered" required />
             </div>
 
             <div class="mb-2">
-              <label class="block text-sm font-medium">Name (AR)</label>
+              <label class="block text-sm font-medium">
+                <%= __('name-ar') %>
+              </label>
               <input type="text" name="nameAr" class="w-full input input-bordered" required />
+            </div>
+
+            <div class="mb-2">
+              <label class="block text-sm font-medium">
+                <%= __('estimated-time') %>
+              </label>
+              <input type="text" name="estimateTime" class="w-full input input-bordered" required />
             </div>
 
             <!-- Add more fields if needed -->
 
             <div class="mt-4 text-right">
-              <button type="submit" class="btn btn-success btn-sm">Save</button>
+              <button type="submit" class="btn btn-success btn-sm">
+                <%= __('save') %>
+              </button>
             </div>
           </form>
         </div>
@@ -170,6 +248,9 @@
           <p>
             <%= item.nameAr %>
           </p>
+          <p>
+            <%= item.estimateTime %>
+          </p>
         </div>
 
         <div>
@@ -184,24 +265,41 @@
               <form action="/subscriber/edit/service/<%= place._id  %>/<%= item._id %>" method="POST">
                 <button type="button" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2"
                   onclick="document.getElementById('modal_<%= item._id %>').close()">✕</button>
-                <h3 class="mb-4 text-lg font-bold">Edit Service</h3>
+                <h3 class="mb-4 text-lg font-bold">
+                  <%= __('edit-service') %>
+                </h3>
 
                 <div class="mb-2">
-                  <label class="block text-sm font-medium">Name (EN)</label>
+                  <label class="block text-sm font-medium">
+                    <%= __('name-en') %>
+                  </label>
                   <input type="text" name="nameEn" value="<%= item.nameEn %>" class="w-full input input-bordered"
                     required />
                 </div>
 
                 <div class="mb-2">
-                  <label class="block text-sm font-medium">Name (AR)</label>
+                  <label class="block text-sm font-medium">
+                    <%= __('name-ar') %>
+                  </label>
                   <input type="text" name="nameAr" value="<%= item.nameAr %>" class="w-full input input-bordered"
                     required />
+                </div>
+
+
+                <div class="mb-2">
+                  <label class="block text-sm font-medium">
+                    <%= __('estimated-time') %>
+                  </label>
+                  <input type="text" name="estimateTime" value="<%= item.estimateTime %>"
+                    class="w-full input input-bordered" required />
                 </div>
 
                 <!-- Add more fields if needed -->
 
                 <div class="mt-4 text-right">
-                  <button type="submit" class="btn btn-success btn-sm">Save</button>
+                  <button type="submit" class="btn btn-success btn-sm">
+                    <%= __('save') %>
+                  </button>
                 </div>
               </form>
             </div>

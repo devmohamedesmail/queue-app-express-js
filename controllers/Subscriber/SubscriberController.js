@@ -84,15 +84,15 @@ export const redirect_to_statistics = async (req, res) => {
 
 
 
-
+// ******************************** users section start ********************************
 export const redirect_to_users = async (req, res) => {
 
     try {
 
         const user = req.session.user;
-        const placeId = req.params.id;
+        const placeId = req.params.placeId;
         await connectDB()
-        const users = await User.find({ placeId });
+        const users = await User.find({ place:placeId });
         const place = await Place.findById(user.placeId);
         res.render('subscriber/users', {
             layout: "layouts/subscriber",
@@ -100,6 +100,7 @@ export const redirect_to_users = async (req, res) => {
             users: users,
             user: user,
             place: place,
+
         });
     } catch (error) {
         res.render('404', {
@@ -110,10 +111,11 @@ export const redirect_to_users = async (req, res) => {
     }
 }
 
-
-
-
 export const create_new_user_for_place = async (req, res) => {
+
+
+
+
     const { name, email, password } = req.body;
     const user = req.session.user;
     const placeId = req.params.placeId;
@@ -126,16 +128,21 @@ export const create_new_user_for_place = async (req, res) => {
             name: name,
             email: email,
             password: hashedPassword,
-            role: 'subscriber',
+            role: 'employee',
             place: placeId,
         });
 
         await newUser.save();
 
         res.redirect(`/subscriber/users/${placeId}`);
+
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Server Error", error.message);
+
+        res.render('404', {
+            layout: "layouts/main",
+            title: "Error",
+            message: error.message,
+        });
     }
 }
 
@@ -190,6 +197,8 @@ export const edit_place_info = async (req, res) => {
         place.daysOfWork = req.body.daysOfWork || [];
         place.moveTurn = Boolean(req.body.moveTurn);
         place.locationlink = req.body.locationlink;
+        place.estimateTime = req.body.estimateTime;
+       
         await place.save();
 
         res.redirect(`/subscriber/setting/${placeId}`);
@@ -218,6 +227,7 @@ export const edit_service = async (req, res) => {
 
         service.nameAr = req.body.nameAr;
         service.nameEn = req.body.nameEn;
+        service.estimateTime = req.body.estimateTime;
         await service.save();
         res.redirect(`/subscriber/setting/${placeId}`);
     } catch (error) {
@@ -256,6 +266,7 @@ export const add_new_service = async (req, res) => {
         newService.placeId = placeId;
         newService.nameAr = req.body.nameAr;
         newService.nameEn = req.body.nameEn;
+        newService.estimateTime = req.body.estimateTime;
         await newService.save();
 
 
@@ -275,7 +286,7 @@ export const redirect_to_queues = async (req, res) => {
         const placeId = req.params.placeId;
         const services = await Service.find({ placeId: placeId });
         const place = await Place.findById(placeId);
-        
+
 
         if (services.length > 0) {
             return res.render("subscriber/services", {
@@ -288,13 +299,13 @@ export const redirect_to_queues = async (req, res) => {
         } else {
             const startOfDay = new Date();
             startOfDay.setHours(0, 0, 0, 0);
-    
+
             const endOfDay = new Date();
             endOfDay.setHours(23, 59, 59, 999);
-            const queues = await Queue.find({ 
+            const queues = await Queue.find({
                 placeId: placeId,
                 createdAt: { $gte: startOfDay, $lte: endOfDay }
-            
+
             });
             res.render('subscriber/queues', {
                 layout: "layouts/subscriber",
@@ -304,10 +315,10 @@ export const redirect_to_queues = async (req, res) => {
             });
         }
 
- 
+
 
     } catch (error) {
-       
+
         res.status(500).render('404', {
             layout: "layouts/main",
             title: "Error",
@@ -334,10 +345,10 @@ export const redirect_to_service_queues = async (req, res) => {
         const endOfDay = new Date();
         endOfDay.setHours(23, 59, 59, 999);
 
-       
+
         const place = await Place.findById(placeId);
 
-     
+
         const queues = await Queue.find({
             place: placeId,
             service: serviceId,
@@ -347,15 +358,15 @@ export const redirect_to_service_queues = async (req, res) => {
         res.render('subscriber/queues', {
             layout: "layouts/subscriber",
             title: "Subscriber Queue",
-            place:place,
-            queues: queues, 
+            place: place,
+            queues: queues,
         });
     } catch (error) {
-       res.render('404', {
-           layout: "layouts/subscriber",
-           title: "Error",
-           message: error.message,
-       })
+        res.render('404', {
+            layout: "layouts/subscriber",
+            title: "Error",
+            message: error.message,
+        })
     }
 }
 

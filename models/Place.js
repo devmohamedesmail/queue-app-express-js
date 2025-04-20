@@ -26,42 +26,52 @@ const PlaceSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    timeStart:{
-        type:String,
-        required:false,
-        default:'00:00:00'
+    timeStart: {
+        type: String,
+        required: false,
+        default: '00:00:00'
     },
-    timeClosed:{
-        type:String,
-        required:false,
-        default:'00:00:00'
+    timeClosed: {
+        type: String,
+        required: false,
+        default: '00:00:00'
     },
-    
+
     location: {
-        lat: { 
-            type: String, 
-            required: true 
+        lat: {
+            type: String,
+            required: true
         },
-        lng: { 
-            type: String, 
-            required: true 
+        lng: {
+            type: String,
+            required: true
         },
     },
     daysOfWork: {
-        type: [String], 
+        type: [String],
         required: false,
         default: []
     },
-    locationlink:{
+    locationlink: {
         type: String,
         required: false
     },
-    moveTurn:{
+    moveTurn: {
         type: Boolean,
         required: false,
         default: false
+    },
+    estimateTime: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+    phone: {
+        type: String,
+        required: false,
+        default: ''
     }
-   
+
 
 
 }, { timestamps: true });

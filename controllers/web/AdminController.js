@@ -135,6 +135,7 @@ export const add_new_place = async (req, res) => {
         newPlace.timeClosed = req.body.timeClosed;
         newPlace.daysOfWork = req.body.daysOfWork || [];
         newPlace.moveTurn = req.body.moveTurn === 'true';
+        newPlace.estimateTime = req.body.estimateTime;
         await newPlace.save();
         res.redirect("/admin/places");
 
@@ -194,6 +195,7 @@ export const edit_place_confirm = async (req, res) => {
             place.image = req.file.filename;
         }
         place.moveTurn = req.body.moveTurn === 'true';
+        place.estimateTime = req.body.estimateTime;
         await place.save();
 
         res.redirect(`/admin/edit/place/${place._id}`);
@@ -244,6 +246,7 @@ export const addNewService = async (req, res) => {
         newService.placeId = id;
         newService.nameAr = req.body.serviceAr;
         newService.nameEn = req.body.serviceEn;
+        newService.estimateTime = req.body.estimateTime;
         await newService.save();
 
 
@@ -266,6 +269,7 @@ export const edit_service = async (req, res) => {
         const service = await Service.findById(serviceId)
         service.nameAr = req.body.nameAr;
         service.nameEn = req.body.nameEn;
+        service.estimateTime = req.body.estimateTime;
         await service.save();
         res.redirect(`/admin/edit/place/${place._id}`);
     } catch (error) {

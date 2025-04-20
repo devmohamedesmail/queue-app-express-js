@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import expressLayouts from 'express-ejs-layouts';
 import session from 'express-session';
 import flash from 'connect-flash';
+import i18n from 'i18n';
 
 // routes files
 
@@ -57,7 +58,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
+// i18n configuration
+i18n.configure({
+  locales: ['en', 'ar'], // Add your languages here
+  directory: path.join(__dirname, 'locales'), // Translation files
+  defaultLocale: 'en',
+  cookie: 'lang', // Optional: to use cookies for language
+  queryParameter: 'lang', // Optional: for ?lang=ar
+  autoReload: true,
+  syncFiles: true
+});
 
+// Middleware
+app.use(i18n.init);
 
 
 

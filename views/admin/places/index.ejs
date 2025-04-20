@@ -7,29 +7,29 @@
   <form action="/admin/add/new/place" method="post" enctype="multipart/form-data">
 
 
-    <h5 class="my-3 text-sm font-bold text-primary">General Inforamtion</h5>
+    <h5 class="my-3 text-sm font-bold text-primary"><%= __('place-info')  %></h5>
     <hr>
     <div class="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2">
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Name ( Ar )</label>
+        <label class="block text-sm text-black label"><%= __('name-ar')  %></label>
         <input type="text" name="nameAr" required class="w-full input input-primary" />
       </div>
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Name ( En )</label>
+        <label class="block text-sm text-black label"><%= __('name-en')  %></label>
         <input type="text" name="nameEn" required class="w-full input input-primary" />
       </div>
 
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Address ( En )</label>
+        <label class="block text-sm text-black label"><%= __('address-en')  %></label>
         <input type="text" name="addressEn" required class="w-full input input-primary" />
       </div>
 
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Address ( Ar )</label>
+        <label class="block text-sm text-black label"><%= __('address-ar')  %></label>
         <input type="text" name="addressAr" required class="w-full input input-primary" />
       </div>
 
@@ -38,18 +38,18 @@
 
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Latitude</label>
+        <label class="block text-sm text-black label"><%= __('latitude')  %></label>
         <input type="text" name="lat" required class="w-full input input-primary" />
       </div>
 
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Longitude</label>
+        <label class="block text-sm text-black label"><%= __('longitude')  %></label>
         <input type="text" name="lng" required class="w-full input input-primary" />
       </div>
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Description</label>
+        <label class="block text-sm text-black label"><%= __('description')  %></label>
         <input type="text" name="description" required class="w-full input input-primary" />
       </div>
 
@@ -65,6 +65,7 @@
 
           <div>
             <i class="fa-solid fa-file-image fs-3"></i>
+            <p><%= __('select-image')  %></p>
           </div>
         </label>
 
@@ -73,22 +74,22 @@
     </div>
 
     <!-- options -->
-    <h5 class="my-3 text-sm font-bold text-primary">Options Settings</h5>
+    <h5 class="my-3 text-sm font-bold text-primary"><%= __('place-setting')  %></h5>
     <hr>
     <div class="grid grid-cols-1 gap-3 mt-3 md:grid-cols-2">
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Location Link</label>
+        <label class="block text-sm text-black label"><%= __('location-link')  %></label>
         <input type="text" name="locationlink" class="w-full input input-primary" />
       </div>
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">Start Work</label>
+        <label class="block text-sm text-black label"><%= __('start-work')  %></label>
         <input type="time" name="timeStart" required class="w-full input input-primary" />
       </div>
 
       <div class="mb-3 ">
-        <label class="block text-sm text-black label">End Work</label>
+        <label class="block text-sm text-black label"><%= __('close-work')  %></label>
         <input type="time" name="timeClosed" required class="w-full input input-primary" />
       </div>
 
@@ -140,14 +141,14 @@
       </div>
 
       <div class="flex items-baseline mb-3">
-        <label for="moveTurn" class="block text-sm text-black label">Move Turn</label>
+        <label for="moveTurn" class="block text-sm text-black label"><%= __('move-turn')  %></label>
         <input type="checkbox" name="moveTurn" id="moveTurn" value="true" class="mx-3 toggle toggle-primary" />
       </div>
 
     </div>
 
     <div class="flex items-center justify-center col-span-2 my-10">
-      <button type="submit" class="w-1/2 btn btn-primary">Save</button>
+      <button type="submit" class="w-1/2 btn btn-primary"><%= __('save')  %></button>
     </div>
   </form>
 
@@ -161,14 +162,13 @@
       <thead>
         <tr>
 
-          <th class="text-black">Name (En)</th>
-          <th class="text-black">Name (Ar)</th>
-          <th class="text-black">Address (En)</th>
-          <th class="text-black">Address (Ar)</th>
-          <th class="text-black">Description</th>
-          <th class="text-black">location</th>
-          <th class="text-black">Image</th>
-          <th class="text-black">Actions</th>
+          <th class="text-black"><%= __('name-en')  %></th>
+          <th class="text-black"><%= __('name-ar')  %></th>
+          <th class="text-black"><%= __('address-en')  %></th>
+          <th class="text-black"><%= __('address-ar')  %></th>    
+          <th class="text-black"><%= __('location')  %></th>
+          <th class="text-black"><%= __('image')  %></th>
+          <th class="text-black"><%= __('actions')  %></th>
 
         </tr>
       </thead>
@@ -193,9 +193,6 @@
           </td>
 
 
-          <td class="text-xs font-light">
-            <%= place.description %>
-          </td>
 
           <td>
             <%= place.location.lat %> - <%= place.location.lng %>

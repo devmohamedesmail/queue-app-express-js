@@ -1,35 +1,38 @@
-<div class="container m-auto">
+<div class="container m-auto my-5">
 
     
 
 
     <div class="flex items-center justify-end">
-
         <button class="btn btn-primary" onclick="my_modal_2.showModal()">Add New User</button>
     </div>
+
+
+    
     <dialog id="my_modal_2" class="modal">
         <div class="modal-box">
             <h3 class="text-lg font-bold text-center">Add New User</h3>
-            <form action="/subscriber/create/new/user/<%= user.place  %>" method="post">
-                <div>
-                    <label for="">Name</label>
+            <form action="/subscriber/create/new/user/<%= place._id  %>" method="post">
+                
+                <div class="mb-3">
+                    <label class="block " > <%= __('name')  %> </label>
                     <input type="text" class="w-full input input-bordered input-primary" name="name" required>
                 </div>
 
 
 
-                <div>
-                    <label for="">Email</label>
+                <div class="mb-3">
+                    <label ><%= __('email')  %> </label>
                     <input type="text" class="w-full input input-bordered input-primary" name="email" required>
                 </div>
 
-                <div>
-                    <label for="">Password</label>
+                <div class="mb-3">
+                    <label > <%= __('password')  %> </label>
                     <input type="password" class="w-full input input-bordered input-primary" name="password" required>
                 </div>
 
-               <div>
-                <button class="btn btn-primary" type="submit">Add</button>
+               <div class="flex justify-center mt-4" >
+                <button class="btn btn-primary" type="submit"><%= __('save')  %> </button>
                </div>
 
 
@@ -57,10 +60,10 @@
                 <thead>
                     <tr>
 
-                        <th class="text-black">Name</th>
-                        <th class="text-black">Email</th>
-                        <th class="text-black">Role</th>
-                        <th class="text-black">Actions</th>
+                        <th class="text-black"><%= __('name') %></th>
+                        <th class="text-black"><%= __('email') %></th>
+                        <th class="text-black"><%= __('role') %></th>
+                        <th class="text-black"><%= __('actions') %></th>
 
                     </tr>
                 </thead>
