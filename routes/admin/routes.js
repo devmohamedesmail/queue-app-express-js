@@ -10,7 +10,9 @@ import {
     delete_service,
     edit_service,
     update_setting,
-    edit_user
+    edit_user,
+    help_page,
+    reply_help
 
     } from '../../controllers/web/AdminController.js';
 import { protect } from '../../middlewares/authMiddleware.js';
@@ -92,6 +94,19 @@ router.post('/update',upload.single('image') ,update_setting);
 
 // ************************************************** Edit users Routes ******************************************
 router.post('/edit/user/:id', edit_user)
+
+
+
+
+
+
+// ***********************************************************************************************************
+// **************************************************** Help Routes ******************************************
+// ***********************************************************************************************************
+router.get('/help', help_page);
+
+// reply help
+router.post('/reply/help/:helpId', reply_help);
 
 
 export default router;

@@ -4,6 +4,7 @@ import Place from "../../models/Place.js";
 import Setting from "../../models/Setting.js";
 import User from "../../models/User.js";
 import Service from "../../models/Service.js";
+import Help from "../../models/Help.js";
 
 
 
@@ -376,6 +377,50 @@ export const edit_user = async (req, res) => {
             title: "Users",
             layout: "layouts/admin"
         });
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+    }
+}
+
+
+
+
+// ************************************************ help functions ****************************************************
+export const help_page = async (req ,res)=>{
+    try {
+        await connectDB();
+        const helps = await Help.find();
+        res.render('admin/help',{
+            layout: "layouts/admin",
+            title: "Help",
+            helps:helps,
+        })
+
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+    }
+}
+
+
+
+
+// reply help 
+export const reply_help = async (req ,res)=>{
+    try {
+        const helpId = req.params.helpId;
+        await connectDB();
+        const help = await Help.findById(helpId);
+        help.reply = req.body.reply;
+        await help.save();
+        res.redirect(req.get('Referrer') || '/');
     } catch (error) {
         res.render('admin/404.ejs', {
             title: "Error",

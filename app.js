@@ -24,6 +24,7 @@ import { protect } from './middlewares/authMiddleware.js';
 
 import userRoutes from './routes/front/routes.js'
 import admin from './routes/admin/routes.js';
+import api from './routes/api/routes.js'
 
 
 
@@ -152,6 +153,8 @@ app.use('/api/v1/settings', settingapi);
 
 // Auth Api Routes file
 app.use('/api/v1/auth', authapi);
+
+app.use('/api/v1', api);
 
 // ********************************************************* Api Routes End *********************************************************
 

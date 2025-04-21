@@ -51,5 +51,10 @@
 	"add-new-user": "Add New User",
 	"department": "Department",
 	"welcome": "Book Your Queue Easily",
-	"services": "Services"
+	"services": "Services",
+	"help": "help",
+	"help-page": "help-page",
+	"reply": "reply",
+	"send": "send",
+	"message": "message"
 }

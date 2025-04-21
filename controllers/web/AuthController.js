@@ -85,7 +85,12 @@ export const login_user = async (req, res) => {
         // search for the user in the database based on the email provided by the userا
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(401).json({ status: 401, message: "Invalid email or password" });
+            // return res.status(401).json({ status: 401, message: "Invalid email or password" });
+            return res.render('front/login.ejs', {
+                message: "Invalid email or password",
+                title: "Login",
+                layout: "layouts/front.ejs",
+            })
         }
 
         // compare the password provided by the user with the password stored in the database

@@ -1,21 +1,30 @@
 import mongoose from "mongoose";
 const HelpSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: false
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', 
+        required: false,
+        default: null,
     },
-    email: {
+    user: {
+        type: Object,
+        required: false,
+        default: null
+    },
+    topic: {
         type: String,
-        required: false
+        required: false,
+        default: null,
     },
     message: {
         type: String,
-        required: false
-    },
-    date: {
-        type: Date,
         required: false,
-        default: Date.now,
+        default: null,
+    },
+    reply: {
+        type: String,
+        required: false,
+        default: null
     }
 }, { timestamps: true });
 

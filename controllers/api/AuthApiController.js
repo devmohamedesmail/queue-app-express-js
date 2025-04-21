@@ -107,7 +107,7 @@ export const edit_user = async (req, res) => {
     try {
         await connectDB();
         const id = req.params.id;
-        const { name,email , password } = req.body;
+        const { name, email , password } = req.body;
         const user = await User.findById(id);
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });

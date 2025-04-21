@@ -30,6 +30,14 @@
                                     <%= __('forgot-password') %>
                                 </span>
                             </a>
+
+
+                            <% if (typeof message !== 'undefined' && message) { %>
+                                <div class="p-2 text-center text-red-500">
+                                  <%= message %>
+                                </div>
+                              <% } %>
+                              
                             <button
                                 class="w-full p-2 mt-6 text-white transition duration-300 ease-in-out rounded-lg shadow-lg bg-gradient-to-r dark:text-gray-300 from-green-500 to-green-800 hover:scale-105 "
                                 type="submit">

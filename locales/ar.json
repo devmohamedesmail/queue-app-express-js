@@ -51,5 +51,10 @@
 	"add-new-user": "إضافة مستخدم جديد",
 	"department": "القسم",
 	"welcome": "احجز دورك بسهولة",
-	"services": " الخدمات "
+	"services": " الخدمات ",
+	"help": "help",
+	"help-page": "help-page",
+	"reply": "reply",
+	"send": "send",
+	"message": "message"
 }
