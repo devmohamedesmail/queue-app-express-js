@@ -3,7 +3,7 @@ import Place from "../../models/Place.js";
 import Queue from "../../models/Queue.js";
 import User from "../../models/User.js";
 import bcrypt from "bcryptjs";
-import moment from 'moment';
+
 import Service from '../../models/Service.js';
 
 
@@ -92,7 +92,7 @@ export const redirect_to_users = async (req, res) => {
         const user = req.session.user;
         const placeId = req.params.placeId;
         await connectDB()
-        const users = await User.find({ place:placeId });
+        const users = await User.find({ place: placeId });
         const place = await Place.findById(user.placeId);
         const services = await Service.find({ placeId: placeId });
         res.render('subscriber/users', {
@@ -101,7 +101,7 @@ export const redirect_to_users = async (req, res) => {
             users: users,
             user: user,
             place: place,
-            services:services
+            services: services
         });
     } catch (error) {
         res.render('404', {
@@ -117,7 +117,7 @@ export const create_new_user_for_place = async (req, res) => {
 
 
 
-    const { name, email, password,serviceId } = req.body;
+    const { name, email, password, serviceId } = req.body;
     const user = req.session.user;
     const placeId = req.params.placeId;
 
@@ -132,8 +132,8 @@ export const create_new_user_for_place = async (req, res) => {
             password: hashedPassword,
             role: 'employee',
             place: placeId,
-            serviceId:serviceId,
-            service:service,
+            serviceId: serviceId,
+            service: service,
         });
 
         await newUser.save();
@@ -153,7 +153,7 @@ export const create_new_user_for_place = async (req, res) => {
 
 
 // delete user
-export const subscriber_delete_user = async (req,res)=>{
+export const subscriber_delete_user = async (req, res) => {
     try {
         await connectDB();
         const userId = req.params.userId;
@@ -165,15 +165,15 @@ export const subscriber_delete_user = async (req,res)=>{
     }
 }
 
-export const subscriber_edit_user = async (req,res)=>{
-    const { name, email,serviceId } = req.body;
+export const subscriber_edit_user = async (req, res) => {
+    const { name, email, serviceId } = req.body;
     const user = req.session.user;
     const placeId = req.params.placeId;
     const userId = req.params.userId;
 
     try {
         await connectDB()
-        
+
         const service = await Service.findById(serviceId);
         const updatedData = {
             name,
@@ -189,7 +189,7 @@ export const subscriber_edit_user = async (req,res)=>{
         res.redirect(`/subscriber/users/${placeId}`);
 
     } catch (error) {
-     console.log(error)
+        console.log(error)
         res.render('404', {
             layout: "layouts/main",
             title: "Error",
@@ -250,7 +250,7 @@ export const edit_place_info = async (req, res) => {
         place.moveTurn = Boolean(req.body.moveTurn);
         place.locationlink = req.body.locationlink;
         place.estimateTime = req.body.estimateTime;
-       
+
         await place.save();
 
         res.redirect(`/subscriber/setting/${placeId}`);
@@ -330,11 +330,42 @@ export const add_new_service = async (req, res) => {
 // ******************************* Setting Section End **********************************
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// **************************************************************************************
+// ******************************* Queues Section start **********************************
+// **************************************************************************************
+
+
+
+// ********** redirect to queues page
 export const redirect_to_queues = async (req, res) => {
     try {
         await connectDB()
-
-        // check if the place have services or not
         const placeId = req.params.placeId;
         const services = await Service.find({ placeId: placeId });
         const place = await Place.findById(placeId);
@@ -366,44 +397,36 @@ export const redirect_to_queues = async (req, res) => {
                 place: place
             });
         }
-
-
-
     } catch (error) {
 
         res.status(500).render('404', {
             layout: "layouts/main",
             title: "Error",
             message: error.message,
-
         });
     }
 }
 
 
 
+// ******** fetch service Queues 
 
 export const redirect_to_service_queues = async (req, res) => {
     try {
         await connectDB();
-
         const placeId = req.params.placeId;
         const serviceId = req.params.serviceId;
 
-        // بداية ونهاية اليوم الحالي
         const startOfDay = new Date();
         startOfDay.setHours(0, 0, 0, 0);
 
         const endOfDay = new Date();
         endOfDay.setHours(23, 59, 59, 999);
-
-
         const place = await Place.findById(placeId);
-
-
         const queues = await Queue.find({
-            place: placeId,
-            service: serviceId,
+            placeId: placeId,
+            serviceId: serviceId,
+            status: "waiting",
             createdAt: { $gte: startOfDay, $lte: endOfDay }
         });
 
@@ -421,6 +444,41 @@ export const redirect_to_service_queues = async (req, res) => {
         })
     }
 }
+
+
+
+// ******** change the stage of queue
+export const change_queue_to_active = async (req, res) => {
+
+    try {
+        const user = req.session.user;
+
+        const queueId = req.params.queueId;
+        const queue = await Queue.findById(queueId);
+        if (!queue) {
+            return res.status(404).json({ message: "Queue not found" });
+        }
+        const employee = await User.findById(user.id);
+        queue.status = "active";
+        queue.employee = employee;
+        await queue.save();
+
+        res.redirect(req.get('Referrer') || '/');
+    } catch (error) {
+        res.render('404', {
+            layout: "layouts/subscriber",
+            title: "Error",
+            message: error.message,
+        })
+    }
+}
+
+
+
+
+// **************************************************************************************
+// ******************************* Queues Section end **********************************
+// **************************************************************************************
 
 
 

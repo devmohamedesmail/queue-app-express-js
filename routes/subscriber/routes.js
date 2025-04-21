@@ -1,6 +1,5 @@
 import express from 'express';
 import Place from '../../models/Place.js';
-import { change_queue_to_active } from '../../controllers/SubscriberController.js';
 import {
     redirect_to_index,
     redirect_to_statistics,
@@ -14,7 +13,8 @@ import {
     add_new_service,
     redirect_to_service_queues,
     subscriber_delete_user,
-    subscriber_edit_user
+    subscriber_edit_user,
+    change_queue_to_active
 } from '../../controllers/Subscriber/SubscriberController.js';
 import connectDB from '../../config/db.js';
 import multer from 'multer';
@@ -108,7 +108,7 @@ router.get('/queues/:placeId', redirect_to_queues);
 // show service queues
 router.get('/service/queues/:placeId/:serviceId', redirect_to_service_queues);
 // change queue to active
-router.get('/change/queue/to/active/:id', change_queue_to_active)
+router.get('/change/queue/to/active/:queueId', change_queue_to_active)
 
 
 // show qr code page

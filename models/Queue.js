@@ -31,6 +31,11 @@ const QueueSchema = new mongoose.Schema({
         enum: ["waiting", "active", "cancelled"], // تحديد القيم المتاحة
         default: "waiting",
     },
+    employee: {
+        type:Object,
+        required: false,
+        default: null
+    }
 }, { timestamps: true });
 
 
