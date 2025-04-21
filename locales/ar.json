@@ -47,7 +47,9 @@
 	"sign-up": "إنشاء حساب",
 	"register": "تسجيل",
 	"have-account": "هل لديك حساب؟",
-	"show-my-queues": "show-my-queues",
-	"add-new-user": "add-new-user",
-	"department": "department"
+	"show-my-queues": "عرض أدواري",
+	"add-new-user": "إضافة مستخدم جديد",
+	"department": "القسم",
+	"welcome": "احجز دورك بسهولة",
+	"services": " الخدمات "
 }

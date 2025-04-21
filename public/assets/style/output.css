@@ -2196,8 +2196,14 @@
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
   }
+  .py-7 {
+    padding-block: calc(var(--spacing) * 7);
+  }
   .py-10 {
     padding-block: calc(var(--spacing) * 10);
+  }
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
   }
   .pt-8 {
     padding-top: calc(var(--spacing) * 8);
@@ -2458,6 +2464,13 @@
       }
     }
   }
+  .hover\:bg-secondary {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-secondary);
+      }
+    }
+  }
   .focus\:scale-105 {
     &:focus {
       --tw-scale-x: 105%;
@@ -2535,19 +2548,24 @@
       flex-direction: row;
     }
   }
+  .md\:p-5 {
+    @media (width >= 48rem) {
+      padding: calc(var(--spacing) * 5);
+    }
+  }
   .md\:p-10 {
     @media (width >= 48rem) {
       padding: calc(var(--spacing) * 10);
     }
   }
-  .lg\:grid-cols-4 {
-    @media (width >= 64rem) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
   .lg\:grid-cols-5 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  .lg\:p-5 {
+    @media (width >= 64rem) {
+      padding: calc(var(--spacing) * 5);
     }
   }
   .lg\:p-10 {
@@ -2596,6 +2614,10 @@
   --color-secondary: #011627;
   --color-light: #fdfffc;
   --color-dark: #011627;
+}
+:lang(ar) label {
+  text-align: right;
+  direction: rtl;
 }
 input {
   margin-top: 5px;

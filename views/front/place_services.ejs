@@ -1,17 +1,24 @@
 <div class="container px-3 m-auto">
 
 
-     <h4 class="mt-10 font-bold text-center">Choose Your Service</h4>
+  <h4 class="mt-10 font-bold text-center"><%= __('services') %></h4>
 
-  
-  <div class="grid grid-cols-1 gap-4 my-10 md:grid-cols-3 lg:grid-cols-4">
-    <% services.forEach((service,index) => { %>
-    <a href="/book/queue/<%= placeId %>/<%= service._id %>" class="flex flex-col items-center justify-center p-4 text-white rounded-xl bg-primary">
-      <p class="flex items-center justify-center w-10 h-10 mb-5 bg-secondary rounded-2xl"><%= index+1 %></p>
-      <p><%= service.nameEn %></p>
-      <p><%= service.nameAr %></p>
-      <!-- <a href="/book/queue/<%= placeId %>/<%= service._id %>" class="mt-10 btn btn-secondary">Book Queue Here</a> -->
-    </a>
-    <% }) %>
+
+  <div class="grid grid-cols-1 gap-4 my-10 md:grid-cols-3 ">
+    <% services.forEach((service,index)=> { %>
+      <a href="/book/queue/<%= placeId %>/<%= service._id %>"
+        class="flex flex-col items-center justify-center p-4 py-5 text-white rounded-xl bg-primary hover:bg-secondary">
+        <p class="flex items-center justify-center w-10 h-10 mb-5 bg-secondary rounded-2xl">
+          <%= index+1 %>
+        </p>
+        <p>
+          <%= service.nameEn %>
+        </p>
+        <p>
+          <%= service.nameAr %>
+        </p>
+        <!-- <a href="/book/queue/<%= placeId %>/<%= service._id %>" class="mt-10 btn btn-secondary">Book Queue Here</a> -->
+      </a>
+      <% }) %>
   </div>
 </div>

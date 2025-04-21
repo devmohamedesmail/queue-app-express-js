@@ -41,6 +41,8 @@
                     <input type="password" class="w-full input input-bordered input-primary" name="password" required>
                 </div>
 
+               <div class="mb-2">
+                <label ><%= __('department') %></label>
                 <select class="w-full select select-primary" name="serviceId">
 
                     <% if (services && services.length> 0) { %>
@@ -53,6 +55,7 @@
 
 
                 </select>
+               </div>
 
                 <div class="flex justify-center mt-4">
                     <button class="btn btn-primary" type="submit">
@@ -126,7 +129,7 @@
                             <td class="flex items-center justify-center">
                                 <button class="mx-1 btn btn-success btn-xs"
                                     onclick="document.getElementById('modal_<%= user._id %>').showModal()"><i
-                                        class="fa-solid fa-pen"></i></button>
+                                        class="text-white fa-solid fa-pen"></i></button>
 
 
 
@@ -174,7 +177,8 @@
                                             <label for="">
                                                 <%= __('department') %>
                                             </label>
-                                            <select class="w-full select select-primary" name="serviceId">
+                                            <select class="w-full select select-primary focus:outline-0"
+                                                name="serviceId">
 
                                                 <% if (services && services.length> 0) { %>
                                                     <% services.forEach(service=> { %>

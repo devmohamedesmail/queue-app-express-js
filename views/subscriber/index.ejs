@@ -1,11 +1,25 @@
-
-
-
-
-
 <div class="container flex flex-col items-center justify-center px-5 m-auto my-10">
-  <h6 class="text-xl text-primary"><%= place.nameEn  %></h6>
-  <h6 class="text-sm"><%= place.addressEn  %></h6>
+  <h6 class="text-xl text-primary">
+    <% if (locale==='ar' ) { %>
+      <%= place.nameAr %>
+  </h6>
+  <% } else { %>
+    <%= place.nameEn %>
+      </h6>
+      <% } %>
+
+
+        <h6 class="text-sm">
+
+          <% if (locale==='ar' ) { %>
+            <%= place.addressAr %>
+        </h6>
+        <% } else { %>
+          
+            <% } %>
+
+              <%= place.addressEn %>
+                </h6>
 </div>
 
 
@@ -22,29 +36,41 @@
 
 
 
-    <a href="/subscriber/statistics/<%= user.placeId %>" class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
-      <img src="/assets/images/statistics.svg" class="w-full h-32" alt="">
-      <h5 class="mt-5 font-bold text-md"><%= __('statistics') %></h5>
-    </a>
+      <a href="/subscriber/statistics/<%= user.placeId %>"
+        class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
+        <img src="/assets/images/statistics.svg" class="w-full h-32" alt="">
+        <h5 class="mt-5 font-bold text-md">
+          <%= __('statistics') %>
+        </h5>
+      </a>
 
 
-    <a href="/subscriber/users/<%= user.placeId %>" class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
-      <img src="/assets/images/users.svg" class="w-full h-32" alt="">
-      <h5 class="mt-5 font-bold text-md"><%= __('users') %></h5>
-    </a>
+      <a href="/subscriber/users/<%= user.placeId %>"
+        class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
+        <img src="/assets/images/users.svg" class="w-full h-32" alt="">
+        <h5 class="mt-5 font-bold text-md">
+          <%= __('users') %>
+        </h5>
+      </a>
 
-    <a href="/subscriber/setting/<%= user.placeId %>" class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
-      <img src="/assets/images/setting.svg" class="w-full h-32" alt="">
-      <h5 class="mt-5 font-bold text-md"><%= __('setting') %></h5>
-    </a>
+      <a href="/subscriber/setting/<%= user.placeId %>"
+        class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
+        <img src="/assets/images/setting.svg" class="w-full h-32" alt="">
+        <h5 class="mt-5 font-bold text-md">
+          <%= __('setting') %>
+        </h5>
+      </a>
 
-    <a href="/subscriber/queues/<%= user.placeId %>" class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
-      <img src="/assets/images/waiting.svg" class="w-full h-32" alt="">
-      <h5 class="mt-5 font-bold text-md"><%= __('queues') %></h5>
-    </a>
+      <a href="/subscriber/queues/<%= user.placeId %>"
+        class="flex flex-col items-center justify-center py-5 duration-300 ease-in-out border shadow hover:-translate-y-3 rounded-2xl border-primary">
+        <img src="/assets/images/waiting.svg" class="w-full h-32" alt="">
+        <h5 class="mt-5 font-bold text-md">
+          <%= __('queues') %>
+        </h5>
+      </a>
 
 
-    <% } %>
+      <% } %>
 
 
 

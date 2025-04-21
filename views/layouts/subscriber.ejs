@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="<%= locale %>">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Queue App | <%= title  %></title>
+  <title>Queue App | <%= title %>
+  </title>
   <%- include('../partials/styles.ejs') %>
 
 </head>
@@ -21,37 +22,49 @@
         <div class="container flex items-center justify-between m-auto my-3 bg-base-200">
           <div class="flex items-center">
             <img src="/uploads/<%= place.image  %>" class="w-16 h-16 rounded-full" alt="<%= place.nameEn %>">
-            <h5 class="mx-1 text-sm text-primary"><%= place.nameEn %></h5>
+
+            <div class="flex flex-col justify-center mx-1">
+              <h5 class="mx-1 text-sm text-primary">
+                <%= place.nameEn %>
+              </h5>
+              <h5 class="mx-1 text-sm text-primary">
+                <%= place.nameAr %>
+              </h5>
+            </div>
           </div>
 
           <div class="flex items-center">
             <div class="flex flex-col items-center justify-center mx-2">
               <p class="text-xs font-bold text-secondary">
-                <% if (user) { %><%= user.name %> <% } %>
+                <% if (user) { %>
+                  <%= user.name %>
+                    <% } %>
               </p>
               <p class="text-xs text-primary">
-                <% if (user) { %><%= user.email %> <% } %>
+                <% if (user) { %>
+                  <%= user.email %>
+                    <% } %>
               </p>
-             
+
             </div>
 
 
             <button class="mx-1 btn btn-primary" popovertarget="popover-1" style="anchor-name:--anchor-1">
-              <i class="fa-solid fa-globe"></i>  Language
+              <i class="fa-solid fa-globe"></i> Language
             </button>
-            
+
             <!-- القائمة -->
-            <ul class="shadow-sm dropdown menu w-52 rounded-box bg-base-100"
-              popover id="popover-1" style="position-anchor:--anchor-1">
-            
+            <ul class="shadow-sm dropdown menu w-52 rounded-box bg-base-100" popover id="popover-1"
+              style="position-anchor:--anchor-1">
+
               <li><a href="?lang=en">🇺🇸 English</a></li>
               <li><a href="?lang=ar">🇸🇦 العربية</a></li>
-            
+
             </ul>
 
-          
 
-            <label for="my-drawer" class="btn btn-primary drawer-button">
+
+            <label for="my-drawer" class="pt-2 btn btn-primary drawer-button">
               <i class="fa-solid fa-bars"></i>
             </label>
           </div>
@@ -71,52 +84,52 @@
           <% if (user && user.placeId) { %>
 
 
-          <li class="border-b-2 border-primary">
-            <a href="/subscriber/statistics/<%= user.placeId %>">
-              <img src="/assets/images/statistics.svg" class="w-6 h-6" alt="">
-              <span class="ml-2">Statistics</span>
-            </a>
-          </li>
+            <li class="border-b-2 border-primary">
+              <a href="/subscriber/statistics/<%= user.placeId %>">
+                <img src="/assets/images/statistics.svg" class="w-6 h-6" alt="">
+                <span class="ml-2"><%= __('statistics')  %></span>
+              </a>
+            </li>
 
 
 
-          <li class="border-b-2 border-primary">
-            <a href="/subscriber/users/<%= user.placeId %>">
-              <img src="/assets/images/users.svg" class="w-6 h-6" alt="">
-              <span class="ml-2">Users</span>
-            </a>
-          </li>
-          
-
-
-          <li class="border-b-2 border-primary">
-            <a href="/subscriber/setting/<%= user.placeId %>">
-              <img src="/assets/images/setting.svg" class="w-6 h-6" alt="">
-              <span class="ml-2">Setting</span>
-            </a>
-          </li>
-
-          <li class="border-b-2 border-primary">
-            <a href="/subscriber/queues/<%= user.placeId %>">
-              <img src="/assets/images/waiting.svg" class="w-6 h-6" alt="">
-              <span class="ml-2">Queues</span>
-            </a>
-          </li>
-
-
-          <li class="mt-10 border-b-2 border-primary">
-            <a href="/users/logout">
-              <img src="/assets/images/logout.svg" class="w-6 h-6" alt="">
-              <span class="ml-2">Logout</span>
-            </a>
-          </li>
-         
+            <li class="border-b-2 border-primary">
+              <a href="/subscriber/users/<%= user.placeId %>">
+                <img src="/assets/images/users.svg" class="w-6 h-6" alt="">
+                <span class="ml-2"><%= __('users')  %></span>
+              </a>
+            </li>
 
 
 
+            <li class="border-b-2 border-primary">
+              <a href="/subscriber/setting/<%= user.placeId %>">
+                <img src="/assets/images/setting.svg" class="w-6 h-6" alt="">
+                <span class="ml-2"><%= __('setting')  %></span>
+              </a>
+            </li>
+
+            <li class="border-b-2 border-primary">
+              <a href="/subscriber/queues/<%= user.placeId %>">
+                <img src="/assets/images/waiting.svg" class="w-6 h-6" alt="">
+                <span class="ml-2"><%= __('queues')  %></span>
+              </a>
+            </li>
 
 
-          <% } %>
+            <li class="mt-10 border-b-2 border-primary">
+              <a href="/users/logout">
+                <img src="/assets/images/logout.svg" class="w-6 h-6" alt="">
+                <span class="ml-2"><%= __('logout')  %></span>
+              </a>
+            </li>
+
+
+
+
+
+
+            <% } %>
 
 
         </ul>

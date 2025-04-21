@@ -70,13 +70,8 @@ export const register_user = async (req, res) => {
 export const login_user = async (req, res) => {
     try {
         await connectDB();
-
-
         const { email, password } = req.body;
-
-
         // ***************** Form validation section ****************
-
         if (!email || !password) {
             const errors = ["Email and password are required"];
             return res.render('front/login.ejs', {
@@ -130,7 +125,7 @@ export const login_user = async (req, res) => {
 
         if (user.role === 'admin') {
             res.redirect('/admin/index')
-        } else if (user.role === 'subscriber') {
+        } else if (user.role === 'subscriber' || user.role === 'employee') {
             res.redirect('/subscriber/index')
         } else {
             res.render('front/index.ejs', {
@@ -143,6 +138,11 @@ export const login_user = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ status: 500, message: error.message });
+        res.render('front/login.ejs', {
+            layout: "layouts/front",
+            title: "Login",
+            message: error.message
+        })
     }
 }
 

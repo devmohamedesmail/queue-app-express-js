@@ -19,6 +19,15 @@
   themes: light --default, dark --prefersdark;
 } */
 
+/* label{
+  display: block;
+} */
+:lang(ar) label {
+  text-align: right;
+  direction: rtl;
+}
+
+
 input{
   margin-top: 5px;
   /* height: 50px; */
