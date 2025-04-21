@@ -37,5 +37,17 @@
 	"location": "الموقع",
 	"image": "الصورة",
 	"logout": "تسجيل الخروج",
-    "edit-profile": "تعديل الملف الشخصي"
+	"edit-profile": "تعديل الملف الشخصي",
+	"login": "تسجيل الدخول",
+	"login-register": "تسجيل الدخول / التسجيل",
+	"apple-store": "متجر آبل",
+	"google-play": "جوجل بلاي",
+	"forgot-password": "هل نسيت كلمة المرور؟",
+	"no-account": "لا تملك حسابًا؟",
+	"sign-up": "إنشاء حساب",
+	"register": "تسجيل",
+	"have-account": "هل لديك حساب؟",
+	"show-my-queues": "show-my-queues",
+	"add-new-user": "add-new-user",
+	"department": "department"
 }

@@ -139,7 +139,7 @@ export const get_all_users_queues_today = async (req, res) => {
                 serviceId,
                 status: 'active',
                 createdAt: { $gte: todayStart, $lte: todayEnd }
-            }).sort({ queue: 1 });
+            }).sort({ queue: -1 });
 
             // Calculate estimated time based on people ahead of the user
             // const estimatedTime = aheadOfYou * 5; 

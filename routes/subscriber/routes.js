@@ -12,12 +12,15 @@ import {
     edit_service,
     delete_service,
     add_new_service,
-    redirect_to_service_queues
+    redirect_to_service_queues,
+    subscriber_delete_user,
+    subscriber_edit_user
 } from '../../controllers/Subscriber/SubscriberController.js';
 import connectDB from '../../config/db.js';
 import multer from 'multer';
 import path from 'path'
 import fs from 'fs';
+
 
 // multer
 // Multer setup for image uploads
@@ -140,6 +143,8 @@ router.get('/show/qr/code/:id', async (req, res) => {
 
 
 router.post('/create/new/user/:placeId', create_new_user_for_place);
+router.get('/delete/user/:placeId/:userId' , subscriber_delete_user);
+router.post('/edit/user/:placeId/:userId' , subscriber_edit_user);
 
 
 

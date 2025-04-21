@@ -19,17 +19,22 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         required: false,
-        default:'user'
+        default: 'user'
     },
-    place:{
+    place: {
         type: String,
         required: false,
-        default:"0"
+        default: "0"
     },
-    serviceId:{
+    serviceId: {
         type: String,
         required: false,
-        default:"0"
+        default: "0"
+    },
+    service: {
+        type: Object,
+        required: false,
+        default: {}
     },
     image: {
         type: String,
@@ -43,39 +48,15 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         required: false
     },
-    phoneVerified: {
-        type: Boolean,
-        required: false
-    },
-    emailVerificationCode: {
-        type: String,
-        required: false
-    },
-    phoneVerificationCode: {
-        type: String,
-        required: false
-    },
-    emailVerificationCodeExpires: {
-        type: Date,
-        required: false
-    },
-    phoneVerificationCodeExpires: {
-        type: Date,
-        required: false
-    },
-    passwordResetCode: {
-        type: String,
-        required: false
-    },
-    passwordResetCodeExpires: {
-        type: Date,
-        required: false
-    },
-    notificationToken: {
-        type: String,
-        required: false
-    },
-    
+
+
+
+
+
+
+
+
+
 }, {
     timestamps: true
 });

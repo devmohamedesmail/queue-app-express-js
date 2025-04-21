@@ -1,39 +1,64 @@
 <div class="container m-auto my-5">
 
-    
+
 
 
     <div class="flex items-center justify-end">
-        <button class="btn btn-primary" onclick="my_modal_2.showModal()">Add New User</button>
+        <button class="btn btn-primary" onclick="my_modal_2.showModal()">
+            <%= __('add-new-user') %>
+        </button>
     </div>
 
 
-    
+
     <dialog id="my_modal_2" class="modal">
         <div class="modal-box">
-            <h3 class="text-lg font-bold text-center">Add New User</h3>
+            <h3 class="text-lg font-bold text-center">
+                <%= __('add-new-user') %>
+            </h3>
             <form action="/subscriber/create/new/user/<%= place._id  %>" method="post">
-                
+
                 <div class="mb-3">
-                    <label class="block " > <%= __('name')  %> </label>
+                    <label class="block ">
+                        <%= __('name') %>
+                    </label>
                     <input type="text" class="w-full input input-bordered input-primary" name="name" required>
                 </div>
 
 
 
                 <div class="mb-3">
-                    <label ><%= __('email')  %> </label>
+                    <label>
+                        <%= __('email') %>
+                    </label>
                     <input type="text" class="w-full input input-bordered input-primary" name="email" required>
                 </div>
 
                 <div class="mb-3">
-                    <label > <%= __('password')  %> </label>
+                    <label>
+                        <%= __('password') %>
+                    </label>
                     <input type="password" class="w-full input input-bordered input-primary" name="password" required>
                 </div>
 
-               <div class="flex justify-center mt-4" >
-                <button class="btn btn-primary" type="submit"><%= __('save')  %> </button>
-               </div>
+                <select class="w-full select select-primary" name="serviceId">
+
+                    <% if (services && services.length> 0) { %>
+                        <% services.forEach(service=> { %>
+                            <option value="<%= service._id %>">
+                                <%= service.nameEn %>
+                            </option>
+                            <% }) %>
+                                <% } %>
+
+
+                </select>
+
+                <div class="flex justify-center mt-4">
+                    <button class="btn btn-primary" type="submit">
+                        <%= __('save') %>
+                    </button>
+                </div>
 
 
             </form>
@@ -60,10 +85,21 @@
                 <thead>
                     <tr>
 
-                        <th class="text-black"><%= __('name') %></th>
-                        <th class="text-black"><%= __('email') %></th>
-                        <th class="text-black"><%= __('role') %></th>
-                        <th class="text-black"><%= __('actions') %></th>
+                        <th class="text-black">
+                            <%= __('name') %>
+                        </th>
+                        <th class="text-black">
+                            <%= __('email') %>
+                        </th>
+                        <th class="text-black">
+                            <%= __('role') %>
+                        </th>
+                        <th class="text-black">
+                            <%= __('department') %>
+                        </th>
+                        <th class="text-center">
+                            <%= __('actions') %>
+                        </th>
 
                     </tr>
                 </thead>
@@ -82,22 +118,87 @@
                                 <%= user.role %>
                             </td>
 
-
-
-
-
-
+                            <td class="text-xs font-light">
+                                <%= user.service.nameEn %>
+                            </td>
 
 
                             <td class="flex items-center justify-center">
-                                <a href="/places/edit/place/<%= user._id %> " class="mx-1 btn btn-success btn-xs">
-                                    <i class="text-white fa-solid fa-pen"></i>
-                                </a>
+                                <button class="mx-1 btn btn-success btn-xs"
+                                    onclick="document.getElementById('modal_<%= user._id %>').showModal()"><i
+                                        class="fa-solid fa-pen"></i></button>
+
+
+
+
                                 <a onclick="return confirm('Are you sure you want to delete this item?');"
-                                    href="/users/delete/user/<%= user._id %> " class="mx-1 btn btn-error btn-xs">
+                                    href="/subscriber/delete/user/<%= place._id %>/<%= user._id %> "
+                                    class="mx-1 btn btn-error btn-xs">
                                     <i class="text-white fa-solid fa-trash"></i>
                                 </a>
                             </td>
+
+
+
+
+                            <dialog id="modal_<%= user._id %>" class="modal">
+                                <div class="modal-box">
+                                    <form method="dialog">
+                                        <button
+                                            class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+                                    </form>
+
+                                    <form action="/subscriber/edit/user/<%= place._id  %>/<%= user._id  %>"
+                                        method="post">
+
+                                        <div class="mb-3">
+                                            <label class="block ">
+                                                <%= __('name') %>
+                                            </label>
+                                            <input type="text" class="w-full input input-bordered input-primary"
+                                                name="name" value="<%= user.name %>">
+                                        </div>
+
+
+
+                                        <div class="mb-3">
+                                            <label>
+                                                <%= __('email') %>
+                                            </label>
+                                            <input type="text" class="w-full input input-bordered input-primary"
+                                                name="email" value="<%= user.email %>">
+                                        </div>
+
+
+                                        <div>
+                                            <label for="">
+                                                <%= __('department') %>
+                                            </label>
+                                            <select class="w-full select select-primary" name="serviceId">
+
+                                                <% if (services && services.length> 0) { %>
+                                                    <% services.forEach(service=> { %>
+                                                        <option value="<%= service._id %>">
+                                                            <%= service.nameEn %>
+                                                        </option>
+                                                        <% }) %>
+                                                            <% } %>
+
+
+                                            </select>
+                                        </div>
+
+                                        <div class="flex justify-center mt-4">
+                                            <button class="btn btn-primary" type="submit">
+                                                <%= __('save') %>
+                                            </button>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                            </dialog>
+
 
                         </tr>
                         <% }) %>

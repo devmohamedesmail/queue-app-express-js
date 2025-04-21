@@ -36,6 +36,18 @@
 	"address-ar": "Arabic Address",
 	"location": "Location",
 	"image": "Image",
-	 "logout": "Logout",
-  "edit-profile": "Edit Profile"
+	"logout": "Logout",
+	"edit-profile": "Edit Profile",
+	"login": "Login",
+	"login-register": "Login / Register",
+	"apple-store": "Apple Store",
+	"google-play": "Google Play",
+	"forgot-password": "Forgot Password ? ",
+	"no-account": " No Account ? ",
+	"sign-up": " Sign Up",
+	"register": " Register ",
+	"have-account": " Have Account ? ",
+	"show-my-queues": "show-my-queues",
+	"add-new-user": "add-new-user",
+	"department": "department"
 }

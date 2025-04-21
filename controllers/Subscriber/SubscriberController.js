@@ -94,13 +94,14 @@ export const redirect_to_users = async (req, res) => {
         await connectDB()
         const users = await User.find({ place:placeId });
         const place = await Place.findById(user.placeId);
+        const services = await Service.find({ placeId: placeId });
         res.render('subscriber/users', {
             layout: "layouts/subscriber",
             title: "Subscriber Users",
             users: users,
             user: user,
             place: place,
-
+            services:services
         });
     } catch (error) {
         res.render('404', {
@@ -116,7 +117,7 @@ export const create_new_user_for_place = async (req, res) => {
 
 
 
-    const { name, email, password } = req.body;
+    const { name, email, password,serviceId } = req.body;
     const user = req.session.user;
     const placeId = req.params.placeId;
 
@@ -124,12 +125,15 @@ export const create_new_user_for_place = async (req, res) => {
         await connectDB()
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const service = await Service.findById(serviceId);
         const newUser = new User({
             name: name,
             email: email,
             password: hashedPassword,
             role: 'employee',
             place: placeId,
+            serviceId:serviceId,
+            service:service,
         });
 
         await newUser.save();
@@ -138,6 +142,54 @@ export const create_new_user_for_place = async (req, res) => {
 
     } catch (error) {
 
+        res.render('404', {
+            layout: "layouts/main",
+            title: "Error",
+            message: error.message,
+        });
+    }
+}
+
+
+
+// delete user
+export const subscriber_delete_user = async (req,res)=>{
+    try {
+        await connectDB();
+        const userId = req.params.userId;
+        const placeId = req.params.placeId;
+        await User.findByIdAndDelete(userId);
+        res.redirect(`/subscriber/users/${placeId}`);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const subscriber_edit_user = async (req,res)=>{
+    const { name, email,serviceId } = req.body;
+    const user = req.session.user;
+    const placeId = req.params.placeId;
+    const userId = req.params.userId;
+
+    try {
+        await connectDB()
+        
+        const service = await Service.findById(serviceId);
+        const updatedData = {
+            name,
+            email,
+            role: 'employee',
+            place: placeId,
+            serviceId,
+            service
+        }
+
+        await User.findByIdAndUpdate(userId, updatedData);
+
+        res.redirect(`/subscriber/users/${placeId}`);
+
+    } catch (error) {
+     console.log(error)
         res.render('404', {
             layout: "layouts/main",
             title: "Error",

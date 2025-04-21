@@ -19,8 +19,26 @@
         <span class="mx-2">Queue App</span>
       </a>
     </div>
-    <div class="flex gap-2">
+    <div class="flex items-center gap-2">
 
+
+
+
+
+
+
+      <button class="mx-1 btn btn-primary" popovertarget="popover-1" style="anchor-name:--anchor-1">
+        <i class="fa-solid fa-globe"></i>  Language
+      </button>
+      
+      <!-- القائمة -->
+      <ul class="shadow-sm dropdown menu w-52 rounded-box bg-base-100"
+        popover id="popover-1" style="position-anchor:--anchor-1">
+      
+        <li><a href="?lang=en">🇺🇸 English</a></li>
+        <li><a href="?lang=ar">🇸🇦 العربية</a></li>
+      
+      </ul>
 
       <% if (user) { %>
         <div class="dropdown dropdown-end">
@@ -35,12 +53,12 @@
             <li><a>
                 <%= user.email %>
               </a></li>
-            <li><a href="/show/user/queues/<%= user.id  %>"> Show My Queues </a></li>
+            <li><a href="/show/user/queues/<%= user.id  %>"> <%= __('show-my-queues') %> </a></li>
             <li><a href="/users/logout">Logout</a></li>
           </ul>
         </div>
         <% } else { %>
-          <a href="/front/login/page" class="px-2 text-sm ">Login / Register</a>
+          <a href="/front/login/page" class="px-2 text-sm "><%= __('login-register') %></a>
           <% } %>
 
 
@@ -56,8 +74,8 @@
 
 
 
-  <div>
-    <footer class="p-10 footer sm:footer-horizontal bg-base-200 text-base-content">
+  <div class="bg-base-200 ">
+    <footer class="container p-10 m-auto footer sm:footer-horizontal bg-base-200 text-base-content">
       <nav>
         <h6 class="footer-title">Services</h6>
         <a class="link link-hover">Branding</a>
@@ -83,10 +101,7 @@
         <fieldset class="w-80">
           <label>Enter your email address</label>
           <div class="join">
-            <input
-              type="text"
-              placeholder="username@site.com"
-              class="input input-bordered join-item" />
+            <input type="text" placeholder="username@site.com" class="input input-bordered join-item" />
             <button class="btn btn-primary join-item">Subscribe</button>
           </div>
         </fieldset>
@@ -94,20 +109,20 @@
         <div class="flex flex-col items-center justify-center md:flex-row">
           <a href="" class="flex items-center p-1 mx-1 text-white bg-gray-300 rounded-lg">
             <img src="/assets/images/apple.png" class="w-10 h-10" alt="">
-            <p class="mx-5 text-sm text-black"> Apple Store</p>
+            <p class="mx-5 text-sm text-black"> <%= __('apple-store') %></p>
           </a>
           <a href="" class="flex items-center p-1 mx-1 text-white bg-gray-300 rounded-lg">
             <img src="/assets/images/google-play.png" class="w-10 h-10" alt="">
-            <p class="mx-5 text-sm text-black">Google Play</p>
+            <p class="mx-5 text-sm text-black"><%= __('google-play') %></p>
           </a>
         </div>
       </form>
-  
-  
-      
+
+
+
     </footer>
 
-   
+
   </div>
 
 </body>
