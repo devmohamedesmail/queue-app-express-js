@@ -52,9 +52,10 @@
 	"department": "القسم",
 	"welcome": "احجز دورك بسهولة",
 	"services": " الخدمات ",
-	"help": "help",
-	"help-page": "help-page",
-	"reply": "reply",
-	"send": "send",
-	"message": "message"
+	"help": "مساعدة",
+	"help-page": "صفحة المساعدة",
+	"reply": "رد",
+	"send": "إرسال",
+	"message": "رسالة",
+	"scan-qr": "امسح رمز الاستجابة السريعة لحجز دورك"
 }

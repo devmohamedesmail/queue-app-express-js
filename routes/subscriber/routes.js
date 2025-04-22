@@ -1,4 +1,5 @@
 import express from 'express';
+import QRCode from 'qrcode';
 import Place from '../../models/Place.js';
 import {
     redirect_to_index,
@@ -112,17 +113,29 @@ router.get('/change/queue/to/active/:queueId', change_queue_to_active)
 
 
 // show qr code page
-router.get('/show/qr/code/:id', async (req, res) => {
-
+router.get('/show/qr/code/:placeId', async (req, res) => {
     await connectDB();
-    const id = req.params.id;
-    const place = await Place.findById(id);
-    res.render('subscriber/qr', {
-        title: "Show QR Code",
-        layout: "layouts/main",
-        place: place
-    })
-})
+    const placeId = req.params.placeId;
+    const place = await Place.findById(placeId);
+    
+    // Generate the QR code URL (you can adjust the URL based on where you want to redirect)
+    const qrUrl = `${req.protocol}://${req.get('host')}/place/${placeId}`;
+
+    // Generate QR code
+    QRCode.toDataURL(qrUrl, (err, qrCodeDataUrl) => {
+        if (err) {
+            return res.status(500).send('Error generating QR code');
+        }
+
+        // Pass the QR code data URL to the view
+        res.render('subscriber/qr', {
+            title: "Show QR Code",
+            layout: "layouts/main",
+            place: place,
+            qrCodeDataUrl: qrCodeDataUrl
+        });
+    });
+});
 
 // **********************************************************************************
 // *********************************** Queues Routes ********************************

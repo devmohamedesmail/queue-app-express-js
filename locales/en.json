@@ -56,5 +56,6 @@
 	"help-page": "help-page",
 	"reply": "reply",
 	"send": "send",
-	"message": "message"
+	"message": "message",
+	"scan-qr": "Scan QR To Book Your Queue"
 }

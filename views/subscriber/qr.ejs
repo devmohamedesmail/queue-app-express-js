@@ -1,16 +1,13 @@
 <div>
-    
-  
 
-    <div class="container flex flex-col items-center justify-center px-3 m-auto my-10">
-        <h5 class="mb-5 font-black text-center text-primary">
-            <%= place.nameEn  %>
-        </h5>
-        <h5><%= place.addressEn  %></h5>
-        <img src="/assets/images/qr.svg" class="w-96 h-96" alt="">
-        <p>Scan This QR code to book your Queue</p>
-    </div>
-   
+
+
+
+
+<div class="container flex items-center justify-between px-5 m-auto my-5">
+  <div></div>
+  <div><%- include('../partials/_language-switcher.ejs')  %></div>
+</div>
 
 
 
@@ -19,23 +16,101 @@
 
 
 
+  <div class="container flex flex-col items-center justify-center px-3 m-auto my-10">
+    <h5 class="mb-5 text-3xl font-black text-center text-primary">
+
+      <% if (locale==='ar' ) { %>
+      <%= place.nameAr %>
+      <% } else { %>
+      <%= place.nameEn %>
+      <% } %>
 
 
 
 
-    <footer class="py-10 bg-gray-300 mt-50">
-        <div class="container m-auto">
-          <div class="flex flex-col items-center justify-center md:flex-row">
-            <a href="" class="flex items-center px-10 py-4 mx-10 my-4 text-white bg-black rounded-lg">
-              <img src="/assets/images/apple.png" class="w-10 h-10" alt="">
-              <p class="mx-5 text-sm">Download Our App From Apple Store</p>
-            </a>
-            <a href="" class="flex items-center px-10 py-4 mx-10 my-4 text-white bg-black rounded-lg">
-              <img src="/assets/images/google-play.png" class="w-10 h-10" alt="">
-              <p class="mx-5 text-sm">Download Our App From Google Play</p>
-            </a>
+
+    </h5>
+    <h5 class="text-sm text-center">
+      <%= place.addressEn %>
+
+
+      <% if (locale==='ar' ) { %>
+      <%= place.addressAr %>
+      <% } else { %>
+      <%= place.addressEn %>
+      <% } %>
+
+
+
+    </h5>
+
+    <img src="<%= qrCodeDataUrl %>" class="w-96 h-96" alt="QR Code" />
+    <p class="mt-5 font-bold">
+      <%= __('scan-qr') %>
+    </p>
+  </div>
+
+
+
+
+
+  <div class="bg-base-200 ">
+    <footer class="container p-10 m-auto footer sm:footer-horizontal bg-base-200 text-base-content">
+      <nav>
+        <h6 class="footer-title">Services</h6>
+        <a class="link link-hover">Branding</a>
+        <a class="link link-hover">Design</a>
+        <a class="link link-hover">Marketing</a>
+        <a class="link link-hover">Advertisement</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Company</h6>
+        <a class="link link-hover">About us</a>
+        <a class="link link-hover">Contact</a>
+        <a class="link link-hover">Jobs</a>
+        <a class="link link-hover">Press kit</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Legal</h6>
+        <a class="link link-hover">Terms of use</a>
+        <a class="link link-hover">Privacy policy</a>
+        <a class="link link-hover">Cookie policy</a>
+      </nav>
+      <form>
+        <h6 class="footer-title">Newsletter</h6>
+        <fieldset class="w-80">
+          <label>Enter your email address</label>
+          <div class="join">
+            <input type="text" placeholder="username@site.com" class="input input-bordered join-item" />
+            <button class="btn btn-primary join-item">Subscribe</button>
           </div>
+        </fieldset>
+
+        <div class="flex flex-col items-center justify-center md:flex-row">
+          <a href="" class="flex items-center p-1 mx-1 text-white bg-gray-300 rounded-lg">
+            <img src="/assets/images/apple.png" class="w-10 h-10" alt="">
+            <p class="mx-5 text-sm text-black">
+              <%= __('apple-store') %>
+            </p>
+          </a>
+          <a href="" class="flex items-center p-1 mx-1 text-white bg-gray-300 rounded-lg">
+            <img src="/assets/images/google-play.png" class="w-10 h-10" alt="">
+            <p class="mx-5 text-sm text-black">
+              <%= __('google-play') %>
+            </p>
+          </a>
         </div>
-      </footer>
-      
+      </form>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+
+
+
 </div>

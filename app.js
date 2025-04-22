@@ -131,7 +131,7 @@ app.use('/' , userRoutes );
 // *************** Admin Routes file
 app.use('/admin' , protect , admin );
 // *************** Subscriber file
-app.use('/subscriber', protect, subscribe_routes);
+app.use('/subscriber', subscribe_routes);
 
 
 
