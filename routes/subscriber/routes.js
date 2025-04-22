@@ -119,7 +119,7 @@ router.get('/show/qr/code/:placeId', async (req, res) => {
     const place = await Place.findById(placeId);
     
     // Generate the QR code URL (you can adjust the URL based on where you want to redirect)
-    const qrUrl = `${req.protocol}://${req.get('host')}/place/${placeId}`;
+    const qrUrl = `${req.protocol}://${req.get('host')}/front/fetch/place/service/${placeId}`;
 
     // Generate QR code
     QRCode.toDataURL(qrUrl, (err, qrCodeDataUrl) => {
