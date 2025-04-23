@@ -1,37 +1,26 @@
-<% const menu=[ 
-  
-  { icon: 'fa-gauge' , label: __('dashboard'), url: '/admin/index' }, 
-  { icon: 'fa-location-dot' , label:__('places'), url: '/admin/places' }, 
-  { icon: 'fa-users' , label: __('users'), url: '/admin/users' }, 
-  { icon: 'fa-gear' , label: __('setting'), url: '/admin/setting' } ,
-  { icon: 'fa-info-circle' , label: __('help'), url: '/admin/help' } 
-  
-  ]; %>
+<% const menu=[ { icon: 'fa-gauge' , label: __('dashboard'), url: '/admin/index' }, { icon: 'fa-location-dot' ,
+  label:__('places'), url: '/admin/places' }, { icon: 'fa-users' , label: __('users'), url: '/admin/users' }, {
+  icon: 'fa-gear' , label: __('setting'), url: '/admin/setting' } , { icon: 'fa-info-circle' , label: __('help'),
+  url: '/admin/help' } ]; %>
 
 
   <div class="fixed w-0 h-screen overflow-hidden transition-all ease-in-out bg-black shadow-lg z-[100] md:w-54"
     id="sidebar">
 
-    <div class="flex justify-end my-4 md:hidden">
-      <button class="absolute text-white border border-white btn btn-ghost btn-circle right-2 top-2"
-        id="hide_sidebar_btn">
-        <i class="fa-solid fa-x"></i>
-      </button>
-    </div>
 
-    <aside class="flex flex-col h-['80%']">
+    <div class="relative h-screen ">
+      <div class="flex justify-end my-4 md:hidden">
+        <button class="absolute text-white border border-white btn btn-ghost btn-circle right-2 top-2"
+          id="hide_sidebar_btn">
+          <i class="fa-solid fa-x"></i>
+        </button>
+      </div>
 
-
-      <div class="py-5 ">
+      <div class="py-5 mt-10">
         <div class="flex items-center justify-center mb-10">
           <img src="/assets/images/logo.svg" class="w-32" alt="">
         </div>
         <ul class="flex-1 block">
-
-
-
-
-
           <% menu.forEach(item=> { %>
             <li
               class="px-3 py-2 mb-1 text-white transition-colors ease-in-out border-b border-gray-400 hover:bg-primary">
@@ -46,38 +35,62 @@
               </a>
             </li>
             <% }); %>
-
-
-
         </ul>
-
-
-
-
-
-
-
 
       </div>
-    </aside>
+
+      <div class="absolute flex justify-center w-full bottom-20 ">
+        <div class="w-full mx-3 dropdown dropdown-top">
+          <div tabindex="0" role="button" class="w-full m-1 btn btn-primary">
+            <% if (user) { %>
+              <%= user.name %>
+                <% } %>
+          </div>
+          <ul tabindex="0" class="p-2 shadow-sm dropdown-content menu bg-base-100 rounded-box z-1 w-52">
 
 
-    <div class="flex justify-around h-full px-3 mb-3 ">
-      <div class="bottom-0 w-full dropdown dropdown-top">
-        <div tabindex="0" role="button" class="w-full m-1 btn btn-primary">
-          <% if (user) { %>
-            <%= user.name %>
-              <% } %>
+
+
+
+            <li>
+              <a href="#">
+                <% if (user) { %>
+                  <%= user.name %>
+                    <% } %>
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <% if (user) { %>
+                  <%= user.email %>
+                    <% } %>
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <% if (user) { %>
+                  <%= user.role %>
+                    <% } %>
+              </a>
+            </li>
+
+            <li><a>
+                <%= __('edit-profile') %>
+              </a>
+            </li>
+
+            <li>
+              <a href="/users/logout">
+                <%= __('logout') %>
+              </a>
+            </li>
+
+
+          </ul>
         </div>
-        <ul tabindex="0" class="p-2 shadow-sm dropdown-content menu bg-base-100 rounded-box z-1 w-52">
-          <li><a>
-              <%= __('logout') %>
-            </a></li>
-          <li><a>
-              <%= __('edit-profile') %>
-            </a></li>
-
-        </ul>
       </div>
     </div>
+
   </div>

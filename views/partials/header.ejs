@@ -7,33 +7,9 @@
 
   <div class="flex-none">
 
-
     <div class="flex items-center">
-      <div class="flex flex-col items-center justify-center mx-2">
-        <p class="text-sm text-secondary">
-          <% if (user) { %><%= user.name %> <% } %>
-        </p>
-        <p class="text-sm text-secondary">
-          <% if (user) { %><%= user.email %> <% } %>
-        </p>
-      </div>
-
-      <%- include('./_language-switcher.ejs')  %>
-
-      <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="border btn btn-ghost btn-circle avatar border-primary">
-          <i class="text-xl fa-regular fa-user"></i>
-        </div>
-        <ul tabindex="0" class="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52">
-
-
-          <li><a href="/users/logout">Logout</a></li>
-        </ul>
-      </div>
+      <%- include('./_language-switcher.ejs') %>
     </div>
-
-
-
 
   </div>
 </div>

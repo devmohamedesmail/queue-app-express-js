@@ -25,6 +25,8 @@ import { protect } from './middlewares/authMiddleware.js';
 import userRoutes from './routes/front/routes.js'
 import admin from './routes/admin/routes.js';
 import api from './routes/api/routes.js'
+import connectDB from './config/db.js';
+import Setting from './models/Setting.js';
 
 
 
@@ -105,6 +107,13 @@ app.use((req, res, next) => {
 });
 
 
+
+// *************** Share data entire all application 
+connectDB();
+const settings = await Setting.findOne(); 
+app.locals.settings = settings;
+
+// ***************************************************
 
 
 
