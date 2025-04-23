@@ -57,5 +57,8 @@
 	"reply": "reply",
 	"send": "send",
 	"message": "message",
-	"scan-qr": "Scan QR To Book Your Queue"
+	"scan-qr": "Scan QR To Book Your Queue",
+	"book-queue": "book-queue",
+	"show-qr": "show-qr",
+	"waiting-list": "waiting-list"
 }

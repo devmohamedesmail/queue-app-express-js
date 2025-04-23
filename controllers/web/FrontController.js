@@ -56,16 +56,35 @@ export const redirect_to_register_page = (req, res) => {
 
 export const fetch_place_service_for_user = async (req, res) => {
     try {
-        const placeId = req.params.place;
+        const placeId = req.params.placeId;
         await connectDB();
         const services = await Service.find({ placeId: placeId });
-        res.render('front/place_services', {
-            title: "Place Services",
-            layout: "layouts/front",
-            services: services,
-            placeId: placeId
-        })
-        console.log(services);
+        const place = await Place.findById(placeId);
+        // res.render('front/place_services', {
+        //     title: "Place Services",
+        //     layout: "layouts/front",
+        //     services: services,
+        //     placeId: placeId
+        // })
+        
+        if (services.length > 0) {
+            res.render('front/place_services', {
+                title: "Place Services",
+                layout: "layouts/front",
+                services: services,
+                placeId: placeId
+            })
+        }else{
+            const queues = await Queue.find({ placeId: placeId });
+            res.render('front/show_waiting', {
+                title: "Place Queues",
+                layout: "layouts/front",
+                
+                queues: queues,
+                place: placeId
+            })
+        }
+
     } catch (error) {
         console.log(error);
     }

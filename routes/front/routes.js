@@ -10,7 +10,7 @@ router.get('/register', redirect_to_register_page)
 router.get('/book/queue/:place/:service', show_waiting_list)
 
 
-router.post('/book/my/turn/:place/:service', Book_my_turn);
+router.post('/book/my/turn/:place/:service?', Book_my_turn);
 
 router.get('/show/user/queues/:userId', show_user_queues);
 

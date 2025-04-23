@@ -9,7 +9,7 @@ router.get('/login/page', redirect_login_page )
 
 
 // 
-router.get('/fetch/place/service/:place', fetch_place_service_for_user)
+router.get('/fetch/place/service/:placeId', fetch_place_service_for_user)
 
 
 

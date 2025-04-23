@@ -1,37 +1,49 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
 
-<head>
-    <%- include('../partials/styles.ejs') %>
-</head>
-
-<body>
-
- 
-
-     <div class="container flex flex-col items-center justify-center px-3 m-auto my-10">
-        <img src="/assets/images/banner.jpg" class="w-full md:w-1/2" alt="">
-        <h6 class="py-10 font-bold text-center text-primary"> <%= __('welcome')  %><br> </h6>
-     </div>
+<div class="container flex flex-col items-center justify-center px-3 m-auto my-10">
+    <img src="/assets/images/banner.jpg" class="w-full md:w-1/2" alt="">
+    <h6 class="py-10 font-bold text-center text-primary">
+        <%= __('welcome') %><br>
+    </h6>
+</div>
 
 
-    <div class="container px-3 m-auto">
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
-            <% places.forEach(place => { %>
-                <div class="flex flex-col items-center justify-center bg-gray-200 rounded-lg">
-                    <div class="w-full overflow-hidden h-44">
-                        <img class="w-full"  src="/uploads/<%= place.image  %>" alt="<%= place.name  %>">
-                    </div>
-                   
-                    <div class="flex flex-col items-center justify-center px-3 py-4">
-                        <h1 class="text-sm text-center"><%- place.nameEn %></h1>
-                        <h1 class="mt-5 text-sm text-center text-primary"><%- place.addressEn %></h1>
-                        <a href="/front/fetch/place/service/<%= place._id %>" class="w-full mt-5 btn btn-primary">Book Queue </a>
-                    </div> 
+<div class="container px-3 m-auto my-10">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
+        <% places.forEach(place=> { %>
+            <div class="flex flex-col items-center justify-center overflow-hidden bg-white rounded-lg shadow card">
+
+                
+                <div class="w-full overflow-hidden h-44">
+                    <img class="w-full" src="/uploads/<%= place.image  %>" alt="<%= place.name  %>">
                 </div>
-               <% }) %>
-        </div>
+
+                <div class="flex flex-col items-center justify-center px-3 my-3">
+                    <h1 class="text-sm text-center text-primary"><%- place.nameEn %></h1>
+                    <h1 class="mt-5 text-xs text-center "><%- place.addressEn %></h1>
+                   
+                </div>
+
+                <div class="flex items-center justify-between w-full px-2 my-2">
+
+                    
+                    <a href="/front/fetch/place/service/<%= place._id %>" class="flex-1 mx-1 mt-2 btn btn-primary">
+                        
+                        <%= __('book-queue')  %>
+                    </a>
+
+
+                        <a class="mx-1 mt-2 btn btn-secondary" href="/subscriber/show/qr/code/<%= place._id %>">
+                            <!-- <%= __('show-qr')  %> -->
+                            <i class="fa-solid fa-qrcode"></i>
+                        </a>
+                </div>
+
+
+                
+            </div>
+            <% }) %>
     </div>
+</div>
 
 
 
@@ -39,10 +51,3 @@
 
 
 
-   <a href="/subscriber/show/qr/code/67db10a3c2c5d5bcc7476848">show qr</a>
-    
-
-
-</body>
-
-</html>

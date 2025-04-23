@@ -57,5 +57,8 @@
 	"reply": "رد",
 	"send": "إرسال",
 	"message": "رسالة",
-	"scan-qr": "امسح رمز الاستجابة السريعة لحجز دورك"
+	"scan-qr": "امسح رمز الاستجابة السريعة لحجز دورك",
+	"book-queue": "book-queue",
+	"show-qr": "show-qr",
+	"waiting-list": "waiting-list"
 }
