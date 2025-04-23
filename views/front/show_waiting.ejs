@@ -7,35 +7,54 @@
 
 
       <div class="flex justify-between w-full mb-5">
-        <p class="text-black"><%= __('waiting-list')  %></p>
+        <p class="text-black">
+          <%= __('waiting-list') %>
+        </p>
         <p class="text-xl font-bold text-primary">
           <%= queues.length %>
         </p>
       </div>
 
-      <div class="flex justify-between w-full mb-5">
-        <p class="text-black"><%= __('estimated-time')  %></p>
-        <p class="text-xl font-bold text-primary">
-          <%= queues.length * 15 %> Min
-        </p>
-      </div>
-
-      <% } else { %>
-        <p class="text-xl font-bold text-primary"><%= __('no-queue-found')  %></p>
-        <% } %>
-
-          
 
 
-          <% if (typeof service !== 'undefined') { %>
-            <form action="/book/my/turn/<%= place %>/<%= service %>" method="post">
-              <button class="btn btn-primary">Book My Turn</button>
-            </form>
-          <% } else { %>
-            <form action="/book/my/turn/<%= place %>" method="post">
-              <button class="btn btn-primary"> <%= __('book-queue')  %> </button>
-            </form>
+
+      <% var estimatedTime=15; if (typeof service !=='undefined' && service.estimatedTime) {
+        estimatedTime=service.estimatedTime; } else if (typeof place !=='undefined' && place.estimatedTime) {
+        estimatedTime=place.estimatedTime; } var totalTime=queues.length * estimatedTime; %>
+
+        <div class="flex justify-between w-full mb-5">
+          <p class="text-black">
+            <%= __('estimated-time') %>
+          </p>
+          <p class="text-xl font-bold text-primary">
+            <%= totalTime %> Min
+          </p>
+        </div>
+
+        <% } else { %>
+          <p class="text-xl font-bold text-primary">
+            <%= __('no-queues-found') %>
+          </p>
           <% } %>
+
+
+            <div class="mt-5">
+              <% if (typeof service !=='undefined' ) { %>
+                <form action="/book/my/turn/<%= place._id %>/<%= service._id %>" method="post">
+                  <button class="btn btn-primary">
+                    <%= __('book-queue') %>
+                  </button>
+                </form>
+                <% } else { %>
+                  <form action="/book/my/turn/<%= place._id %>" method="post">
+                    <button class="btn btn-primary">
+                      <%= __('book-queue') %>
+                    </button>
+                  </form>
+                  <% } %>
+            </div>
+
+
 
   </div>
 </div>

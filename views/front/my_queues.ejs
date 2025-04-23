@@ -1,4 +1,8 @@
-<div class="container px-3 m-auto">
+<div class="container px-3 m-auto my-10">
+
+  <h4><%= __('my-queues')  %></h4>
+
+  
   <div class="grid grid-cols-1 gap-5">
     <% queuesData.forEach(queue => { %>
 
@@ -7,18 +11,27 @@
         
     <div class="bg-gray-100 shadow-lg ext-center rounded-xl">
         <div class="flex flex-col items-center justify-center py-5 text-white s bg-primary ">
-               <p class="text-xl font-bold"> AHEAD OF YOU </p>
-               <p><%= queue.aheadOfYou  %></p>
+               <p class="text-xl font-bold"> <%= __('ahead-of-you')  %> </p>
+               <p>
+                
+                <% if (queue.aheadOfYou === 0) { %>
+                     <%= __('its-your-turn')  %>
+                <% } else { %>
+                  <%= queue.aheadOfYou  %></p>
+                <% } %>
+                
+                
+                
         </div>
         <div class="flex items-center justify-between px-5 py-6">
             
             <div class="flex flex-col items-center justify-center">
-                <p class="text-md text-primary">YOUR NUMBER</p>
+                <p class="text-md text-primary"><%= __('your-number')  %></p>
                 <p class="font-bold text-md text-primary"><%= queue.queue.queue  %></p>
             </div>
             
             <div class="flex flex-col items-center justify-center">
-                <p class="text-md text-primary">ESTIMATING TIME</p>
+                <p class="text-md text-primary"><%= __('estimated-time')  %></p>
                 <p class="text-xl font-bold text-primary"><%= queue.estimatedTime  %></p>
             </div>
         </div>

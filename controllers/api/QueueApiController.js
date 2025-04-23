@@ -143,10 +143,11 @@ export const get_all_users_queues_today = async (req, res) => {
 
             // Calculate estimated time based on people ahead of the user
             // const estimatedTime = aheadOfYou * 5; 
-            if (service) {
-                const estimatedTime = aheadOfYou * service.estimateTime; 
-            }else{
-                const estimatedTime = aheadOfYou * place.estimatedTime; 
+            let estimatedTime;
+            if (service && service.estimateTime) {
+                estimatedTime = aheadOfYou * service.estimateTime;
+            } else {
+                estimatedTime = aheadOfYou * place.estimateTime;
             }
 
             // Collect the result for this queue

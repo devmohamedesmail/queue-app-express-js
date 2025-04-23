@@ -58,7 +58,12 @@
 	"send": "إرسال",
 	"message": "رسالة",
 	"scan-qr": "امسح رمز الاستجابة السريعة لحجز دورك",
-	"book-queue": "book-queue",
-	"show-qr": "show-qr",
-	"waiting-list": "waiting-list"
+	"book-queue": " احجز دورك ",
+	"show-qr": " عرض الرمز الاستجابة السريعة ",
+	"waiting-list": " قائمة الانتظار ",
+	"no-queues-found": " لا يوجد دور في قايمة الانتظار ",
+	"my-queues": " طوابيري ",
+	"ahead-of-you": " أمامك ",
+	"your-number": " رقمك ",
+	"its-your-turn": " ان هو دورك "
 }

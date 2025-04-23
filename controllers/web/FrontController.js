@@ -66,7 +66,7 @@ export const fetch_place_service_for_user = async (req, res) => {
         //     services: services,
         //     placeId: placeId
         // })
-        
+
         if (services.length > 0) {
             res.render('front/place_services', {
                 title: "Place Services",
@@ -74,14 +74,14 @@ export const fetch_place_service_for_user = async (req, res) => {
                 services: services,
                 placeId: placeId
             })
-        }else{
+        } else {
             const queues = await Queue.find({ placeId: placeId });
             res.render('front/show_waiting', {
                 title: "Place Queues",
                 layout: "layouts/front",
-                
+
                 queues: queues,
-                place: placeId
+                place: place
             })
         }
 
@@ -98,17 +98,19 @@ export const fetch_place_service_for_user = async (req, res) => {
 export const show_waiting_list = async (req, res) => {
 
     await connectDB();
-    const place = req.params.place;
-    const service = req.params.service;
+    const placeId = req.params.placeId;
+    const serviceId = req.params.serviceId;
     const startOfDay = moment().startOf('day').toDate();
     const endOfDay = moment().endOf('day').toDate();
+    const place = await Place.findById(placeId);
+    const service = await Service.findById(serviceId);
 
-   
+
 
     const queues = await Queue.find({
         status: 'waiting',
-        placeId: place,
-        serviceId: service,
+        placeId: placeId,
+        serviceId: serviceId,
         createdAt: {
             $gte: startOfDay,
             $lte: endOfDay
@@ -168,6 +170,8 @@ export const Book_my_turn = async (req, res) => {
 
             for (let queue of userQueues) {
                 const { placeId, serviceId } = queue;
+                const place = await Place.findById(placeId);
+                const service = await Service.findById(serviceId);
 
                 // Calculate ahead of you
                 const aheadOfYou = await Queue.countDocuments({
@@ -187,8 +191,13 @@ export const Book_my_turn = async (req, res) => {
                 }).sort({ queue: 1 });
 
                 // Calculate estimated time based on people ahead of the user
-                const estimatedTime = aheadOfYou * 5; // Assuming 5 minutes per user
-
+                //  const estimatedTime = aheadOfYou * 5; // Assuming 5 minutes per user
+                let estimatedTime;
+                if (service && service.estimateTime) {
+                    estimatedTime = aheadOfYou * service.estimateTime;
+                } else {
+                    estimatedTime = aheadOfYou * place.estimateTime;
+                }
                 // Collect the result for this queue
                 queuesData.push({
                     queue,
@@ -208,8 +217,10 @@ export const Book_my_turn = async (req, res) => {
         }
 
     } catch (error) {
-       console.log(error);
-        res.status(500).json({ status: 500, message: error.message });
+        res.render('front/404.ejs', {
+            layout: "layouts/front",
+            title: "Error"
+        })
     }
 
 
@@ -221,6 +232,7 @@ export const Book_my_turn = async (req, res) => {
 export const show_user_queues = async (req, res) => {
     try {
         const userId = req.params.userId;
+
         await connectDB();
         const todayStart = new Date();
         todayStart.setHours(0, 0, 0, 0);
@@ -238,6 +250,8 @@ export const show_user_queues = async (req, res) => {
 
         for (let queue of userQueues) {
             const { placeId, serviceId } = queue;
+            const place = await Place.findById(placeId);
+            const service = await Service.findById(serviceId);
 
             // Calculate ahead of you
             const aheadOfYou = await Queue.countDocuments({
@@ -256,8 +270,13 @@ export const show_user_queues = async (req, res) => {
                 createdAt: { $gte: todayStart, $lte: todayEnd }
             }).sort({ queue: 1 });
 
-            // Calculate estimated time based on people ahead of the user
-            const estimatedTime = aheadOfYou * 5; // Assuming 5 minutes per user
+
+            let estimatedTime;
+            if (service && service.estimateTime) {
+                estimatedTime = aheadOfYou * service.estimateTime;
+            } else {
+                estimatedTime = aheadOfYou * place.estimateTime;
+            }
 
             // Collect the result for this queue
             queuesData.push({
@@ -276,7 +295,7 @@ export const show_user_queues = async (req, res) => {
             queuesData: queuesData,
         })
     } catch (error) {
-        res.render('404',{
+        res.render('404', {
             title: "Page Not Found",
             layout: "layouts/front"
         })
