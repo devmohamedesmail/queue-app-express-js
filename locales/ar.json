@@ -67,6 +67,8 @@
 	"your-number": " رقمك ",
 	"its-your-turn": " ان هو دورك ",
 	"login-success": " تم تسجيل الدخول بنجاح ",
-	"edit-place": "edit-place",
-	"options-setting": "options-setting"
+	"edit-place": "تعديل المكان",
+	"options-setting": "إعدادات الخيارات",
+	"select-role": "اختر الدور",
+	"select-place": "اختر المكان"
 }

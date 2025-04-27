@@ -68,5 +68,7 @@
 	"its-your-turn": "It's Your Turn Now",
 	"login-success": "Login Successfully",
 	"edit-place": "Edit Place",
-	"options-setting": "Options setting"
+	"options-setting": "Options setting",
+	"select-role": "Select Role",
+	"select-place": "Select Place"
 }

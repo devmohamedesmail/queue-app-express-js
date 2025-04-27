@@ -56,26 +56,27 @@
                                         <form action="/admin/edit/user/<%= user._id %>" method="post">
 
                                             <div class="mb-3">
-                                                <label>Name</label>
+                                                <label> <%= __('name')  %> </label>
                                                 <input class="w-full input input-primary" name="name" type="text"
                                                     value="<%= user.name  %>">
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="block">Select The Role</label>
-                                                <select name="role" id="role-select" onchange="togglePlaceSelect()" class="w-full select select-primary focus:outline-0">
-                                                    <option value="" disabled selected>Select The Role</option>
+                                                <label class="block"> <%= __('select-role')  %> </label>
+                                                <select name="role" id="role-select" onchange="togglePlaceSelect(this.value)"  class="w-full select select-primary focus:outline-0">
+                                                    <option value=""  ><%= __('select-role')  %></option>
+                                                    <option value="user">User</option>
                                                     <option value="admin">Admin</option>
                                                     <option value="subscriber">SubScriber</option>
-                                                    <option value="user">User</option>
+                                                
                                                 </select>
                                             </div>
                                             
                                             <!-- Select Place (hidden by default) -->
-                                            <div id="place-select-container" class="mb-3 ">
-                                                <label class="block">Select Place</label>
+                                            <div id="place-select-container" class="mb-3   " >
+                                                <label class="block"><%= __('select-place')  %></label>
                                                 <select name="place" class="w-full select select-primary focus:outline-0">
-                                                    <option disabled selected>Select Place</option>
+                                                    <option disabled selected><%= __('select-place')  %></option>
                                                     <% places.forEach(place => { %>
                                                         <option value="<%= place._id  %>"><%= place.nameEn %></option>
                                                     <% }) %>
@@ -123,18 +124,19 @@
 </div>
 
 
-
-
 <script>
-    function togglePlaceSelect() {
-        const role = document.getElementById('role-select').value;
-        console.log(role)
-        const placeContainer = document.getElementById('place-select-container');
-
-        if (role === 'subscriber') {
-            placeContainer.classList.remove('hidden');
+    function togglePlaceSelect(roleValue) {
+        console.log('Selected Role:', roleValue);  // Log the selected value
+        const placeSelectContainer = document.getElementById('place-select-container');
+        
+        // Show or hide the place select container based on the selected role
+        if (roleValue === 'subscriber') {
+            placeSelectContainer.classList.remove('hidden');    
+            console.log(placeSelectContainer)
         } else {
-            placeContainer.classList.add('hidden');
+            placeSelectContainer.classList.add('hidden'); 
+            console.log(placeSelectContainer)
+            
         }
     }
 </script>
