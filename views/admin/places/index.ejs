@@ -22,16 +22,20 @@
       </div>
 
 
+
+      <div class="mb-3 ">
+        <label class="block text-sm text-black label"><%= __('address-ar')  %></label>
+        <input type="text" name="addressAr" required class="w-full input input-primary" />
+      </div>
+
+
+
       <div class="mb-3 ">
         <label class="block text-sm text-black label"><%= __('address-en')  %></label>
         <input type="text" name="addressEn" required class="w-full input input-primary" />
       </div>
 
 
-      <div class="mb-3 ">
-        <label class="block text-sm text-black label"><%= __('address-ar')  %></label>
-        <input type="text" name="addressAr" required class="w-full input input-primary" />
-      </div>
 
 
 
@@ -54,7 +58,7 @@
       </div>
 
 
-
+<br>
       <div class="mb-3">
         <label class="flex flex-col items-center justify-center w-full p-4 border border-gray-400 border-dashed image-preview " for="image">
 
@@ -63,7 +67,7 @@
           </div>
           <input type="file" id="image" name="image" required class="hidden w-full file-input file-input-primary" />
 
-          <div>
+          <div class="flex flex-col justify-center items-center">
             <i class="fa-solid fa-file-image fs-3"></i>
             <p><%= __('select-image')  %></p>
           </div>
@@ -93,10 +97,10 @@
         <input type="time" name="timeClosed" required class="w-full input input-primary" />
       </div>
 
-
+      
 
       <div class="mb-3">
-        <label class="block text-sm text-black label">Days of Work</label>
+        <label class="block text-sm text-black label"><%= __('work-days')  %></label>
         <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
           <label class="fieldset-label">
             <input type="checkbox" name="daysOfWork[]" value="Sunday" class="checkbox" />

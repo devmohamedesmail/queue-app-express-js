@@ -325,7 +325,8 @@ export const update_setting = async (req, res) => {
             setting.address = req.body.address;
             setting.appUrl = req.body.appUrl;
             await setting.save();
-            res.redirect('/admin/setting');
+            // res.redirect('/admin/setting');
+            res.redirect(req.get('Referrer') || '/');
         } else {
             // if record is not found, create a new record
             const setting = new Setting();
@@ -339,7 +340,7 @@ export const update_setting = async (req, res) => {
             setting.address = req.body.address;
             setting.appUrl = req.body.appUrl;
             await setting.save();
-            res.redirect('/admin/setting');
+            res.redirect(req.get('Referrer') || '/');
         }
         
     } catch (error) {

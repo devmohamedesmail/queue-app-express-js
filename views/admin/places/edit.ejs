@@ -3,7 +3,7 @@
 
 
     <div class="col-span-12 md:col-span-7">
-      <h1 class="font-semibold text-center">Edit Place - <%= place.nameEn %>
+      <h1 class="font-semibold text-center"><%= __('edit-place')  %> - <%= place.nameEn %>
       </h1>
       <form action="/admin/edit/place/confirm/<%= place._id  %>" method="post" enctype="multipart/form-data">
 
@@ -11,13 +11,13 @@
         <hr>
         <div class="my-4">
           <div class="mb-3">
-            <label class="block text-sm">Name ( Ar )</label>
+            <label class="block text-sm"><%= __('name-en')  %></label>
             <input type="text" name="nameAr" required class="w-full input input-primary" value="<%= place.nameAr  %>" />
           </div>
 
 
           <div class="mb-3">
-            <label class="block text-sm">Name ( En )</label>
+            <label class="block text-sm"><%= __('name-ar')  %></label>
             <input type="text" name="nameEn" required class="w-full input input-primary" value="<%= place.nameEn %>" />
           </div>
 
@@ -26,19 +26,19 @@
 
 
           <div class="mb-3">
-            <label class="block">Address ( En )</label>
+            <label class="block"><%= __('address-en')  %></label>
             <input type="text" name="addressEn" required class="w-full input input-primary" value="<%= place.addressEn  %>" />
           </div>
 
           <div class="mb-3 text-sm">
-            <label class="block">Address ( Ar )</label>
+            <label class="block"><%= __('address-ar')  %></label>
             <input type="text" name="addressAr" required class="w-full input input-primary" value="<%= place.addressAr  %>" />
           </div>
 
 
 
           <div class="mb-2">
-            <label class="block">Description</label>
+            <label class="block"><%= __('description')  %></label>
             <input type="text" name="description" class="w-full input input-primary" value="<%= place.description  %>" />
           </div>
 
@@ -66,39 +66,39 @@
         </div>
 
 
-        <h5 class="my-3 text-lg font-bold text-primary">Options Settings</h5>
+        <h5 class="my-3 text-lg font-bold text-primary"><%= __('place-setting')  %></h5>
         <hr>
 
         <div class="my-3">
           <div class="mb-3 text-sm">
-            <label class="block">Latitude</label>
+            <label class="block"><%= __('latitude')  %></label>
             <input type="text" name="lat" required class="w-full input input-primary" value="<%= place.location.lat  %>" />
           </div>
 
           <div class="mb-3">
-            <label class="block text-sm">Longitude</label>
+            <label class="block text-sm"><%= __('longitude')  %></label>
             <input type="text" name="lng" required class="w-full input input-primary" value="<%= place.location.lng  %>" />
           </div>
 
           <div class="mb-3 ">
-            <label class="block text-sm text-black label">Location Link</label>
+            <label class="block text-sm text-black label"><%= __('location-link')  %></label>
             <input type="text" name="locationlink" class="w-full input input-primary" value="<%= place.locationlink  %>" />
           </div>
 
 
           <div class="mb-3 ">
-            <label class="block text-sm text-black label">Start Work</label>
+            <label class="block text-sm text-black label"><%= __('start-work')  %></label>
             <input type="time" name="timeStart" required class="w-full input input-primary" value="<%= place.timeStart  %>" />
           </div>
 
           <div class="mb-3 ">
-            <label class="block text-sm text-black label">End Work</label>
+            <label class="block text-sm text-black label"><%= __('close-work')  %></label>
             <input type="time" name="timeClosed" required class="w-full input input-primary" value="<%= place.timeClosed  %>" />
           </div>
 
 
           <div class="flex items-baseline mb-3">
-            <label for="moveTurn" class="block text-sm text-black label">Move Turn</label>
+            <label for="moveTurn" class="block text-sm text-black label"><%= __('move-turn')  %></label>
             <input type="checkbox" name="moveTurn" id="moveTurn" <% if (place.moveTurn ) { %> checked <% } %> value="<%= place.moveTurn  %>" class="mx-3 toggle toggle-primary" />
           </div>
 
@@ -112,7 +112,7 @@
 
 
 
-        <button type="submit" class="w-full btn btn-primary">Update</button>
+        <button type="submit" class="w-full btn btn-primary"><%= __('update')  %></button>
       </form>
     </div>
 
@@ -121,23 +121,23 @@
 
 
     <div class="col-span-12 md:col-span-5">
-      <h3 class="text-xl font-semibold text-center">Add Service</h3>
+      <h3 class="text-xl font-semibold text-center"><%= __('add-new-service')  %></h3>
       <form action="/admin/add/new/service/<%=  place._id  %>" method="post">
 
 
         <div class="mb-3">
-          <label class="block mb-1 text-sm">Service [Ar]</label>
+          <label class="block mb-1 text-sm"><%= __('name-ar')  %></label>
           <input type="text" name="serviceAr" class="w-full input input-primary" />
         </div>
 
 
         <div class="mb-3">
-          <label class="block mb-1 text-sm">Service [En]</label>
+          <label class="block mb-1 text-sm"><%= __('name-en')  %></label>
           <input type="text" name="serviceEn" class="w-full input input-primary" />
         </div>
 
 
-        <button type="submit" class="w-full btn btn-primary">Save</button>
+        <button type="submit" class="w-full btn btn-primary"><%= __('save')  %></button>
 
 
       </form>
@@ -146,7 +146,7 @@
 
 
       <div class="my-5">
-        <h4 class="font-semibold text-center">All Services</h4>
+        <h4 class="font-semibold text-center"><%= __('services')  %></h4>
 
         <% services.forEach(item => { %>
         <div class="flex items-center justify-between px-4 py-5 my-2 bg-gray-100 shadow">
@@ -166,22 +166,22 @@
               <div class="modal-box">
                 <form action="/admin/edit/service/<%= place._id  %>/<%= item._id %>" method="POST">
                   <button type="button" class="absolute btn btn-sm btn-circle btn-ghost right-2 top-2" onclick="document.getElementById('modal_<%= item._id %>').close()">✕</button>
-                  <h3 class="mb-4 text-lg font-bold">Edit Service</h3>
+                  <h3 class="mb-4 text-lg font-bold"><%= __('edit-sevice')  %> </h3>
 
                   <div class="mb-2">
-                    <label class="block text-sm font-medium">Name (EN)</label>
+                    <label class="block text-sm font-medium"> <%= __('name-en')  %> </label>
                     <input type="text" name="nameEn" value="<%= item.nameEn %>" class="w-full input input-bordered" required />
                   </div>
 
                   <div class="mb-2">
-                    <label class="block text-sm font-medium">Name (AR)</label>
+                    <label class="block text-sm font-medium"> <%= __('name-ar')  %>  </label>
                     <input type="text" name="nameAr" value="<%= item.nameAr %>" class="w-full input input-bordered" required />
                   </div>
 
                   <!-- Add more fields if needed -->
 
                   <div class="mt-4 text-right">
-                    <button type="submit" class="btn btn-success btn-sm">Save</button>
+                    <button type="submit" class="btn btn-success btn-sm"><%= __('save')  %> </button>
                   </div>
                 </form>
               </div>

@@ -4,8 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Queue App | <%= title %>
+  <title>
+    <%= settings.nameEn %> | <%= title %>
   </title>
+  <meta name="description" content="<%= settings.descriptionEn %>">
+  <meta name="keywords" content="" />
+  <link rel="shortcut icon" href="/uploads/<%= settings.logo %>" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.js"></script>
+
   <%- include('../partials/styles.ejs') %>
 
 </head>
@@ -14,15 +21,22 @@
 
   <div class="shadow-sm navbar bg-base-100">
     <div class="flex-1">
-      <a class="text-xl btn btn-ghost" href="/">
-        <img src="/assets/images/logo.svg" class="w-10 h-10" alt="">
-        <span class="mx-2 text-sm">Queue App</span>
+      <a class="text-xl flex items-center" href="/">
+        <img src="/uploads/<%= settings.logo %>" class="w-18 h-18" alt="<%= settings.nameEn %>">
+        <span class="mx-2 text-sm">
+
+          <% if (locale==='ar' ) { %>
+            <%= settings.nameAr %>
+              <% } else { %>
+                <%= settings.nameEn %>
+                  <% } %>
+        </span>
       </a>
     </div>
 
 
 
-    
+
     <div class="flex items-center gap-2">
       <%- include('../partials/_language-switcher.ejs') %>
         <% if (user) { %>
@@ -38,7 +52,7 @@
               <li><a>
                   <%= user.email %>
                 </a></li>
-                
+
               <li><a href="/show/user/queues/<%= user.id  %>">
                   <%= __('show-my-queues') %>
                 </a></li>
@@ -64,7 +78,7 @@
 
 
 
- <%- include('../partials/footer.ejs')  %>
+  <%- include('../partials/footer.ejs') %>
 
 </body>
 

@@ -1,10 +1,11 @@
-import { title } from "process";
+
 import connectDB from "../../config/db.js"
 import Place from "../../models/Place.js";
 import User from "../../models/User.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Queue from "../../models/Queue.js";
+import i18n from 'i18n';
 
 // ********************************* Register User **********************************
 export const register_user = async (req, res) => {
@@ -129,6 +130,7 @@ export const login_user = async (req, res) => {
 
 
         if (user.role === 'admin') {
+            req.flash('success', i18n.__('login-success'));
             res.redirect('/admin/index')
         } else if (user.role === 'subscriber' || user.role === 'employee') {
             res.redirect('/subscriber/index')
@@ -141,8 +143,6 @@ export const login_user = async (req, res) => {
         }
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ status: 500, message: error.message });
         res.render('front/login.ejs', {
             layout: "layouts/front",
             title: "Login",

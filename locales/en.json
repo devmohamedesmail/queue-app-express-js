@@ -65,5 +65,8 @@
 	"my-queues": "My Queues",
 	"ahead-of-you": "Ahead Of You",
 	"your-number": " Your Number",
-	"its-your-turn": "It's Your Turn Now"
+	"its-your-turn": "It's Your Turn Now",
+	"login-success": "Login Successfully",
+	"edit-place": "Edit Place",
+	"options-setting": "Options setting"
 }

@@ -2,15 +2,15 @@ import mongoose from 'mongoose';
 
 
 
-const connectDB = async () =>{
+const connectDB = async () => {
     try {
-        mongoose.set('strictQuery',false);
-        const connect =  await mongoose.connect("mongodb+srv://queueapp:pYjfVCNN47kRw7BO@queueapp.2lys7.mongodb.net/queueapp",{
+        mongoose.set('strictQuery', false);
+        const connect = await mongoose.connect(process.env.DB, {
             serverSelectionTimeoutMS: 20000,
         });
         console.log(`MongoDB Connected: ${connect.connection.host}`);
     } catch (error) {
-       console.log(error); 
+        console.log("Error Connect to Database");
     }
 }
 

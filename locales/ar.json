@@ -65,5 +65,8 @@
 	"my-queues": " طوابيري ",
 	"ahead-of-you": " أمامك ",
 	"your-number": " رقمك ",
-	"its-your-turn": " ان هو دورك "
+	"its-your-turn": " ان هو دورك ",
+	"login-success": " تم تسجيل الدخول بنجاح ",
+	"edit-place": "edit-place",
+	"options-setting": "options-setting"
 }
