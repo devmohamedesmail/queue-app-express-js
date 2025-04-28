@@ -17,7 +17,12 @@ const __dirname = path.resolve();
 export async function setupApp(app){
 
 // cors setting 
-app.use(cors());
+app.use(cors(
+  {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  }
+));
 
 
 //  middleware
