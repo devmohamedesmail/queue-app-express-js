@@ -8,7 +8,7 @@ import flash from 'connect-flash';
 import i18n from 'i18n';
 import connectDB from './db.js';
 import Setting from '../models/Setting.js';
-
+import cors from 'cors';
 
 
 dotenv.config();
@@ -16,7 +16,8 @@ const __dirname = path.resolve();
 
 export async function setupApp(app){
 
-
+// cors setting 
+app.use(cors());
 
 
 //  middleware

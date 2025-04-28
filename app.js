@@ -15,7 +15,7 @@ import { setupApp } from './config/appConfig.js';
 
 
 
-// dotenv.config();
+
 
 
 const app = express();
