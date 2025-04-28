@@ -1,0 +1,12 @@
+<div class="p-4">
+    <% pages.forEach(page => { %>
+     <div class="flex justify-between items-center shadow py-2 px-1">
+        <p><%= page.title_en  %></p>
+        <p><%= page.title_ar  %></p>
+        <div>
+            <a class="btn btn-primary btn-xs" href="/admin/edit/page/<%= page._id  %>"> <i class="fa-solid fa-pen"></i> </a>
+            <a onclick="return confirm('Are you sure to delete this ? ')" class="btn btn-error btn-xs" href="/admin/delete/page/<%= page._id  %>"> <i class="fa-solid fa-trash"></i> </a>
+        </div>
+     </div>
+    <% }) %>
+</div>

@@ -5,6 +5,7 @@ import Setting from "../../models/Setting.js";
 import User from "../../models/User.js";
 import Service from "../../models/Service.js";
 import Help from "../../models/Help.js";
+import Page from "../../models/Page.js";
 
 
 
@@ -413,7 +414,7 @@ export const help_page = async (req ,res)=>{
 
 
 
-// reply help 
+//************************************  reply help ***********************************
 export const reply_help = async (req ,res)=>{
     try {
         const helpId = req.params.helpId;
@@ -428,5 +429,141 @@ export const reply_help = async (req ,res)=>{
             layout: "layouts/admin",
             error: error.message
         })
+    }
+}
+
+
+
+// ************************************ create_new_page *******************************
+export const create_new_page = async (req,res)=>{
+    try {
+        res.render('admin/pages/index.ejs',{
+            layout:"layouts/admin",
+            title:"Create New Page"
+        })
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+    }
+}
+
+
+// ************************************ store_page_content
+export const store_page_content = async (req,res)=>{
+    try {
+        await connectDB();
+        const { title_en, title_ar, content_en, content_ar } = req.body;
+        if (!title_en || !title_ar || !content_en || !content_ar) {
+            return res.status(400).render('admin/404.ejs', {
+                title: "Error",
+                layout: "layouts/admin",
+                error: "All fields are required."
+            });
+        }
+        const page = new Page({
+            title_en,
+            title_ar,
+            content_en,
+            content_ar
+        });
+
+        await page.save(); 
+        res.redirect(req.get('Referrer') || '/');
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+    }
+}
+
+
+// *************************************** show_pages
+export const show_pages = async (req,res)=>{
+    try {
+        await connectDB();
+        const pages = await Page.find();
+        res.render("admin/pages/show.ejs",{
+            pages:pages,
+            title: "Show Pages",
+            layout: "layouts/admin",
+            
+        })
+    } catch (error) {
+        
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+    }
+}
+
+
+
+// *********************************** edit_page
+export const edit_page = async (req,res)=>{
+    try {
+        await connectDB();
+        const pageId = req.params.pageId;
+        const page = await Page.findById(pageId);
+        res.render('admin/pages/edit.ejs',{
+            page:page,
+            title: "Edit Page",
+            layout: "layouts/admin",
+        })
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+    }
+}
+
+
+
+// update_page_confirm 
+export const update_page_confirm = async (req,res)=>{
+    try {
+        const { title_en, title_ar, content_en, content_ar } = req.body;
+        await connectDB();
+        const pageId = req.params.pageId;
+        const page = await Page.findById(pageId);
+        page.title_en = title_en;
+        page.title_ar = title_ar;
+        page.content_en = content_en;
+        page.content_ar = content_ar;
+
+        await page.save();
+        res.redirect(req.get('Referrer') || '/');
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        })
+    }
+}
+
+
+
+// delete_page
+export const delete_page = async (req,res) =>{
+    try {
+        const pageId = req.params.pageId;
+        await connectDB();
+        const page = await Page.findByIdAndDelete(pageId);
+        res.redirect(req.get('Referrer') || '/');
+    } catch (error) {
+        res.render('admin/404.ejs', {
+            title: "Error",
+            layout: "layouts/admin",
+            error: error.message
+        }) 
     }
 }

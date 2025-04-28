@@ -1,6 +1,6 @@
 import connectDB from "../../config/db.js";
 import Setting from "../../models/Setting.js";
-import AppSetting from "../../models/AppSetting.js"
+
 
 export const fetch_setting = async (req, res) => {
     try {

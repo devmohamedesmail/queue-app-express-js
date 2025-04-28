@@ -12,8 +12,13 @@ import {
     update_setting,
     edit_user,
     help_page,
-    reply_help
-
+    reply_help,
+    create_new_page,
+    store_page_content,
+    show_pages,
+    edit_page,
+    update_page_confirm,
+    delete_page
     } from '../../controllers/web/AdminController.js';
 import { protect } from '../../middlewares/authMiddleware.js';
 const router = express.Router();
@@ -107,6 +112,35 @@ router.get('/help', help_page);
 
 // reply help
 router.post('/reply/help/:helpId', reply_help);
+
+
+
+
+// ***********************************************************************************************************
+// ************************************************** Create New Page ****************************************
+// ***********************************************************************************************************
+// redirect to create page
+router.get('/create/page', create_new_page);
+// store page content
+router.post('/store/page/content', store_page_content);
+// /show/pages
+router.get('/show/pages', show_pages);
+
+// /edit/page/
+router.get('/edit/page/:pageId', edit_page);
+
+
+// /update/page/content/confirm/
+router.post('/update/page/content/confirm/:pageId', update_page_confirm);
+
+///delete/page/
+router.get('/delete/page/:pageId',delete_page);
+
+
+
+
+
+
 
 
 export default router;

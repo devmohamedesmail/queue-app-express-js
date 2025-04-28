@@ -1,0 +1,34 @@
+<h4 class="text-center py-10 bg-gray-100 my-5">
+    <%= __('contact-us') %>
+</h4>
+
+
+<div class="container m-auto my-10 px-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+
+        <div class="bg-gray-100 py-10 rounded-md shadow-sm text-center  flex flex-col justify-center items-center">
+            <i class="fa-solid fa-phone text-primary text-4xl"></i>   
+            <p class="mt-5"><%= settings.phone %></p>
+        </div>
+
+        <div class="bg-gray-100 py-10 rounded-md shadow-sm text-center  flex flex-col justify-center items-center">
+            <i class="fa-solid fa-envelope text-primary text-4xl"></i> 
+            <p class="mt-5"><%= settings.email %></p>
+        </div>
+
+
+
+        <div class="bg-gray-100 py-10 rounded-md shadow-sm text-center  flex flex-col justify-center items-center">
+            <i class="fa-solid fa-location-dot text-primary text-4xl"></i>       
+            <p class="mt-5"> <%= settings.address %></p>
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>

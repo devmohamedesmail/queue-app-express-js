@@ -1,5 +1,12 @@
 import express from 'express';
-import { home_page, show_waiting_list,Book_my_turn,redirect_to_register_page ,show_user_queues} from '../../controllers/web/FrontController.js';
+import { 
+     home_page,
+     show_waiting_list,
+     Book_my_turn,
+     redirect_to_register_page ,
+     show_user_queues,
+     contact_page
+    } from '../../controllers/web/FrontController.js';
 const router = express.Router();
 
 
@@ -13,6 +20,11 @@ router.get('/book/queue/:placeId/:serviceId', show_waiting_list)
 router.post('/book/my/turn/:place/:service?', Book_my_turn);
 
 router.get('/show/user/queues/:userId', show_user_queues);
+
+
+
+// redirect to contact page
+router.get('/contact/page', contact_page);
 
 
 

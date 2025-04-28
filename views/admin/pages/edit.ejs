@@ -1,0 +1,52 @@
+<div class="p-4">
+    <h4 class="mb-2 text-xl font-bold text-primary"> <%= __('create-new-page')  %> </h4>
+     <hr class="mb-3">
+  
+     <form action="/admin/update/page/content/confirm/<%= page._id  %>" method="post">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="mb-3 ">
+                <label class="block text-sm text-black label"><%= __('title-en')  %></label>
+                <input type="text" name="title_en" value="<%= page.title_en  %>" class="w-full input input-primary" />
+            </div>
+            <div class="mb-3 ">
+                <label class="block text-sm text-black label"><%= __('title-ar')  %></label>
+                <input type="text" name="title_ar" value="<%= page.title_ar  %>" class="w-full input input-primary" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm text-black label"><%= __('content-en') %></label>
+            <textarea id="content_en" name="content_en" class="w-full"><%= page.content_en  %></textarea>
+        </div>
+    
+        <div class="mb-3">
+            <label class="block text-sm text-black label"><%= __('content-ar') %></label>
+            <textarea id="content_ar" name="content_ar" class="w-full"><%= page.content_ar  %></textarea>
+        </div>
+    
+        <button type="submit" class="btn btn-primary mt-4"><%= __('update')  %></button>
+     </form>
+  
+
+  
+  
+  
+  
+
+  
+  
+  </div>
+
+
+
+  <script>
+    $(document).ready(function() {
+        $('#content_en').summernote({
+            height: 300,   // ارتفاع المحرر
+            placeholder: 'Write content in English...'
+        });
+        $('#content_ar').summernote({
+            height: 300,
+            placeholder: 'Write content in Arabic...'
+        });
+    });
+</script>

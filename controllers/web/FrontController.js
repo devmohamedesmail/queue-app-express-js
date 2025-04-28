@@ -3,6 +3,7 @@ import connectDB from "../../config/db.js";
 import Service from "../../models/Service.js";
 import Place from "../../models/Place.js";
 import Queue from "../../models/Queue.js";
+import Setting from "../../models/Setting.js";
 import moment from "moment";
 
 
@@ -298,6 +299,27 @@ export const show_user_queues = async (req, res) => {
         res.render('404', {
             title: "Page Not Found",
             layout: "layouts/front"
+        })
+    }
+}
+
+
+
+// contact_page
+export const contact_page = async (req,res) =>{
+    try {
+        await connectDB();
+        const settings = await Setting.findOne();
+        console.log(settings)
+        res.render('front/contact.ejs',{
+            settings:settings,
+            layout: "layouts/front",
+            title: "Contact us" 
+        })
+    } catch (error) {
+        res.render('front/404.ejs', {
+            layout: "layouts/front",
+            title: "Error"
         })
     }
 }

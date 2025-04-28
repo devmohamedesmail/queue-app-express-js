@@ -70,5 +70,13 @@
 	"edit-place": "Edit Place",
 	"options-setting": "Options setting",
 	"select-role": "Select Role",
-	"select-place": "Select Place"
+	"select-place": "Select Place",
+	"contact-us": " Contact us ",
+	"create-page": " Create Page ",
+	"create-new-page": " Create New Page ",
+	"title-en": " English Title ",
+	"title-ar": " Arabic Title ",
+	"content-en": " English Content ",
+	"content-ar": " Arabic Content ",
+	"show-pages": " Show All Pages "
 }
