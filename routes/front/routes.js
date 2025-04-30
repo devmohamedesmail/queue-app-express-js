@@ -5,7 +5,8 @@ import {
      Book_my_turn,
      redirect_to_register_page ,
      show_user_queues,
-     contact_page
+     contact_page,
+     show_page_content
     } from '../../controllers/web/FrontController.js';
 const router = express.Router();
 
@@ -25,7 +26,8 @@ router.get('/show/user/queues/:userId', show_user_queues);
 
 // redirect to contact page
 router.get('/contact/page', contact_page);
-
+// /page/content/
+router.get('/page/content/:pageId/:title', show_page_content);
 
 
 

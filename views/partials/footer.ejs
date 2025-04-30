@@ -16,9 +16,11 @@
       </nav>
       <nav>
         <h6 class="footer-title">Legal</h6>
-        <a class="link link-hover">Terms of use</a>
-        <a class="link link-hover">Privacy policy</a>
-        <a class="link link-hover">Cookie policy</a>
+        <% pages.forEach(page => { %>
+          <a href="/page/content/<%= page._id %>/<%= page.title_en  %>" class="link link-hover"> <%= page.title_en  %> </a>
+        <% }) %>
+        
+       
       </nav>
       <form>
         <h6 class="footer-title">Newsletter</h6>

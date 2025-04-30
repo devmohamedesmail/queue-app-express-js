@@ -5,6 +5,7 @@ import Place from "../../models/Place.js";
 import Queue from "../../models/Queue.js";
 import Setting from "../../models/Setting.js";
 import moment from "moment";
+import Page from "../../models/Page.js";
 
 
 
@@ -315,6 +316,27 @@ export const contact_page = async (req,res) =>{
             settings:settings,
             layout: "layouts/front",
             title: "Contact us" 
+        })
+    } catch (error) {
+        res.render('front/404.ejs', {
+            layout: "layouts/front",
+            title: "Error"
+        })
+    }
+}
+
+
+
+
+export const show_page_content = async (req,res)=>{
+    try {
+        await connectDB();
+        
+        const page = await Page.findById(req.params.pageId);
+        res.render('front/page.ejs',{
+            page:page,
+            layout: "layouts/front",
+            title: page.title_en
         })
     } catch (error) {
         res.render('front/404.ejs', {

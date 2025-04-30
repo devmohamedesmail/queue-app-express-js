@@ -9,6 +9,7 @@ import i18n from 'i18n';
 import connectDB from './db.js';
 import Setting from '../models/Setting.js';
 import cors from 'cors';
+import Page from '../models/Page.js';
 
 
 dotenv.config();
@@ -93,6 +94,10 @@ connectDB();
 const settings = await Setting.findOne(); 
 app.locals.settings = settings;
 
+
+// pages 
+const pages = await Page.find();
+app.locals.pages = pages;
 // ***************************************************
 
 
