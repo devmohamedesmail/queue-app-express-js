@@ -47,10 +47,17 @@ export const get_all_queue_waiting_in_service = async (req, res) => {
         await connectDB()
         const place = req.params.place;
         const service = req.params.service;
+
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);  
+        const todayEnd = new Date();
+        todayEnd.setHours(23, 59, 59, 999); 
+
         const queue = await Queue.find({ 
             placeId: place,
             serviceId: service,
-            status: 'waiting'
+            status: 'waiting',
+            createdAt: { $gte: todayStart, $lte: todayEnd }  
          }).sort({ createdAt: -1 })
         res.status(200).json(queue);
     } catch (error) {
