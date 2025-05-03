@@ -10,7 +10,7 @@ router.post('/register', register_user )
 router.post('/login', login_user );
 
 // Edit user
-router.post('/edit/user/:id', edit_user )
+router.post('/edit/user/:userId', edit_user )
 
 
 

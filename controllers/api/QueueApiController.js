@@ -7,11 +7,11 @@ export const bookQueue = async (req, res) => {
     try {
         await connectDB()
 
-        const  userId  = req.params.user;
+        const userId = req.params.user;
         const placeId = req.params.place;
         const serviceId = req.params.service;
-        const place = await Place.findById(placeId); 
-        
+        const place = await Place.findById(placeId);
+
         const newQueue = new Queue();
         newQueue.userId = userId;
         newQueue.placeId = placeId;
@@ -49,16 +49,16 @@ export const get_all_queue_waiting_in_service = async (req, res) => {
         const service = req.params.service;
 
         const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);  
+        todayStart.setHours(0, 0, 0, 0);
         const todayEnd = new Date();
-        todayEnd.setHours(23, 59, 59, 999); 
+        todayEnd.setHours(23, 59, 59, 999);
 
-        const queue = await Queue.find({ 
+        const queue = await Queue.find({
             placeId: place,
             serviceId: service,
             status: 'waiting',
-            createdAt: { $gte: todayStart, $lte: todayEnd }  
-         }).sort({ createdAt: -1 })
+            createdAt: { $gte: todayStart, $lte: todayEnd }
+        }).sort({ createdAt: -1 })
         res.status(200).json(queue);
     } catch (error) {
         res.status(400).json(error);
@@ -72,11 +72,11 @@ export const get_first_active_queue_in_service = async (req, res) => {
         await connectDB()
         const place = req.params.place;
         const service = req.params.service;
-        const queue = await Queue.findOne({ 
+        const queue = await Queue.findOne({
             placeId: place,
             serviceId: service,
             status: 'active'
-         }).sort({ createdAt: -1 })
+        }).sort({ createdAt: -1 })
         res.status(200).json(queue);
     } catch (error) {
         res.status(400).json(error);
@@ -106,31 +106,31 @@ export const cancel_queue = async (req, res) => {
 export const get_all_users_queues_today = async (req, res) => {
     try {
         await connectDB()
-        const userId = req.params.id;   
+        const userId = req.params.id;
         const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);  
+        todayStart.setHours(0, 0, 0, 0);
         const todayEnd = new Date();
-        todayEnd.setHours(23, 59, 59, 999);  
+        todayEnd.setHours(23, 59, 59, 999);
 
-       
+
         const userQueues = await Queue.find({
             userId: userId,
-            status: 'waiting',  
-            createdAt: { $gte: todayStart, $lte: todayEnd }  
-        }).sort({ createdAt: 1 });  
+            status: 'waiting',
+            createdAt: { $gte: todayStart, $lte: todayEnd }
+        }).sort({ createdAt: 1 });
 
-       
+
         if (userQueues.length === 0) {
             return res.status(404).json({ message: "No queues found for this user today" });
         }
-         
+
         const queuesData = [];
         // Loop through each queue to calculate aheadOfYou, nowServing, and estimatedTime
         for (let queue of userQueues) {
             const { placeId, serviceId } = queue;
             const place = await Place.findById(placeId);
             const service = await Service.findById(serviceId);
-             
+
             // Calculate ahead of you
             const aheadOfYou = await Queue.countDocuments({
                 placeId,
@@ -167,9 +167,9 @@ export const get_all_users_queues_today = async (req, res) => {
         }
 
         res.status(200).json(queuesData);
-       
-     
-        
+
+
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "An error occurred while retrieving the user's queues", error: error.message || error });
@@ -184,66 +184,33 @@ export const get_all_users_queues_today = async (req, res) => {
 export const move_queue_to_back = async (req, res) => {
     try {
         await connectDB();
-        const { id, place, service, number } = req.params;
-       
-        // Parse the number parameter to ensure it's a number
-        const targetNumber = parseInt(number, 10);
-
-        if (isNaN(targetNumber)) {
-            return res.status(400).json({ message: 'Invalid number parameter' });
+        const { queueId } = req.params;
+        const old_queue = await Queue.findById(queueId);
+        if (!old_queue) {
+            return res.status(404).json({ message: " Queue Not Found " });
         }
 
-        const queue = await Queue.findById(id);
-         
-        if (!queue) {
-            return res.status(404).json({ message: "Queue not found" });
+        old_queue.status = "cancelled";
+        await old_queue.save();
+
+        const new_queue = new Queue();
+
+        new_queue.userId = old_queue.userId;
+        new_queue.placeId = old_queue.placeId;
+        if (old_queue.serviceId) {
+            new_queue.serviceId = old_queue.serviceId;
         }
 
-        // Fetch all queues based on the provided place and service (if applicable)
-        let queuesQuery = Queue.find({ status: 'waiting' });
+        new_queue.place = old_queue.place;
 
-        if (place) {
-            queuesQuery = queuesQuery.where('place').equals(place);
-        }
-        if (service) {
-            queuesQuery = queuesQuery.where('service').equals(service);
-        }
 
-        const queues = await queuesQuery.sort({ createdAt: 1 }); // Sort by creation date to simulate queue order
 
-        // Find the position of the user's queue
-        const userPosition = queues.findIndex(q => q._id.toString() === id);
+        await new_queue.save();
+        res.status(200).json({
+            message:"Queue Moved Successfully",
+            queue:new_queue
+        });
 
-        if (userPosition === -1) {
-            return res.status(404).json({ message: "Queue not found in the waiting list" });
-        }
-
-        // Check how many people are ahead of the user's queue
-        const peopleAhead = userPosition;
-
-        if (targetNumber >= peopleAhead) {
-            // Move the queue to the end if the target number is greater than or equal to the number of people ahead
-            queue.status = 'waiting';
-            await queue.save();
-            res.status(200).json({ message: 'Queue moved to the end successfully', queue });
-        } else {
-            // Otherwise, move the queue according to the target number
-            const newPosition = userPosition - targetNumber;
-
-            // Ensure new position does not go negative
-            const finalPosition = Math.max(0, newPosition);
-
-            // Move the queue to the desired position
-            queues.splice(finalPosition, 0, queues.splice(userPosition, 1)[0]); // Move the user's queue to the new position
-
-            // Save the updated queue order
-            for (let i = 0; i < queues.length; i++) {
-                queues[i].status = 'waiting';
-                await queues[i].save();
-            }
-
-            res.status(200).json({ message: 'Queue moved successfully', queue });
-        }
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

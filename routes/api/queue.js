@@ -28,7 +28,8 @@ router.get('/first/active/queue/:place/:service?', get_first_active_queue_in_ser
 router.get('/cancel/queue/:id', cancel_queue);
 
 // move my queue to back 
-router.get('/move/queue/:id/:place?/:service?/:number?', move_queue_to_back);
+// router.get('/move/queue/:id/:place?/:service?/:number?', move_queue_to_back);
+router.get('/move/queue/:queueId', move_queue_to_back);
 
 // get all user queues according day
 router.get('/user/queues/:id', get_all_users_queues_today);

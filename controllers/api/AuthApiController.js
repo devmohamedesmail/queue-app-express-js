@@ -26,16 +26,16 @@ export const register_user = async (req, res) => {
 
             const token = jwt.sign(
                 { id: newUser._id },
-                process.env.JWT_SECRET, 
-                { expiresIn: "7d" } 
+                process.env.JWT_SECRET,
+                { expiresIn: "7d" }
             );
 
             res.status(201).json({
                 status: 201,
                 message: "User registered successfully",
                 user: {
-                    user:newUser,
-                    token:token,
+                    user: newUser,
+                    token: token,
                 },
             });
         }
@@ -60,7 +60,7 @@ export const login_user = async (req, res) => {
         await connectDB();
 
         const { email, password } = req.body;
-        
+
 
         // التحقق من إدخال جميع البيانات
         if (!email || !password) {
@@ -106,15 +106,25 @@ export const login_user = async (req, res) => {
 export const edit_user = async (req, res) => {
     try {
         await connectDB();
-        const id = req.params.id;
-        const { name, email , password } = req.body;
-        const user = await User.findById(id);
+        const userId = req.params.userId;
+        const { name, phone, address, email, password } = req.body;
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ status: 404, message: "User not found" });
         }
         if (name) {
             user.name = name;
         }
+
+        if (phone) {
+            user.phone = phone;
+        }
+
+        if (address) {
+            user.address = address;
+        }
+
+
         if (email) {
             user.email = email;
         }
@@ -128,7 +138,7 @@ export const edit_user = async (req, res) => {
             message: "User updated successfully",
             user: user,
         });
-        
+
     } catch (error) {
         console.log(error)
         res.status(500).json({
