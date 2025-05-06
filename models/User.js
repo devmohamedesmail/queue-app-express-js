@@ -25,15 +25,15 @@ const UserSchema = new mongoose.Schema({
         required: false,
         default: 'user'
     },
-    place: {
+    placeId: {
         type: String,
         required: false,
-        default: "0"
+        default: null
     },
     serviceId: {
         type: String,
         required: false,
-        default: "0"
+        default:  null
     },
     service: {
         type: Object,
@@ -44,22 +44,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    status: {
-        type: String,
-        required: false
-    },
-    emailVerified: {
-        type: Boolean,
-        required: false
-    },
-
-
-
-
-
-
-
-
+    
+  
 
 }, {
     timestamps: true

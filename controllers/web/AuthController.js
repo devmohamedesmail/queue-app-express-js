@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Queue from "../../models/Queue.js";
 import i18n from 'i18n';
+import Role from "../../models/Role.js";
 
 // ********************************* Register User **********************************
 export const register_user = async (req, res) => {
@@ -28,6 +29,11 @@ export const register_user = async (req, res) => {
             newUser.password = hashedPassword
 
             await newUser.save()
+
+            const role = new Role();
+            role.user_id = newUser._id;
+            role.role = "user";
+            await role.save();
 
             const token = jwt.sign(
                 { id: newUser._id },
@@ -52,8 +58,6 @@ export const register_user = async (req, res) => {
 
             res.redirect('/');
         }
-
-
 
 
 
@@ -115,7 +119,7 @@ export const login_user = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
-        const place = await Place.findById(user.place);
+        const place = await Place.findById(user.placeId);
 
         req.session.user = {
             id: user._id,
@@ -158,8 +162,6 @@ export const login_user = async (req, res) => {
 // ********************************* Logout User *************************************
 export const logout_user = async (req, res) => {
     try {
-
-
 
         req.session.destroy((err) => {
             if (err) {

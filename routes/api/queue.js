@@ -6,7 +6,9 @@ import { bookQueue,
     get_first_active_queue_in_service, 
     get_last_queue, 
     move_queue_to_back,
-    get_all_user_queues_history } from '../../controllers/api/QueueApiController.js';
+    get_all_user_queues_history,
+
+ } from '../../controllers/api/QueueApiController.js';
 const router = express.Router();
 
 router.post('/book/new/queue/:user/:place/:service?', bookQueue);
@@ -39,6 +41,10 @@ router.get('/user/queues/:id', get_all_users_queues_today);
 
 // get all queues of the user for history
 router.get('/user/queues/history/:id', get_all_user_queues_history);
+
+
+
+
 
 
 

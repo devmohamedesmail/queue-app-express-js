@@ -84,19 +84,7 @@ export const get_first_active_queue_in_service = async (req, res) => {
 }
 
 
-// cancel my Queue 
-export const cancel_queue = async (req, res) => {
-    try {
-        await connectDB()
-        const id = req.params.id;
-        const queue = await Queue.findById(id)
-        queue.status = 'cancelled';
-        await queue.save();
-        res.status(200).json(queue);
-    } catch (error) {
-        res.status(400).json(error);
-    }
-}
+
 
 
 
@@ -180,6 +168,41 @@ export const get_all_users_queues_today = async (req, res) => {
 
 
 
+
+// get all queues of the user for history
+export const get_all_user_queues_history = async (req, res) => {
+    try {
+        await connectDB()
+        const user = req.params.id;
+        const queues = await Queue.find({ userId: user }).sort({ createdAt: -1 })
+        res.status(200).json(queues);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+}
+
+
+// delete_history_item
+
+
+
+
+
+// cancel my Queue 
+export const cancel_queue = async (req, res) => {
+    try {
+        await connectDB()
+        const id = req.params.id;
+        const queue = await Queue.findById(id)
+        queue.status = 'cancelled';
+        await queue.save();
+        res.status(200).json(queue);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+}
+
+
 // move to back
 export const move_queue_to_back = async (req, res) => {
     try {
@@ -215,20 +238,6 @@ export const move_queue_to_back = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 
-}
-
-
-
-// get all queues of the user for history
-export const get_all_user_queues_history = async (req, res) => {
-    try {
-        await connectDB()
-        const user = req.params.id;
-        const queues = await Queue.find({ userId: user }).sort({ createdAt: -1 })
-        res.status(200).json(queues);
-    } catch (error) {
-        res.status(400).json(error);
-    }
 }
 
 
