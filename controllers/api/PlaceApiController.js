@@ -4,19 +4,28 @@ import Place from "../../models/Place.js";
 
 export const getPlaces = async (req, res) => {
     try {
-       await connectDB()
-       const places = await Place.find();
+        await connectDB()
+        const places = await Place.aggregate([
+            {
+                $lookup: {
+                    from: "services", // يجب أن يكون نفس اسم المجموعة (collection) في MongoDB
+                    localField: "_id",
+                    foreignField: "placeId",
+                    as: "services"
+                }
+            }
+        ]);
         res.json({
-            status: 200, 
+            status: 200,
             data: places,
             message: 'Places retrieved successfully'
         });
     } catch (error) {
         console.log(error);
         res.json({
-            status: 404, 
+            status: 404,
             message: error
-        });  
+        });
     }
-    
+
 }
