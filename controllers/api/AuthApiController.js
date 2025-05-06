@@ -1,4 +1,5 @@
 import connectDB from "../../config/db.js"
+import Role from "../../models/Role.js";
 import User from "../../models/User.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -23,6 +24,11 @@ export const register_user = async (req, res) => {
             newUser.password = hashedPassword
 
             await newUser.save()
+
+            const role = new Role();
+            role.user_id = newUser._id;
+            role.role = "user";
+            await role.save();
 
             const token = jwt.sign(
                 { id: newUser._id },
