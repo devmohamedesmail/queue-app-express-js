@@ -59,9 +59,9 @@ export const add_new_place = async (req,res) =>{
         if (req.body.services && Array.isArray(req.body.services)) {
             const servicesToInsert = req.body.services.map(service => ({
                 placeId: newPlace._id,
-                nameAr: service.serviceTitleAr,
-                nameEn: service.serviceTitleEn,
-                estimateTime: service.serviceEstimatedTime || 0
+                nameAr: service.titleAr,
+                nameEn: service.titleEn,
+                estimateTime: service.estimatedTime || 0
             }));
 
             await Service.insertMany(servicesToInsert);
