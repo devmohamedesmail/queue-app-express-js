@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 const ServiceSchema = new mongoose.Schema({
     placeId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Place',
         required: true
     },

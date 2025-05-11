@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import connectDB from "../../config/db.js";
 
 import Place from "../../models/Place.js";
@@ -245,7 +246,7 @@ export const addNewService = async (req, res) => {
 
         // the the service
         const newService = new Service()
-        newService.placeId = id;
+        newService.placeId = new mongoose.Types.ObjectId(id); 
         newService.nameAr = req.body.serviceAr;
         newService.nameEn = req.body.serviceEn;
         newService.estimateTime = req.body.estimateTime;
