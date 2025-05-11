@@ -34,7 +34,7 @@ export const fetch_places_with_services = async (req, res) => {
 
 
 // add_new_place
-export const add_new_place = async () =>{
+export const add_new_place = async (req,res) =>{
     try {
         connectDB()
         const newPlace = new Place();
