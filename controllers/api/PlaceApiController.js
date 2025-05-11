@@ -55,6 +55,19 @@ export const add_new_place = async (req,res) =>{
         newPlace.moveTurn = req.body.moveTurn === 'true';
         newPlace.estimateTime = req.body.estimateTime;
         await newPlace.save();
+
+        if (req.body.services && Array.isArray(req.body.services)) {
+            const servicesToInsert = req.body.services.map(service => ({
+                placeId: newPlace._id,
+                nameAr: service.serviceTitleAr,
+                nameEn: service.serviceTitleEn,
+                estimateTime: service.serviceEstimatedTime || 0
+            }));
+
+            await Service.insertMany(servicesToInsert);
+        }
+
+
         res.json({
             status: 200,
             message: 'Place added successfully',
