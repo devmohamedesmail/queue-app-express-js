@@ -1,5 +1,6 @@
 import connectDB from "../../config/db.js";
 import Place from "../../models/Place.js";
+import Service from "../../models/Service.js"
 
 
 export const fetch_places_with_services = async (req, res) => {
