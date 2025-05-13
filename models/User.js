@@ -28,12 +28,12 @@ const UserSchema = new mongoose.Schema({
     placeId: {
         type: String,
         required: false,
-        default: null
+        
     },
     serviceId: {
         type: String,
         required: false,
-        default:  null
+        
     },
     service: {
         type: Object,
