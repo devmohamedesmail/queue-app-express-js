@@ -371,7 +371,7 @@ export const edit_user = async (req, res) => {
         const places = await Place.find();
         const user = await User.findById(userId);
         user.name = req.body.name;
-        user.place = req.body.place;
+        user.placeId = req.body.place;
         user.role = req.body.role;
         await user.save();
         res.render('admin/users', {
@@ -380,7 +380,9 @@ export const edit_user = async (req, res) => {
             title: "Users",
             layout: "layouts/admin"
         });
+        
     } catch (error) {
+        console.log(error)
         res.render('admin/404.ejs', {
             title: "Error",
             layout: "layouts/admin",
