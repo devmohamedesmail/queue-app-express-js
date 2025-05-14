@@ -2,6 +2,7 @@ import connectDB from "../../config/db.js";
 import Queue from "../../models/Queue.js";
 import Place from "../../models/Place.js";
 import Service from "../../models/Service.js";
+import User from "../../models/User.js"
 
 export const bookQueue = async (req, res) => {
     try {
@@ -240,6 +241,37 @@ export const move_queue_to_back = async (req, res) => {
 
 }
 
+
+
+// subscriber_active_queue
+export const subscriber_active_queue = async (req,res) =>{
+    try {
+        await connectDB();
+        const queueId = req.params.queueId;
+        const userId = req.params.userId;
+    
+        const queue = await Queue.findById(queueId);
+        if (!queue) {
+            return res.status(404).json({ message: "Queue not found" });
+        }
+    
+        const employee = await User.findById(userId);
+        queue.status = "active";
+        queue.employee = employee;
+        const queue_updated = await queue.save();
+        res.json({
+            status:200,
+            data:queue_updated,
+        });
+
+        
+    } catch (error) {
+        res.json({
+            status:400,
+            error:error.message
+        });
+    }
+}
 
 
 
