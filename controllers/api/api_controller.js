@@ -33,3 +33,22 @@ export const show_help_replies = async (req,res) =>{
         
     }
 }
+
+
+
+
+
+
+
+
+
+//********************************  users api routes ************************** */
+export const show_users = async (req, res) => {
+    try {
+        await connectDB();
+        const users = await User.find();
+        res.status(200).json({ status: 200, users: users });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "Something went wrong" });
+    }
+}
