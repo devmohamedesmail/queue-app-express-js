@@ -39,7 +39,7 @@ router.post('/add/new/place', upload.single('image'), add_new_place );
 
 
 // upadte place
-router.post('/update/place/:placeId', update_place);
+router.post('/update/place/:placeId',upload.single('image'), update_place);
 
 // delete place
 router.post('/delete/place/:placeId', update_place);
