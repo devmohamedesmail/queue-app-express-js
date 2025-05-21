@@ -34,17 +34,4 @@ router.get('/fetch/queues/employee/:employeeId', fetch_queues_for_employee)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default router;
