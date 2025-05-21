@@ -45,7 +45,7 @@ export const update_settings = async (req,res)=>{
 
         // If logo is uploaded
         if (req.file) {
-            const imagePath = `/uploads/${req.file.filename}`; // adjust path as per your uploads folder
+            const imagePath = `uploads/${req.file.filename}`; // adjust path as per your uploads folder
             setting.logo = imagePath;
         }
 
