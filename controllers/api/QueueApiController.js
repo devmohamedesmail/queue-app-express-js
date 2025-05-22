@@ -91,7 +91,7 @@ export const get_first_active_queue_in_service = async (req, res) => {
 
 
 
-//  get all user queues according day
+// *************************  get all user queues according day *************************
 export const get_all_users_queues_today = async (req, res) => {
     try {
         await connectDB()
@@ -110,7 +110,10 @@ export const get_all_users_queues_today = async (req, res) => {
 
 
         if (userQueues.length === 0) {
-            return res.status(404).json({ message: "No queues found for this user today" });
+            return res.status(200).json({
+                message: "No queues found for this user today",
+                queues: [] ,
+            });
         }
 
         const queuesData = [];
@@ -160,8 +163,10 @@ export const get_all_users_queues_today = async (req, res) => {
 
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "An error occurred while retrieving the user's queues", error: error.message || error });
+        console.log(error);
+        res.status(500).json({ 
+            message: "An error occurred while retrieving the user's queues", 
+            error: error.message || error });
     }
 }
 
