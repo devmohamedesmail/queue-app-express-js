@@ -111,6 +111,7 @@ export const get_all_users_queues_today = async (req, res) => {
 
         if (userQueues.length === 0) {
             return res.status(200).json({
+                status: 200,
                 message: "No queues found for this user today",
                 queues: [] ,
             });
@@ -158,7 +159,12 @@ export const get_all_users_queues_today = async (req, res) => {
             });
         }
 
-        res.status(200).json(queuesData);
+        // res.status(200).json(queuesData);
+        res.status(200).json({
+            status: 200,
+            message: "Queues retrieved successfully",
+            queues: queuesData
+        });
 
 
 
