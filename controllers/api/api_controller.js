@@ -38,6 +38,28 @@ export const show_help_replies = async (req, res) => {
 
 
 
+export const edit_help = async (req,res) =>{
+    try {
+        await connectDB();
+        const { helpId } = req.params;
+        const { reply } = req.body;
+
+         const help = await Help.findByIdAndUpdate(
+            helpId,
+            { reply },
+            { new: true }
+        );
+        res.status(200).json({
+            status: 200,
+            message: "Reply updated successfully",
+            data: help
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
+
+
 
 //********************************  users api routes ************************** */
 export const show_users = async (req, res) => {

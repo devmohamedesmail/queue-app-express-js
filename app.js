@@ -8,7 +8,7 @@ import servicesRoutes from './routes/api/servicesRoutes.js'
 import settingRoutes from './routes/api/settingRoutes.js'
 import pagesRoutes from './routes/api/pagesRoutes.js'
 import authRoutes from './routes/api/authRoutes.js'
-
+import subscriberRoutes from './routes/api/subscriberRoutes.js'
 
 
 import auth from './routes/front/auth.js'
@@ -74,10 +74,10 @@ app.use('/api/v1/settings', settingRoutes);
 
 // Auth Api Routes file
 app.use('/api/v1/auth', authRoutes);
-
-
 // pages api Routes file
-app.use('/api/v1/pages', pagesRoutes)
+app.use('/api/v1/pages', pagesRoutes);
+// subscribe api Routes file
+app.use('/api/v1/subscriber', subscriberRoutes)
 
 app.use('/api/v1', api);
 

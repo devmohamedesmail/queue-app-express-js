@@ -1,5 +1,5 @@
 import express from 'express';
-import { fetch_queues_for_employee, fetch_queues_for_place, send_help ,show_help_replies ,show_users} from '../../controllers/api/api_controller.js';
+import { fetch_queues_for_employee, fetch_queues_for_place, send_help ,show_help_replies ,show_users ,edit_help} from '../../controllers/api/api_controller.js';
 const router = express.Router();
 
 
@@ -10,15 +10,14 @@ const router = express.Router();
 router.post('/send/help', send_help);
 // show help message for user
 router.get('/show/help/replies/:userId', show_help_replies);
+// edit help message
+router.post('/edit/help/:helpId', edit_help)
 
 
 
 
 // *************************** users routes ******************************
 router.get('/users', show_users); 
-
-
-
 
 
 // fetch_queues_for_place
