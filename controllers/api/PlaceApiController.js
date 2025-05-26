@@ -1,7 +1,7 @@
 import connectDB from "../../config/db.js";
 import Place from "../../models/Place.js";
 import Service from "../../models/Service.js"
-
+import QRCode from 'qrcode';
 
 export const fetch_places_with_services = async (req, res) => {
     try {
@@ -196,21 +196,55 @@ export const update_place = async (req, res) => {
 
 
 
-export const delete_place = async (req,res)=>{
+export const delete_place = async (req, res) => {
     try {
         await connectDB();
         const placeId = req.params.placeId;
         const place = await Place.findByIdAndDelete();
         await Service.deleteMany({ placeId: place._id });
         res.json({
-            status:200,
-            message:"Place Deleted Successfully"
+            status: 200,
+            message: "Place Deleted Successfully"
         })
     } catch (error) {
         res.json({
-            status:400,
-            message:error.message
+            status: 400,
+            message: error.message
         })
     }
 }
 
+
+
+
+
+export const show_place_qrcode = async (req, res) => {
+    try {
+        await connectDB();
+        const placeId = req.params.placeId;
+        const place = await Place.findById(placeId);
+
+        // Generate the QR code URL (you can adjust the URL based on where you want to redirect)
+        const qrUrl = `${req.protocol}://${req.get('host')}/pages/user/services/${placeId}`;
+
+        // Generate QR code
+        QRCode.toDataURL(qrUrl, (err, qrCodeDataUrl) => {
+            if (err) {
+                return res.status(500).send('Error generating QR code');
+            }
+
+            res.json({
+                status: 200,
+                place: place,
+                qrCodeDataUrl: qrCodeDataUrl
+            })
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            status: 500,
+            message: 'Internal server error',
+            error: error.message,
+        });
+    }
+}

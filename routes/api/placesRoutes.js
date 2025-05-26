@@ -1,5 +1,5 @@
 import express from 'express';
-import { fetch_places_with_services , add_new_place, update_place } from '../../controllers/api/PlaceApiController.js';
+import { fetch_places_with_services , add_new_place, update_place,show_place_qrcode } from '../../controllers/api/PlaceApiController.js';
 import multer from 'multer';
 import path from 'path'
 import fs from 'fs';
@@ -43,6 +43,10 @@ router.post('/update/place/:placeId',upload.single('image'), update_place);
 
 // delete place
 router.post('/delete/place/:placeId', update_place);
+
+
+// show qr code 
+router.get('/show/place/qrcode/:placeId' , show_place_qrcode)
 
 
 export default router;
