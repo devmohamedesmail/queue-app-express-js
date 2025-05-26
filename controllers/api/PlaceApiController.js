@@ -225,7 +225,7 @@ export const show_place_qrcode = async (req, res) => {
         const place = await Place.findById(placeId);
 
         // Generate the QR code URL (you can adjust the URL based on where you want to redirect)
-        const qrUrl = `${req.protocol}://${req.get('host')}/pages/user/services/${placeId}`;
+        const qrUrl = `https://queue-app-liart.vercel.app/pages/user/services/${placeId}`;
 
         // Generate QR code
         QRCode.toDataURL(qrUrl, (err, qrCodeDataUrl) => {
