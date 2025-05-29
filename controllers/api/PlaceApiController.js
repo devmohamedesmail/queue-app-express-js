@@ -2,6 +2,7 @@ import connectDB from "../../config/db.js";
 import Place from "../../models/Place.js";
 import Service from "../../models/Service.js"
 import QRCode from 'qrcode';
+import { v2 as cloudinary } from 'cloudinary';
 
 export const fetch_places_with_services = async (req, res) => {
     try {
@@ -46,9 +47,29 @@ export const add_new_place = async (req, res) => {
         newPlace.addressAr = req.body.addressAr;
         newPlace.description = req.body.description;
 
+        // if (req.file) {
+        //     newPlace.image = req.file.filename;
+        // }
+
+
+
         if (req.file) {
-            newPlace.image = req.file.filename;
+            const uploadResult = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: 'places' },
+                    (error, result) => {
+                        if (error) return reject(error);
+                        resolve(result);
+                    }
+                );
+                stream.end(req.file.buffer);
+            });
+
+            newPlace.image = uploadResult.secure_url;
         }
+
+
+
 
         newPlace.location = {
             lat: req.body.lat,

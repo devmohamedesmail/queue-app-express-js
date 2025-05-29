@@ -10,6 +10,7 @@ import connectDB from './db.js';
 import Setting from '../models/Setting.js';
 import cors from 'cors';
 import Page from '../models/Page.js';
+import { v2 as cloudinary } from 'cloudinary';
 
 
 dotenv.config();
@@ -100,6 +101,13 @@ const pages = await Page.find();
 app.locals.pages = pages;
 // ***************************************************
 
+
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 
 }
