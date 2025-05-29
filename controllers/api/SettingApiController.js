@@ -1,6 +1,6 @@
 import connectDB from "../../config/db.js";
 import Setting from "../../models/Setting.js";
-
+import { v2 as cloudinary } from 'cloudinary';
 
 
 // ***************** fetching website settings ********************
@@ -21,8 +21,8 @@ export const fetch_setting = async (req, res) => {
 
 // ***************** update website settings ********************
 
-export const update_settings = async (req,res)=>{
-      try {
+export const update_settings = async (req, res) => {
+    try {
         await connectDB();
 
         let setting = await Setting.findOne();
@@ -43,10 +43,19 @@ export const update_settings = async (req,res)=>{
             }
         });
 
-        // If logo is uploaded
         if (req.file) {
-            const imagePath = `uploads/${req.file.filename}`; // adjust path as per your uploads folder
-            setting.logo = imagePath;
+            const uploadResult = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: 'places' },
+                    (error, result) => {
+                        if (error) return reject(error);
+                        resolve(result);
+                    }
+                );
+                stream.end(req.file.buffer);
+            });
+
+            setting.logo = uploadResult.secure_url;
         }
 
         // Save updated settings

@@ -47,10 +47,7 @@ export const add_new_place = async (req, res) => {
         newPlace.addressAr = req.body.addressAr;
         newPlace.description = req.body.description;
 
-        // if (req.file) {
-        //     newPlace.image = req.file.filename;
-        // }
-
+      
 
 
         if (req.file) {
@@ -148,7 +145,18 @@ export const update_place = async (req, res) => {
         place.description = req.body.description || place.description;
 
         if (req.file) {
-            place.image = req.file.filename;
+            const uploadResult = await new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: 'places' },
+                    (error, result) => {
+                        if (error) return reject(error);
+                        resolve(result);
+                    }
+                );
+                stream.end(req.file.buffer);
+            });
+
+            place.image = uploadResult.secure_url;
         }
 
         place.location = {

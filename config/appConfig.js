@@ -16,98 +16,100 @@ import { v2 as cloudinary } from 'cloudinary';
 dotenv.config();
 const __dirname = path.resolve();
 
-export async function setupApp(app){
+export async function setupApp(app) {
 
-// cors setting 
-app.use(cors(
-  {
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  }
-));
-
-
-//  middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-// const __dirname = path.resolve();
-
-app.use(express.static('public'));
-app.use(expressLayouts);
-app.set("layout", "layouts/main");
+  // cors setting 
+  app.use(cors(
+    {
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    }
+  ));
 
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+  //  middleware
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+
+  // const __dirname = path.resolve();
+
+  app.use(express.static('public'));
+  app.use(expressLayouts);
+  app.set("layout", "layouts/main");
 
 
-// i18n configuration
-i18n.configure({
-  locales: ['en', 'ar'], // Add your languages here
-  directory: path.join(__dirname, 'locales'), // Translation files
-  defaultLocale: 'en',
-  cookie: 'lang', // Optional: to use cookies for language
-  queryParameter: 'lang', // Optional: for ?lang=ar
-  autoReload: true,
-  syncFiles: true
-});
-
-// Middleware
-app.use(i18n.init);
+  app.set('views', path.join(__dirname, 'views'));
+  app.set('view engine', 'ejs');
 
 
+  // i18n configuration
+  i18n.configure({
+    locales: ['en', 'ar'], // Add your languages here
+    directory: path.join(__dirname, 'locales'), // Translation files
+    defaultLocale: 'en',
+    cookie: 'lang', // Optional: to use cookies for language
+    queryParameter: 'lang', // Optional: for ?lang=ar
+    autoReload: true,
+    syncFiles: true
+  });
 
-// session middleware
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false, 
-    maxAge: 1000 * 60 * 60 * 24 * 7 
-  }
-}));
-
-
-// flash middleware
-app.use(flash());
-
-app.use((req, res, next) => {
-  res.locals.success = req.flash('success');
-  res.locals.error = req.flash('error');
-  next();
-});
+  // Middleware
+  app.use(i18n.init);
 
 
 
-
-app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
-  next();
-});
-
-
-
-// *************** Share data entire all application 
-connectDB();
-const settings = await Setting.findOne(); 
-app.locals.settings = settings;
+  // session middleware
+  app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+  }));
 
 
-// pages 
-const pages = await Page.find();
-app.locals.pages = pages;
-// ***************************************************
+  // flash middleware
+  app.use(flash());
+
+  app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+  });
 
 
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+
+  app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    next();
+  });
+
+
+
+  // *************** Share data entire all application 
+  connectDB();
+  const settings = await Setting.findOne();
+  app.locals.settings = settings;
+
+
+  // pages 
+  const pages = await Page.find();
+  app.locals.pages = pages;
+  // ***************************************************
+
+
+
+  // cloudinary config
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+
+  });
 
 
 }

@@ -11,23 +11,24 @@ const router = express.Router();
 
 
 // Multer setup for image uploads
-const storage = multer.diskStorage({
-    destination: './public/uploads/',
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: './public/uploads/',
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// });
 
 // Ensure the 'uploads' directory exists
-const uploadDirectory = './public/uploads/';
-if (!fs.existsSync(uploadDirectory)) {
-    fs.mkdirSync(uploadDirectory, { recursive: true });
-}
+// const uploadDirectory = './public/uploads/';
+// if (!fs.existsSync(uploadDirectory)) {
+//     fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 
-
+const storage = multer.memoryStorage(); // store file in memory buffer
+const upload = multer({ storage });
 
 // fetch setting api route
 router.get('/', fetch_setting);
