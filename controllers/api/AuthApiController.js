@@ -156,3 +156,30 @@ export const edit_user = async (req, res) => {
 
 
 
+// Delete Account
+export const delete_user = async (req, res) => {
+    try {
+        await connectDB();
+        const { userId } = req.params;
+
+        const user = await User.findByIdAndDelete(userId);
+        if (!user) {
+            return res.status(404).json({ status: 404, message: "User not found" });
+        }
+
+        
+        res.json({
+            status: 200,
+            message: "User deleted successfully"
+        })
+    } catch (error) {
+        
+        res.json({
+            status: 400,
+            message: error.message
+        })
+    }
+};
+
+
+
